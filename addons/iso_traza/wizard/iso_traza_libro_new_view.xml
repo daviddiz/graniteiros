@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         
+        <record id="iso_traza_libro_new_view" model="ir.ui.view">
+            <field name="name">Nuevo Libro de Registro</field>
+            <field name="model">iso.traza.libro.new</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Nuevo Libro de Registro">
+                	<separator string="Nuevo Libro de Registro" colspan="4"/>
+                    <label nolabel="1" colspan="4" string="Libro de Registro con los consumos de material según las siguientes variables"/>
+                	<newline/>
+                    <notebook tabpos="up" colspan="4">
+                    	<page string="Filtros" name="filters">
+                            <separator string="Fechas" colspan="4"/>
+                            <field name="date_from" attrs="{'readonly':[('filter', '!=', 'filter_date')], 'required':[('filter', '=', 'filter_date')]}" colspan="4"/>
+                            <field name="date_to" attrs="{'readonly':[('filter', '!=', 'filter_date')], 'required':[('filter', '=', 'filter_date')]}"  colspan="4"/>
+                        </page>
+                    </notebook>
+                    <separator colspan="4"/>
+                    <group col="4" colspan="4">
+                        <button icon="gtk-cancel" special="cancel" string="Cancelar" colspan="2"/>
+                        <button icon="gtk-print" name="crear_libro" string="Crear" type="object" colspan="2" default_focus="1" />
+                    </group>
+            	</form>
+            </field>
+        </record>
+
+        <record id="action_libro_new" model="ir.actions.act_window">
+             <field name="name">Nuevo Libro de Registro</field>
+             <field name="res_model">iso.traza.libro.new</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+             <field name="view_id" ref="iso_traza_libro_new_view"/>
+             <!-- <field name="context">{'record_id':active_id}</field> -->
+            <field name="target">new</field>
+            <field name="help">Nuevo Libro de Registro.</field>
+       </record>
+
+       <menuitem 
+           name="Nuevo Libro de Registro"
+           action="action_libro_new"
+           id="menu_traza_libro_new"
+           parent="menu_traza_libros"
+           sequence="1"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report auto="False" id="report_acta" model="iso.traza.acta" name="acta" string="Acta de Consumo" rml="iso_traza/report/acta.rml" groups="iso_traza.group_traza"/>
+        <report auto="False" id="report_libro" model="iso.traza.libro" name="libro" string="Libro de Registro" rml="iso_traza/report/libro.rml" groups="iso_traza.group_traza"/>
+
+    </data>
+</openerp>

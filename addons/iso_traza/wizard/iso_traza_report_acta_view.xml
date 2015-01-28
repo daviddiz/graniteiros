@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         
+        <record id="iso_traza_acta_report_view" model="ir.ui.view">
+            <field name="name">Acta de Consumo</field>
+            <field name="model">iso.traza.acta.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Opciones del Informe Acta de Consumo">
+                	<separator string="Acta de Consumo" colspan="4"/>
+                    <label nolabel="1" colspan="4" string="Este informe es un acta con los consumos de material según las siguientes variables"/>
+                	<newline/>
+                    <notebook tabpos="up" colspan="4">
+                    	<page string="Filtros" name="filters">
+                            <separator string="Fechas" colspan="4"/>
+                            <field name="date_from" attrs="{'readonly':[('filter', '!=', 'filter_date')], 'required':[('filter', '=', 'filter_date')]}" colspan="4"/>
+                            <field name="date_to" attrs="{'readonly':[('filter', '!=', 'filter_date')], 'required':[('filter', '=', 'filter_date')]}"  colspan="4"/>
+                        </page>
+                    </notebook>
+                    <separator colspan="4"/>
+                    <group col="4" colspan="4">
+                        <button icon="gtk-cancel" special="cancel" string="Cancelar" colspan="2"/>
+                        <button icon="gtk-print" name="print_report" string="Imprimir" type="object" colspan="2" default_focus="1" />
+                    </group>
+            	</form>
+            </field>
+        </record>
+
+        <record id="action_acta_report" model="ir.actions.act_window">
+             <field name="name">Imprimir Acta de Consumo</field>
+             <field name="res_model">iso.traza.acta.report</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+             <field name="view_id" ref="iso_traza_acta_report_view"/>
+             <!-- <field name="context">{'record_id':active_id}</field> -->
+            <field name="target">new</field>
+            <field name="help">Imprimir acta de consumo de explosivos.</field>
+       </record>
+
+       <!-- <menuitem 
+           name="Imprimir Acta de Consumo"
+           action="action_acta_report"
+           id="menu_traza_actas_report"
+           parent="menu_traza_actas"
+           sequence="2"/> -->
+
+    </data>
+</openerp>

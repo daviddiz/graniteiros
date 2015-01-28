@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="analytic_journal_purchase" model="account.analytic.journal">
+            <field name="name">Purchases</field>
+            <field name="type">purchase</field>
+        </record>
+        
+    </data>
+</openerp>

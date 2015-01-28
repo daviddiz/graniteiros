@@ -1,0 +1,651 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<!-- Menú de Trazabilidad -->
+    	<menuitem icon="terp-mrp" id="menu_traza_root" name="Traza"
+    	    groups="group_traza" sequence="5"
+    	    web_icon="images/traza.png"
+            web_icon_hover="images/traza-hover.png"/>
+    	
+    	<menuitem id="menu_traza_entradas" name="Entradas" parent="menu_traza_root" sequence="5"/>
+    	
+    	<!-- Vistas de los albaranes de entrada 
+    	
+    	<record id="view_picking_in_tree_traza" model="ir.ui.view">
+            <field name="name">stock.picking.in.tree.traza</field>
+            <field name="model">stock.picking</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Guías de Circulación - Entradas">
+                    <field name="name"/>
+                    <field name="partner_id" />
+                    <field name="date"/>
+                    <field name="num_catalog" string="Número catalogación"/>
+                    <field name="artillero_id" string="Artillero"/>
+                    <field name="resp_explot_id" string="Responsable explotación"/>
+                    <field name="dir_facul_id" string="Director facultativo"/>
+                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_picking_in_form_traza" model="ir.ui.view">
+            <field name="name">stock.picking.in.form.traza</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <form string="Guía de Circulación - Entrada">
+					<group colspan="4" col="4">
+						<field name="name" readonly="1"/>
+						<field name="date"/>
+                    	<field name="num_catalog" string="Número catalogación"/>
+						<field name="artillero_id" string="Artillero"/>
+						<field name="resp_explot_id" string="Responsable explotación"/>
+						<field name="dir_facul_id" string="Director facultativo"/>
+						<field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="General Information">
+                            <field colspan="4" name="move_lines" nolabel="1" context="{'pick':active_id, 'type':'in'}"/>
+                        </page>
+                        <page string="Notes">
+                            <field colspan="4" name="note" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_picking_in_search_traza" model="ir.ui.view">
+            <field name="name">stock.picking.in.search.traza</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Guías de Circulación - Entradas">
+                    <group col="8" colspan="4">
+                        <field name="name"/>
+                        <field name="partner_id"/>
+                    </group>
+                    <newline/>
+                    <group expand="1" string="Group By..." colspan="4" col="8">
+                        <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <separator orientation="vertical" />
+                        <filter string="Order Date" icon="terp-go-month" domain="[]"  context="{'group_by':'date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_incoming_picking_traza" model="ir.actions.act_window">
+            <field name="name">Guías de Circulación - Entradas</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('type','=','in')]</field>
+            <field name="search_view_id" ref="view_picking_in_search_traza"/>
+            <field name="view_id" ref="view_picking_in_tree_traza"/>
+        </record>-->
+        
+        <record id="action_incoming_picking_traza" model="ir.actions.act_window">
+            <field name="name">Guías de Circulación - Entradas</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('type','=','in')]</field>
+            <field name="context">{'contact_display': 'partner_address',"search_default_available":1}</field>
+            <field name="search_view_id" ref="stock.view_picking_in_search"/>
+        </record>
+        <record id="action_incoming_picking_traza1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="stock.view_picking_in_tree"/>
+            <field name="act_window_id" ref="action_incoming_picking_traza"/>
+        </record>
+        <record id="action_incoming_picking_traza2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock.view_picking_in_form"/>
+            <field name="act_window_id" ref="action_incoming_picking_traza"/>
+        </record>
+        <record id="action_incoming_picking_traza3" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="act_window_id" ref="action_incoming_picking_traza"/>
+        </record>
+        
+        <menuitem id="menu_traza_entradas_guias" name="Guías de Circulación - Albaranes de Entrada " parent="menu_traza_entradas" sequence="10" action="action_incoming_picking_traza"/>
+        
+    	
+    	<!-- Vistas de los movimientos de entrada 
+    	        
+        <record id="view_move_tree_reception_traza" model="ir.ui.view">
+            <field name="name">stock.move.tree.traza</field>
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="2" />
+            <field name="arch" type="xml">
+                <tree colors="grey:state in ('cancel');red:(state not in ('cancel','done'))" string="Moves">
+                    <field name="product_id" string="Producto"/>
+                    <field name="serial" string="Código producto"/>
+                    <field name="product_qty" string="Cantidad recibida"/>
+                    <field name="product_uom" string="Unidad"/>
+                    <field name="date" string="Fecha recepción"/>
+                    <field name="picking_id" string="Guía de circulación"/>
+                    <field name="partner_id" string="Proveedor"/>
+                    <field name="num_catalog" string="Número catalogación"/>
+                    <field name="artillero_id" string="Artillero"/>
+                    <field name="resp_explot_id" string="Responsable explotación"/>
+                    <field name="dir_facul_id" string="Director facultativo"/>
+                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_move_form_reception_traza" model="ir.ui.view">
+            <field name="name">stock.move.form.traza</field>
+            <field name="model">stock.move</field>
+            <field name="type">form</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <form string="Entrada de productos">
+                    <group colspan="4" col="4">
+                        <field name="product_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, False)"/>
+                        <field name="serial" string="Código producto"/>
+                        <field name="product_qty" on_change="onchange_quantity(product_id, product_qty, product_uom, product_uos)"/>
+                        <field name="product_uom" string="Unidad"/>
+                        <newline/>
+                        <separator colspan="4" string="Información de la Guía"/>
+                        <field name="picking_id" string="Guía de circulación"/>
+                        <field name="date"/>
+                    	<field name="partner_id" string="Proveedor"/>
+                    	<field name="num_catalog" string="Número catalogación"/>
+                    	<separator colspan="4" string="Otros Datos"/>
+	                    <field name="artillero_id" string="Artillero"/>
+	                    <field name="resp_explot_id" string="Responsable explotación"/>
+	                    <field name="dir_facul_id" string="Director facultativo"/>
+	                    <field name="consum_hab_id" string="Consumidor explosivos"/>
+                        <field name="location_id" invisible="1"/>
+                        <field name="location_dest_id" invisible="1"/>
+                        <field name="name" string="Reason" invisible="1"/>
+	                </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_move_search_reception_traza" model="ir.ui.view">
+            <field name="name">stock.move.incoming.search.traza</field>
+            <field name="model">stock.move</field>
+            <field name="type">search</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <search string="Entrada de productos">
+                    <group col="8" colspan="4">
+                        <filter icon="terp-go-today" string="Today" domain="[('date','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Orders planned for today"/>
+                        <separator orientation="vertical"/>
+                        <field name="product_id"/>
+                        <field name="picking_id" string="Guía de circulación"/>
+                        <field name="date"/>
+                        <field name="partner_id" string="Proveedor"/>
+                        <field name="artillero_id"/>
+                        <field name="dir_facul_id"/>
+                        <field name="resp_explot_id"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="8" groups="base.group_extended">
+                        <filter string="Supplier" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Guía de circulación" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'picking_id'}"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Order Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+              
+        <record id="action_incoming_product_traza" model="ir.actions.act_window">
+            <field name="name">Entradas</field>
+            <field name="res_model">stock.move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','in',('confirmed','assigned','draft','done','waiting')),'|','&amp;',('picking_id','=',False),('location_id.usage', 'in', ['customer','supplier']),'&amp;',('picking_id','!=',False),('picking_id.type','=','in')]</field>
+            <field name="context">{'type':'in'}</field>
+            <field name="view_id" ref="view_move_tree_reception_traza"/>
+        </record>
+        
+        <menuitem id="menu_traza_entradas_entradas" name="Entradas" parent="menu_traza_entradas" sequence="5" action="action_incoming_product_traza"/>-->
+        
+        <menuitem id="menu_traza_entradas_entradas" name="Entradas" parent="menu_traza_entradas" sequence="5" action="stock.action_reception_picking_move"/>
+        
+        <!-- Vistas de los movimientos de salida -->
+        
+        <menuitem id="menu_traza_consumos" name="Consumos/Salidas" parent="menu_traza_root" sequence="10"/>
+        
+        <!--<record id="view_move_tree_outgoing_traza" model="ir.ui.view">
+            <field name="name">stock.move.tree.outgoing.traza</field>
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="2" />
+            <field name="arch" type="xml">
+                <tree colors="grey:state in ('cancel');red:(state not in ('cancel','done'))" string="Moves">
+                    <field name="product_id" string="Producto"/>
+                    <field name="serial" string="Código producto"/>
+                    <field name="product_qty" string="Cantidad consumida"/>
+                    <field name="product_uom" string="Unidad"/>
+                    <field name="date" string="Fecha consumo"/>
+                    <field name="picking_id" string="Guía de circulación"/>
+                    <field name="num_catalog" string="Número catalogación"/>
+                    <field name="artillero_id" string="Artillero"/>
+                    <field name="resp_explot_id" string="Responsable explotación"/>
+                    <field name="dir_facul_id" string="Director facultativo"/>
+                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_move_form_outgoing_traza" model="ir.ui.view">
+            <field name="name">stock.move.form.outgoing.traza</field>
+            <field name="model">stock.move</field>
+            <field name="type">form</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <form string="Consumo/Salida de productos">
+                    <group colspan="4" col="4">
+                        <field name="product_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, False)"/>
+                        <field name="serial" string="Código producto"/>
+                        <field name="product_qty" on_change="onchange_quantity(product_id, product_qty, product_uom, product_uos)"/>
+                        <field name="product_uom" string="Unidad"/>
+                        <newline/>
+                        <separator colspan="4" string="Información de la Guía"/>
+                        <field name="picking_id" string="Guía de circulación"/>
+                        <field name="date"/>
+                    	<field name="partner_id" string="Proveedor"/>
+                    	<field name="num_catalog" string="Número catalogación"/>
+                    	<separator colspan="4" string="Otros Datos"/>
+	                    <field name="artillero_id" string="Artillero"/>
+	                    <field name="resp_explot_id" string="Responsable explotación"/>
+	                    <field name="dir_facul_id" string="Director facultativo"/>
+	                    <field name="consum_hab_id" string="Consumidor explosivos"/>
+                        <field name="location_id" invisible="1"/>
+                        <field name="location_dest_id" invisible="1"/>
+                        <field name="name" string="Reason" invisible="1"/>
+	                </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_move_search_outgoing_traza" model="ir.ui.view">
+            <field name="name">stock.move.outgoing.search.traza</field>
+            <field name="model">stock.move</field>
+            <field name="type">search</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <search string="Consumo/Salida de productos">
+                    <group col="8" colspan="4">
+                        <filter icon="terp-go-today" string="Today" domain="[('date','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Orders planned for today"/>
+                        <separator orientation="vertical"/>
+                        <field name="product_id"/>
+                        <field name="picking_id" string="Guía de circulación"/>
+                        <field name="date"/>
+                        <field name="partner_id" string="Proveedor"/>
+                        <field name="artillero_id"/>
+                        <field name="dir_facul_id"/>
+                        <field name="resp_explot_id"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="8" groups="base.group_extended">
+                        <filter string="Supplier" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Guía de circulación" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'picking_id'}"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Order Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_outgoing_product_traza" model="ir.actions.act_window">
+            <field name="name">Consumos/Salidas</field>
+            <field name="res_model">stock.move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','in',('confirmed','assigned','draft','done','waiting')),'|','&amp;',('picking_id','=',False),('location_dest_id.usage', 'in', ['customer','supplier']),'&amp;',('picking_id','!=',False),('picking_id.type','=','out')]</field>
+            <field name="context">{'type':'out'}</field>
+            <field name="view_id" ref="view_move_tree_outgoing_traza"/>
+        </record>
+        
+        <menuitem id="menu_traza_consumos_consumos" name="Consumos/Salidas" parent="menu_traza_consumos" sequence="5" action="action_outgoing_product_traza"/>-->
+        
+        <menuitem id="menu_traza_consumos_consumos" name="Consumos/Salidas" parent="menu_traza_consumos" sequence="5" action="stock.action_out_picking_move"/>
+        
+<!-- Vistas de las devoluciones 
+        
+        <record id="view_move_tree_outgoing_traza" model="ir.ui.view">
+            <field name="name">stock.move.tree.outgoing.traza</field>
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="2" />
+            <field name="arch" type="xml">
+                <tree colors="grey:state in ('cancel');red:(state not in ('cancel','done'))" string="Moves">
+                    <field name="product_id" string="Producto"/>
+                    <field name="serial" string="Código producto"/>
+                    <field name="product_qty" string="Cantidad consumida"/>
+                    <field name="product_uom" string="Unidad"/>
+                    <field name="date" string="Fecha consumo"/>
+                    <field name="picking_id" string="Guía de circulación"/>
+                    <field name="num_catalog" string="Número catalogación"/>
+                    <field name="artillero_id" string="Artillero"/>
+                    <field name="resp_explot_id" string="Responsable explotación"/>
+                    <field name="dir_facul_id" string="Director facultativo"/>
+                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_move_form_outgoing_traza" model="ir.ui.view">
+            <field name="name">stock.move.form.outgoing.traza</field>
+            <field name="model">stock.move</field>
+            <field name="type">form</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <form string="Consumo/Salida de productos">
+                    <group colspan="4" col="4">
+                        <field name="product_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, False)"/>
+                        <field name="serial" string="Código producto"/>
+                        <field name="product_qty" on_change="onchange_quantity(product_id, product_qty, product_uom, product_uos)"/>
+                        <field name="product_uom" string="Unidad"/>
+                        <newline/>
+                        <separator colspan="4" string="Información de la Guía"/>
+                        <field name="picking_id" string="Guía de circulación"/>
+                        <field name="date"/>
+                    	<field name="partner_id" string="Proveedor"/>
+                    	<field name="num_catalog" string="Número catalogación"/>
+                    	<separator colspan="4" string="Otros Datos"/>
+	                    <field name="artillero_id" string="Artillero"/>
+	                    <field name="resp_explot_id" string="Responsable explotación"/>
+	                    <field name="dir_facul_id" string="Director facultativo"/>
+	                    <field name="consum_hab_id" string="Consumidor explosivos"/>
+                        <field name="location_id" invisible="1"/>
+                        <field name="location_dest_id" invisible="1"/>
+                        <field name="name" string="Reason" invisible="1"/>
+	                </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_move_search_outgoing_traza" model="ir.ui.view">
+            <field name="name">stock.move.outgoing.search.traza</field>
+            <field name="model">stock.move</field>
+            <field name="type">search</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <search string="Consumo/Salida de productos">
+                    <group col="8" colspan="4">
+                        <filter icon="terp-go-today" string="Today" domain="[('date','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Orders planned for today"/>
+                        <separator orientation="vertical"/>
+                        <field name="product_id"/>
+                        <field name="picking_id" string="Guía de circulación"/>
+                        <field name="date"/>
+                        <field name="partner_id" string="Proveedor"/>
+                        <field name="artillero_id"/>
+                        <field name="dir_facul_id"/>
+                        <field name="resp_explot_id"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="8" groups="base.group_extended">
+                        <filter string="Supplier" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Guía de circulación" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'picking_id'}"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Order Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_outgoing_product_traza" model="ir.actions.act_window">
+            <field name="name">Devoluciones</field>
+            <field name="res_model">stock.move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','in',('confirmed','assigned','draft','done','waiting')),'|','&amp;',('picking_id','=',False),('location_dest_id.usage', 'in', ['customer','supplier']),'&amp;',('picking_id','!=',False),('picking_id.type','=','out')]</field>
+            <field name="context">{'type':'return'}</field>
+            <field name="view_id" ref="view_move_tree_outgoing_traza"/>
+        </record>
+        
+        <menuitem id="menu_traza_consumos_devoluciones" name="Devoluciones" parent="menu_traza_consumos" sequence="2" action="action_devol_product_traza"/>
+        
+        -->
+        
+        <!-- Vistas de las actas de consumo -->
+        
+        <menuitem id="menu_traza_actas" name="Actas de Consumo" parent="menu_traza_root" sequence="15"/>
+        
+        <record id="iso_traza_acta_view_tree" model="ir.ui.view">
+            <field name="name">iso.traza.acta.tree</field>
+            <field name="model">iso.traza.acta</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Actas de Consumo">
+                    <field name="name" string="Nombre"/>
+                    <field name="date" string="Fecha"/>
+                    <field name="artillero_id" string="Artillero"/>
+                    <field name="resp_explot_id" string="Responsable explotación"/>
+                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
+                    <field name="obra" string="Derecho Minero/Obra"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="iso_traza_acta_view_form" model="ir.ui.view">
+            <field name="name">iso.traza.acta.form</field>
+            <field name="model">iso.traza.acta</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Acta de Consumo">
+                    <group colspan="4" col="4">
+                        <field name="name" string="Nombre"/>
+	                    <field name="date" string="Fecha"/>
+	                    <field name="artillero_id" string="Artillero"/>
+	                    <field name="resp_explot_id" string="Responsable explotación"/>
+	                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
+	                    <field name="obra" string="Derecho Minero/Obra"/>
+	                    <field colspan="4" name="moves_ids" nolabel="1" widget="one2many_list">
+                                <tree string="Movimientos">
+				                    <field name="product_id" string="Producto"/>
+				                    <!-- <field name="serial" string="Código producto"/> -->
+				                    <field name="product_qty" string="Cantidad recibida"/>
+				                    <field name="product_uom" string="Unidad"/>
+				                    <field name="date" string="Fecha recepción"/>
+				                    <field name="picking_id" string="Guía de circulación"/>
+				                    <field name="partner_id" string="Proveedor"/>
+				                    <field name="num_catalog" string="Número catalogación"/>
+				                    <field name="artillero_id" string="Artillero"/>
+				                    <field name="resp_explot_id" string="Responsable explotación"/>
+				                    <field name="dir_facul_id" string="Director facultativo"/>
+				                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
+                                </tree>
+                                <form string="Movimiento">
+				                    <group colspan="4" col="4">
+				                        <field name="product_id"/>
+				                        <!-- <field name="serial" string="Código producto"/> -->
+				                        <field name="product_qty"/>
+				                        <field name="product_uom" string="Unidad"/>
+				                        <newline/>
+				                        <separator colspan="4" string="Información de la Guía"/>
+				                        <field name="picking_id" string="Guía de circulación"/>
+				                        <field name="date"/>
+				                    	<field name="partner_id" string="Proveedor"/>
+				                    	<field name="num_catalog" string="Número catalogación"/>
+				                    	<separator colspan="4" string="Otros Datos"/>
+					                    <field name="artillero_id" string="Artillero"/>
+					                    <field name="resp_explot_id" string="Responsable explotación"/>
+					                    <field name="dir_facul_id" string="Director facultativo"/>
+					                    <field name="consum_hab_id" string="Consumidor explosivos"/>
+				                        <field name="location_id" invisible="1"/>
+				                        <field name="location_dest_id" invisible="1"/>
+				                        <field name="name" string="Reason" invisible="1"/>
+					                </group>
+                                </form>
+                            </field>
+	                </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="iso_traza_acta_view_search" model="ir.ui.view">
+            <field name="name">iso.traza.acta.search</field>
+            <field name="model">iso.traza.acta</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Actas de Consumo">
+                    <group col="8" colspan="4">
+                        <filter icon="terp-go-today" string="Hoy" domain="[('date','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Actas de Consumo de hoy"/>
+                        <separator orientation="vertical"/>
+                        <field name="name" string="Código"/>
+                        <field name="date"/>
+                        <field name="artillero_id"/>
+                        <field name="resp_explot_id"/>
+                        <field name="consum_hab_id"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="4">
+                        <filter string="Artillero" icon="terp-personal" domain="[]" context="{'group_by':'artillero_id'}"/>
+                        <filter string="Responsable explotación" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'resp_explot_id'}"/>
+                        <filter string="Consumidor habitual de explosivos" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'consum_hab_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_iso_traza_acta" model="ir.actions.act_window">
+            <field name="name">Actas de Consumo</field>
+            <field name="res_model">iso.traza.acta</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="iso_traza_acta_view_tree"/>
+        </record>
+        
+        <menuitem id="menu_traza_actas_actas" name="Actas de Consumo" parent="menu_traza_actas" sequence="5" action="action_iso_traza_acta"/>
+        
+        <!-- Vistas de los libros de registro -->
+        
+        <menuitem id="menu_traza_libros" name="Libros de Registro" parent="menu_traza_root" sequence="20"/>
+        
+        <record id="iso_traza_libro_view_tree" model="ir.ui.view">
+            <field name="name">iso.traza.libro.tree</field>
+            <field name="model">iso.traza.libro</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Libros de Registro">
+                    <field name="name" string="Nombre"/>
+                    <field name="date" string="Fecha de Inicio"/>
+                    <field name="dir_facul_id" string="Director facultativo"/>
+                    <field name="resp_explot_id" string="Responsable explotación"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="iso_traza_libro_view_form" model="ir.ui.view">
+            <field name="name">iso.traza.libro.form</field>
+            <field name="model">iso.traza.libro</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Libro de Registro">
+                    <group colspan="4" col="4">
+                        <field name="name" string="Nombre"/>
+	                    <field name="date" string="Fecha"/>
+	                    <field name="dir_facul_id" string="Director facultativo"/>
+	                    <field name="resp_explot_id" string="Responsable explotación"/>
+	                    <field colspan="4" name="moves_ids" nolabel="1" widget="one2many_list">
+                                <tree string="Movimientos">
+				                    <field name="product_id" string="Producto"/>
+				                    <!-- <field name="serial" string="Código producto"/> -->
+				                    <field name="product_qty" string="Cantidad recibida"/>
+				                    <field name="product_uom" string="Unidad"/>
+				                    <field name="date" string="Fecha recepción"/>
+				                    <field name="picking_id" string="Guía de circulación"/>
+				                    <field name="partner_id" string="Proveedor"/>
+				                    <field name="num_catalog" string="Número catalogación"/>
+				                    <field name="artillero_id" string="Artillero"/>
+				                    <field name="resp_explot_id" string="Responsable explotación"/>
+				                    <field name="dir_facul_id" string="Director facultativo"/>
+				                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
+                                </tree>
+                                <form string="Movimiento">
+				                    <group colspan="4" col="4">
+				                        <field name="product_id"/>
+				                        <!--  <field name="serial" string="Código producto"/> -->
+				                        <field name="product_qty"/>
+				                        <field name="product_uom" string="Unidad"/>
+				                        <newline/>
+				                        <separator colspan="4" string="Información de la Guía"/>
+				                        <field name="picking_id" string="Guía de circulación"/>
+				                        <field name="date"/>
+				                    	<field name="partner_id" string="Proveedor"/>
+				                    	<field name="num_catalog" string="Número catalogación"/>
+				                    	<separator colspan="4" string="Otros Datos"/>
+					                    <field name="artillero_id" string="Artillero"/>
+					                    <field name="resp_explot_id" string="Responsable explotación"/>
+					                    <field name="dir_facul_id" string="Director facultativo"/>
+					                    <field name="consum_hab_id" string="Consumidor explosivos"/>
+				                        <field name="location_id" invisible="1"/>
+				                        <field name="location_dest_id" invisible="1"/>
+				                        <field name="name" string="Reason" invisible="1"/>
+					                </group>
+                                </form>
+                            </field>
+	                </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="iso_traza_libro_view_search" model="ir.ui.view">
+            <field name="name">iso.traza.libro.search</field>
+            <field name="model">iso.traza.libro</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Libros de Registro">
+                    <group col="8" colspan="4">
+                        <filter icon="terp-go-today" string="Hoy" domain="[('date','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Actas de Consumo de hoy"/>
+                        <separator orientation="vertical"/>
+                        <field name="name" string="Código"/>
+                        <field name="date"/>
+                        <field name="dir_facul_id"/>
+                        <field name="resp_explot_id"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="4">
+                        <filter string="Director facultativo" icon="terp-personal" domain="[]" context="{'group_by':'dir_facul_id'}"/>
+                        <filter string="Responsable explotación" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'resp_explot_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_iso_traza_libro" model="ir.actions.act_window">
+            <field name="name">Libros de Registro</field>
+            <field name="res_model">iso.traza.libro</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="iso_traza_libro_view_tree"/>
+        </record>
+        
+        <menuitem id="menu_traza_libro_libros" name="Libros de Registro" parent="menu_traza_libros" sequence="5" action="action_iso_traza_libro"/>
+        
+	</data>
+</openerp>

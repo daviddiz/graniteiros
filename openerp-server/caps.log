@@ -1,0 +1,6 @@
+2012/01/09 14:06:17 [15944] rsync: failed to open exclude file exclude.file: No such file or directory (2)
+2012/01/09 14:06:17 [15944] rsync error: error in file IO (code 11) at /home/lapo/package/rsync-3.0.9-1/src/rsync-3.0.9/exclude.c(1058) [client=3.0.9]
+2012/01/09 14:06:17 [16020] rsync: failed to open exclude file exclude.file: No such file or directory (2)
+2012/01/09 14:06:17 [16020] rsync error: error in file IO (code 11) at /home/lapo/package/rsync-3.0.9-1/src/rsync-3.0.9/exclude.c(1058) [client=3.0.9]
+2012/01/09 14:06:17 [16040] rsync: failed to open exclude file exclude.file: No such file or directory (2)
+2012/01/09 14:06:17 [16040] rsync error: error in file IO (code 11) at /home/lapo/package/rsync-3.0.9-1/src/rsync-3.0.9/exclude.c(1058) [client=3.0.9]

@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_move_traza,stock.move,stock.model_stock_move,iso_traza.group_traza,1,1,1,1
+access_stock_picking_traza,stock.picking,stock.model_stock_picking,iso_traza.group_traza,1,1,1,1
+access_product_template_traza,product.template,product.model_product_template,iso_traza.group_traza,1,1,1,1
+access_product_product_traza,product.product,product.model_product_product,iso_traza.group_traza,1,1,1,1
+access_iso_traza_acta,iso.traza.acta,iso_traza.model_iso_traza_acta,iso_traza.group_traza,1,1,1,1
+access_iso_traza_libro,iso.traza.libro,iso_traza.model_iso_traza_libro,iso_traza.group_traza,1,1,1,1
+access_iso_traza_artillero,iso.traza.artillero,iso_traza.model_iso_traza_artillero,iso_traza.group_traza,1,1,1,1
+access_iso_traza_dirfacul,iso.traza.dirfacul,iso_traza.model_iso_traza_dirfacul,iso_traza.group_traza,1,1,1,1
+access_iso_traza_respexplot,iso.traza.respexplot,iso_traza.model_iso_traza_respexplot,iso_traza.group_traza,1,1,1,1
+access_res_partner,res.partner,base.model_res_partner,iso_traza.group_traza,1,1,1,1

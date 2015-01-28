@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Sequences for iso.traza.acta -->
+        <record id="seq_type_iso_traza_acta" model="ir.sequence.type">
+            <field name="name">Acta de Consumo</field>
+            <field name="code">iso.traza.acta</field>
+        </record>
+
+        <record id="seq_iso_traza_acta" model="ir.sequence">
+            <field name="name">Acta de Consumo</field>
+            <field name="code">iso.traza.acta</field>
+            <field name="prefix">ACTA</field>
+            <field name="padding">4</field>
+        </record>
+
+        <!-- Sequences for iso.traza.libro -->
+        <record id="seq_type_iso_traza_libro" model="ir.sequence.type">
+            <field name="name">Libro de Registro</field>
+            <field name="code">iso.traza.libro</field>
+        </record>
+
+        <record id="seq_iso_traza_libro" model="ir.sequence">
+            <field name="name">Libro de Registro</field>
+            <field name="code">iso.traza.libro</field>
+            <field name="prefix">LIBRO</field>
+            <field name="padding">4</field>
+        </record>
+        
+    </data>
+</openerp>

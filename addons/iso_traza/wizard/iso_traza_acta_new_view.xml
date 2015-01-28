@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         
+        <record id="iso_traza_acta_new_view" model="ir.ui.view">
+            <field name="name">Nueva Acta de Consumo</field>
+            <field name="model">iso.traza.acta.new</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Crear Acta de Consumo con las condiciones siguientes">
+                    <label nolabel="1" colspan="4" string="Crear Acta con los consumos de material según las siguientes variables"/>
+                    <field name="date" attrs="{'readonly':[('filter', '!=', 'filter_date')], 'required':[('filter', '=', 'filter_date')]}" colspan="4"/>
+                    <separator colspan="4"/>
+                    <group col="4" colspan="4">
+                        <button icon="gtk-cancel" special="cancel" string="Cancelar" colspan="2"/>
+                        <button icon="gtk-print" name="crear_acta" string="Crear" type="object" colspan="2" default_focus="1" />
+                    </group>
+            	</form>
+            </field>
+        </record>
+
+        <record id="action_acta_new" model="ir.actions.act_window">
+             <field name="name">Nueva Acta de Consumo</field>
+             <field name="res_model">iso.traza.acta.new</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+             <field name="view_id" ref="iso_traza_acta_new_view"/>
+             <!-- <field name="context">{'record_id':active_id}</field> -->
+            <field name="target">new</field>
+            <field name="help">Nueva acta de consumo de explosivos.</field>
+       </record>
+
+       <menuitem 
+           name="Nueva Acta de Consumo"
+           action="action_acta_new"
+           id="menu_traza_actas_new"
+           parent="menu_traza_actas"
+           sequence="1"/>
+
+    </data>
+</openerp>

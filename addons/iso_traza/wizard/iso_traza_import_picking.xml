@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         
+    <!--==========  
+        Wizard para importar albaranes de entrada desde archivo 
+        ========== -->   
+         	              		  
+        <record id="iso_traza_import_picking_form" model="ir.ui.view">
+            <field name="name">iso.traza.import.picking.form</field>
+            <field name="model">iso.traza.import.picking</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Importar entrada de productos">
+                    <group colspan="4" col="2">
+                    	<field name="file"/>
+        				<button icon="gtk-cancel" special="cancel" string="Cancelar"/>
+        				<button icon="gtk-ok" name="import_picking" string="Importar" type="object"/>
+        			</group>
+            	</form>
+            </field>
+        </record>
+        
+        <record id="action_iso_traza_import_picking" model="ir.actions.act_window">
+            <field name="name">Importar entrada de productos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">iso.traza.import.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="iso_traza_import_picking_form"/>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem  
+		    action="action_iso_traza_import_picking" 
+		    id="menu_action_iso_traza_import_picking"
+		    parent="menu_traza_entradas"
+        	sequence="3"/>
+         
+	</data>
+</openerp>

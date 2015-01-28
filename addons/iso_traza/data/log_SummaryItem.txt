@@ -1,0 +1,627 @@
+U04-0001	ES008
+		ProducerProductCode=SCCN0061000
+		ProducerProductName=RIOCORD 6 GRS. C-100
+		ItemQuantity=192
+		CountOfTradeUnits=48
+		PackagingLevel=04
+		ProductionDate=2014-08-11
+		Length=19200.0
+		UnitOfMeasure=MTR
+U04-0002	ES008
+		ProducerProductCode=SCCN1000500
+		ProducerProductName=RIOCORD 100 GRS.
+		ItemQuantity=96
+		CountOfTradeUnits=48
+		PackagingLevel=04
+		ProductionDate=2014-10-22
+		Length=4800.0
+		UnitOfMeasure=MTR
+U04-0003	ES001
+		ProducerProductCode=IAN10000250
+		ProducerProductName=RIOXAM ST/ NAGOLITA ENSACADA
+		ItemQuantity=40
+		CountOfTradeUnits=40
+		PackagingLevel=04
+		ProductionDate=2014-11-24
+		NEW=1000.0
+		UnitOfMeasure=KGM
+U04-0004	ES010
+		ProducerProductCode=IHRT0505000
+		ProducerProductName=RIOGEL TRONER 50x500 MM
+		ItemQuantity=800
+		CountOfTradeUnits=40
+		PackagingLevel=04
+		ProductionDate=2014-09-18
+		NEW=960.0
+		UnitOfMeasure=KGM
+U04-0005	ES010
+		ProducerProductCode=IHRT0605000
+		ProducerProductName=RIOGEL TRONER 60x500 MM
+		ItemQuantity=504
+		CountOfTradeUnits=36
+		PackagingLevel=04
+		ProductionDate=2014-11-04
+		NEW=900.0
+		UnitOfMeasure=KGM
+U04-0006	ES010
+		ProducerProductCode=INGR0322000
+		ProducerProductName=RIODIN HE 32X200 MM (238 GRS)
+		ItemQuantity=8820
+		CountOfTradeUnits=28
+		PackagingLevel=04
+		ProductionDate=2014-10-01
+		NEW=2100.0
+		UnitOfMeasure=KGM
+U04-0007	ES010
+		ProducerProductCode=INGR0322000
+		ProducerProductName=RIODIN HE 32X200 MM (238 GRS)
+		ItemQuantity=8820
+		CountOfTradeUnits=28
+		PackagingLevel=04
+		ProductionDate=2014-11-06
+		NEW=2100.0
+		UnitOfMeasure=KGM
+U04-0008	ES010
+		ProducerProductCode=INGR0322000
+		ProducerProductName=RIODIN HE 32X200 MM (238 GRS)
+		ItemQuantity=8820
+		CountOfTradeUnits=28
+		PackagingLevel=04
+		ProductionDate=2014-11-19
+		NEW=2100.0
+		UnitOfMeasure=KGM
+U04-0009	ES010
+		ProducerProductCode=INGR0605700
+		ProducerProductName=RIODIN HE 60X570 MM (2300 GRS)
+		ItemQuantity=280
+		CountOfTradeUnits=28
+		PackagingLevel=04
+		ProductionDate=2014-11-06
+		NEW=644.0
+		UnitOfMeasure=KGM
+U03-0010	ES008
+		ProducerProductCode=SCCN0061000
+		ProducerProductName=RIOCORD 6 GRS. C-100
+		ItemQuantity=4
+		CountOfTradeUnits=4
+		PackagingLevel=03
+		ProductionDate=2014-08-08
+		Length=400.0
+		UnitOfMeasure=MTR
+U03-0011	ES008
+		ProducerProductCode=SCCN0061000
+		ProducerProductName=RIOCORD 6 GRS. C-100
+		ItemQuantity=4
+		CountOfTradeUnits=4
+		PackagingLevel=03
+		ProductionDate=2014-08-11
+		Length=400.0
+		UnitOfMeasure=MTR
+U03-0012	ES008
+		ProducerProductCode=SCCN1000500
+		ProducerProductName=RIOCORD 100 GRS.
+		ItemQuantity=2
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-10-21
+		Length=100.0
+		UnitOfMeasure=MTR
+U03-0013	ES008
+		ProducerProductCode=SCCN1000500
+		ProducerProductName=RIOCORD 100 GRS.
+		ItemQuantity=2
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-10-22
+		Length=100.0
+		UnitOfMeasure=MTR
+U03-0014	ES008
+		ProducerProductCode=SDLD04B0600
+		ProducerProductName=RIONEL  LP  N, 4  6 MTS.
+		ItemQuantity=1710
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-06-16
+		UnitOfMeasure=C62
+U03-0015	ES008
+		ProducerProductCode=SDLE20B0600
+		ProducerProductName=RIONEL  LP  N,20  6 MTS.
+		ItemQuantity=1710
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-10-30
+		UnitOfMeasure=C62
+U03-0016	ES008
+		ProducerProductCode=SDLF30B0600
+		ProducerProductName=RIONEL  LP  N,30  6 MTS.
+		ItemQuantity=1710
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-10-10
+		UnitOfMeasure=C62
+U03-0017	ES008
+		ProducerProductCode=SDLF30B0600
+		ProducerProductName=RIONEL  LP  N,30  6 MTS.
+		ItemQuantity=1710
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-11-14
+		UnitOfMeasure=C62
+U03-0018	ES008
+		ProducerProductCode=SDLF35B0600
+		ProducerProductName=RIONEL  LP  N,35  6 MTS.
+		ItemQuantity=1710
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-11-14
+		UnitOfMeasure=C62
+U03-0019	ES008
+		ProducerProductCode=SDLF40B0600
+		ProducerProductName=RIONEL  LP  N,40  6 MTS.
+		ItemQuantity=1710
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-11-14
+		UnitOfMeasure=C62
+U03-0020	ES008
+		ProducerProductCode=SDLF50B0600
+		ProducerProductName=RIONEL  LP  N,50  6 MTS.
+		ItemQuantity=1710
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-11-13
+		UnitOfMeasure=C62
+U03-0021	ES008
+		ProducerProductCode=SDLF60B0600
+		ProducerProductName=RIONEL  LP  N,60  6 MTS.
+		ItemQuantity=1710
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-10-06
+		UnitOfMeasure=C62
+U03-0022	ES008
+		ProducerProductCode=SDLG70B0600
+		ProducerProductName=RIONEL  LP  N,70  6 MTS.
+		ItemQuantity=1710
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-10-27
+		UnitOfMeasure=C62
+U03-0023	ES008
+		ProducerProductCode=SDLG80B0600
+		ProducerProductName=RIONEL  LP  N,80  6 MTS.
+		ItemQuantity=1710
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-05-16
+		UnitOfMeasure=C62
+U03-0024	ES008
+		ProducerProductCode=SDLD10B0480
+		ProducerProductName=RIONEL  LP  N,10  4,8 MTS.
+		ItemQuantity=3000
+		CountOfTradeUnits=2
+		PackagingLevel=03
+		ProductionDate=2014-06-26
+		UnitOfMeasure=C62
+U03-0025	ES010
+		ProducerProductCode=IHRT0505000
+		ProducerProductName=RIOGEL TRONER 50x500 MM
+		ItemQuantity=20
+		CountOfTradeUnits=20
+		PackagingLevel=03
+		ProductionDate=2014-09-18
+		NEW=24.0
+		UnitOfMeasure=KGM
+U03-0026	ES010
+		ProducerProductCode=IHRT0605000
+		ProducerProductName=RIOGEL TRONER 60x500 MM
+		ItemQuantity=14
+		CountOfTradeUnits=14
+		PackagingLevel=03
+		ProductionDate=2014-11-04
+		NEW=25.0
+		UnitOfMeasure=KGM
+U03-0027	ES010
+		ProducerProductCode=INGR0322000
+		ProducerProductName=RIODIN HE 32X200 MM (238 GRS)
+		ItemQuantity=105
+		CountOfTradeUnits=5
+		PackagingLevel=03
+		ProductionDate=2014-10-01
+		NEW=25.0
+		UnitOfMeasure=KGM
+U03-0028	ES010
+		ProducerProductCode=INGR0322000
+		ProducerProductName=RIODIN HE 32X200 MM (238 GRS)
+		ItemQuantity=105
+		CountOfTradeUnits=5
+		PackagingLevel=03
+		ProductionDate=2014-11-06
+		NEW=25.0
+		UnitOfMeasure=KGM
+U03-0029	ES010
+		ProducerProductCode=INGR0322000
+		ProducerProductName=RIODIN HE 32X200 MM (238 GRS)
+		ItemQuantity=105
+		CountOfTradeUnits=5
+		PackagingLevel=03
+		ProductionDate=2014-11-19
+		NEW=25.0
+		UnitOfMeasure=KGM
+U03-0030	ES010
+		ProducerProductCode=INGR0605700
+		ProducerProductName=RIODIN HE 60X570 MM (2300 GRS)
+		ItemQuantity=10
+		CountOfTradeUnits=10
+		PackagingLevel=03
+		ProductionDate=2014-11-06
+		NEW=23.0
+		UnitOfMeasure=KGM
+U02-0031	ES008
+		ProducerProductCode=SDLD04B0600
+		ProducerProductName=RIONEL  LP  N, 4  6 MTS.
+		ItemQuantity=90
+		CountOfTradeUnits=18
+		PackagingLevel=02
+		ProductionDate=2014-06-16
+		UnitOfMeasure=C62
+U02-0032	ES008
+		ProducerProductCode=SDLE20B0600
+		ProducerProductName=RIONEL  LP  N,20  6 MTS.
+		ItemQuantity=90
+		CountOfTradeUnits=18
+		PackagingLevel=02
+		ProductionDate=2014-10-30
+		UnitOfMeasure=C62
+U02-0033	ES008
+		ProducerProductCode=SDLF30B0600
+		ProducerProductName=RIONEL  LP  N,30  6 MTS.
+		ItemQuantity=90
+		CountOfTradeUnits=18
+		PackagingLevel=02
+		ProductionDate=2014-10-10
+		UnitOfMeasure=C62
+U02-0034	ES008
+		ProducerProductCode=SDLF30B0600
+		ProducerProductName=RIONEL  LP  N,30  6 MTS.
+		ItemQuantity=90
+		CountOfTradeUnits=18
+		PackagingLevel=02
+		ProductionDate=2014-11-14
+		UnitOfMeasure=C62
+U02-0035	ES008
+		ProducerProductCode=SDLF35B0600
+		ProducerProductName=RIONEL  LP  N,35  6 MTS.
+		ItemQuantity=90
+		CountOfTradeUnits=18
+		PackagingLevel=02
+		ProductionDate=2014-11-14
+		UnitOfMeasure=C62
+U02-0036	ES008
+		ProducerProductCode=SDLF40B0600
+		ProducerProductName=RIONEL  LP  N,40  6 MTS.
+		ItemQuantity=90
+		CountOfTradeUnits=18
+		PackagingLevel=02
+		ProductionDate=2014-11-14
+		UnitOfMeasure=C62
+U02-0037	ES008
+		ProducerProductCode=SDLF50B0600
+		ProducerProductName=RIONEL  LP  N,50  6 MTS.
+		ItemQuantity=90
+		CountOfTradeUnits=18
+		PackagingLevel=02
+		ProductionDate=2014-11-13
+		UnitOfMeasure=C62
+U02-0038	ES008
+		ProducerProductCode=SDLF60B0600
+		ProducerProductName=RIONEL  LP  N,60  6 MTS.
+		ItemQuantity=90
+		CountOfTradeUnits=18
+		PackagingLevel=02
+		ProductionDate=2014-10-06
+		UnitOfMeasure=C62
+U02-0039	ES008
+		ProducerProductCode=SDLG70B0600
+		ProducerProductName=RIONEL  LP  N,70  6 MTS.
+		ItemQuantity=90
+		CountOfTradeUnits=18
+		PackagingLevel=02
+		ProductionDate=2014-10-27
+		UnitOfMeasure=C62
+U02-0040	ES008
+		ProducerProductCode=SDLG80B0600
+		ProducerProductName=RIONEL  LP  N,80  6 MTS.
+		ItemQuantity=90
+		CountOfTradeUnits=18
+		PackagingLevel=02
+		ProductionDate=2014-05-16
+		UnitOfMeasure=C62
+U02-0041	ES008
+		ProducerProductCode=SDLD10B0480
+		ProducerProductName=RIONEL  LP  N,10  4,8 MTS.
+		ItemQuantity=120
+		CountOfTradeUnits=24
+		PackagingLevel=02
+		ProductionDate=2014-06-26
+		UnitOfMeasure=C62
+U01-0042	ES008
+		ProducerProductCode=SDLD04B0600
+		ProducerProductName=RIONEL  LP  N, 4  6 MTS.
+		ItemQuantity=5
+		CountOfTradeUnits=5
+		PackagingLevel=01
+		ProductionDate=2014-06-16
+		UnitOfMeasure=C62
+U01-0043	ES008
+		ProducerProductCode=SDLE20B0600
+		ProducerProductName=RIONEL  LP  N,20  6 MTS.
+		ItemQuantity=5
+		CountOfTradeUnits=5
+		PackagingLevel=01
+		ProductionDate=2014-10-30
+		UnitOfMeasure=C62
+U01-0044	ES008
+		ProducerProductCode=SDLF30B0600
+		ProducerProductName=RIONEL  LP  N,30  6 MTS.
+		ItemQuantity=5
+		CountOfTradeUnits=5
+		PackagingLevel=01
+		ProductionDate=2014-10-10
+		UnitOfMeasure=C62
+U01-0045	ES008
+		ProducerProductCode=SDLF30B0600
+		ProducerProductName=RIONEL  LP  N,30  6 MTS.
+		ItemQuantity=5
+		CountOfTradeUnits=5
+		PackagingLevel=01
+		ProductionDate=2014-11-14
+		UnitOfMeasure=C62
+U01-0046	ES008
+		ProducerProductCode=SDLF35B0600
+		ProducerProductName=RIONEL  LP  N,35  6 MTS.
+		ItemQuantity=5
+		CountOfTradeUnits=5
+		PackagingLevel=01
+		ProductionDate=2014-11-14
+		UnitOfMeasure=C62
+U01-0047	ES008
+		ProducerProductCode=SDLF40B0600
+		ProducerProductName=RIONEL  LP  N,40  6 MTS.
+		ItemQuantity=5
+		CountOfTradeUnits=5
+		PackagingLevel=01
+		ProductionDate=2014-11-14
+		UnitOfMeasure=C62
+U01-0048	ES008
+		ProducerProductCode=SDLF50B0600
+		ProducerProductName=RIONEL  LP  N,50  6 MTS.
+		ItemQuantity=5
+		CountOfTradeUnits=5
+		PackagingLevel=01
+		ProductionDate=2014-11-13
+		UnitOfMeasure=C62
+U01-0049	ES008
+		ProducerProductCode=SDLF60B0600
+		ProducerProductName=RIONEL  LP  N,60  6 MTS.
+		ItemQuantity=5
+		CountOfTradeUnits=5
+		PackagingLevel=01
+		ProductionDate=2014-10-06
+		UnitOfMeasure=C62
+U01-0050	ES008
+		ProducerProductCode=SDLG70B0600
+		ProducerProductName=RIONEL  LP  N,70  6 MTS.
+		ItemQuantity=5
+		CountOfTradeUnits=5
+		PackagingLevel=01
+		ProductionDate=2014-10-27
+		UnitOfMeasure=C62
+U01-0051	ES008
+		ProducerProductCode=SDLG80B0600
+		ProducerProductName=RIONEL  LP  N,80  6 MTS.
+		ItemQuantity=5
+		CountOfTradeUnits=5
+		PackagingLevel=01
+		ProductionDate=2014-05-16
+		UnitOfMeasure=C62
+U01-0052	ES008
+		ProducerProductCode=SDLD10B0480
+		ProducerProductName=RIONEL  LP  N,10  4,8 MTS.
+		ItemQuantity=5
+		CountOfTradeUnits=5
+		PackagingLevel=01
+		ProductionDate=2014-06-26
+		UnitOfMeasure=C62
+U01-0053	ES010
+		ProducerProductCode=INGR0322000
+		ProducerProductName=RIODIN HE 32X200 MM (238 GRS)
+		ItemQuantity=21
+		CountOfTradeUnits=21
+		PackagingLevel=01
+		ProductionDate=2014-10-01
+		NEW=5.0
+		UnitOfMeasure=KGM
+U01-0054	ES010
+		ProducerProductCode=INGR0322000
+		ProducerProductName=RIODIN HE 32X200 MM (238 GRS)
+		ItemQuantity=21
+		CountOfTradeUnits=21
+		PackagingLevel=01
+		ProductionDate=2014-11-06
+		NEW=5.0
+		UnitOfMeasure=KGM
+U01-0055	ES010
+		ProducerProductCode=INGR0322000
+		ProducerProductName=RIODIN HE 32X200 MM (238 GRS)
+		ItemQuantity=21
+		CountOfTradeUnits=21
+		PackagingLevel=01
+		ProductionDate=2014-11-19
+		NEW=5.0
+		UnitOfMeasure=KGM
+I00-0001	ES008
+		ProducerProductCode=SCCN0061000
+		ProducerProductName=RIOCORD 6 GRS. C-100
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-08-08
+		Length=100.0
+		UnitOfMeasure=MTR
+I00-0002	ES008
+		ProducerProductCode=SCCN0061000
+		ProducerProductName=RIOCORD 6 GRS. C-100
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-08-11
+		Length=100.0
+		UnitOfMeasure=MTR
+I00-0003	ES008
+		ProducerProductCode=SCCN1000500
+		ProducerProductName=RIOCORD 100 GRS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-10-21
+		Length=50.0
+		UnitOfMeasure=MTR
+I00-0004	ES008
+		ProducerProductCode=SCCN1000500
+		ProducerProductName=RIOCORD 100 GRS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-10-22
+		Length=50.0
+		UnitOfMeasure=MTR
+I00-0005	ES001
+		ProducerProductCode=IAN10000250
+		ProducerProductName=RIOXAM ST/ NAGOLITA ENSACADA
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-11-24
+		NEW=25.0
+		UnitOfMeasure=KGM
+I00-0006	ES008
+		ProducerProductCode=SDLD04B0600
+		ProducerProductName=RIONEL  LP  N, 4  6 MTS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-06-16
+		UnitOfMeasure=C62
+I00-0007	ES008
+		ProducerProductCode=SDLE20B0600
+		ProducerProductName=RIONEL  LP  N,20  6 MTS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-10-30
+		UnitOfMeasure=C62
+I00-0008	ES008
+		ProducerProductCode=SDLF30B0600
+		ProducerProductName=RIONEL  LP  N,30  6 MTS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-10-10
+		UnitOfMeasure=C62
+I00-0009	ES008
+		ProducerProductCode=SDLF30B0600
+		ProducerProductName=RIONEL  LP  N,30  6 MTS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-11-14
+		UnitOfMeasure=C62
+I00-0010	ES008
+		ProducerProductCode=SDLF35B0600
+		ProducerProductName=RIONEL  LP  N,35  6 MTS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-11-14
+		UnitOfMeasure=C62
+I00-0011	ES008
+		ProducerProductCode=SDLF40B0600
+		ProducerProductName=RIONEL  LP  N,40  6 MTS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-11-14
+		UnitOfMeasure=C62
+I00-0012	ES008
+		ProducerProductCode=SDLF50B0600
+		ProducerProductName=RIONEL  LP  N,50  6 MTS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-11-13
+		UnitOfMeasure=C62
+I00-0013	ES008
+		ProducerProductCode=SDLF60B0600
+		ProducerProductName=RIONEL  LP  N,60  6 MTS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-10-06
+		UnitOfMeasure=C62
+I00-0014	ES008
+		ProducerProductCode=SDLG70B0600
+		ProducerProductName=RIONEL  LP  N,70  6 MTS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-10-27
+		UnitOfMeasure=C62
+I00-0015	ES008
+		ProducerProductCode=SDLG80B0600
+		ProducerProductName=RIONEL  LP  N,80  6 MTS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-05-16
+		UnitOfMeasure=C62
+I00-0016	ES008
+		ProducerProductCode=SDLD10B0480
+		ProducerProductName=RIONEL  LP  N,10  4,8 MTS.
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-06-26
+		UnitOfMeasure=C62
+I00-0017	ES010
+		ProducerProductCode=IHRT0505000
+		ProducerProductName=RIOGEL TRONER 50x500 MM
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-09-18
+		NEW=1.2
+		UnitOfMeasure=KGM
+I00-0018	ES010
+		ProducerProductCode=IHRT0605000
+		ProducerProductName=RIOGEL TRONER 60x500 MM
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-11-04
+		NEW=1.78571
+		UnitOfMeasure=KGM
+I00-0019	ES010
+		ProducerProductCode=INGR0322000
+		ProducerProductName=RIODIN HE 32X200 MM (238 GRS)
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-10-01
+		NEW=.238095
+		UnitOfMeasure=KGM
+I00-0020	ES010
+		ProducerProductCode=INGR0322000
+		ProducerProductName=RIODIN HE 32X200 MM (238 GRS)
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-11-06
+		NEW=.238095
+		UnitOfMeasure=KGM
+I00-0021	ES010
+		ProducerProductCode=INGR0322000
+		ProducerProductName=RIODIN HE 32X200 MM (238 GRS)
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-11-19
+		NEW=.238095
+		UnitOfMeasure=KGM
+I00-0022	ES010
+		ProducerProductCode=INGR0605700
+		ProducerProductName=RIODIN HE 60X570 MM (2300 GRS)
+		ItemQuantity=1
+		PackagingLevel=00
+		ProductionDate=2014-11-06
+		NEW=2.3
+		UnitOfMeasure=KGM
