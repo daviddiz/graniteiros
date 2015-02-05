@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+                
+        <record id="product_template_1" model="product.template">
+            <field eval="'buy'" name="supply_method"/>
+            <field eval="1.00" name="standard_price"/>
+            <field eval="'fixed'" name="mes_type"/>
+            <field eval="'consu'" name="type"/>
+            <field eval="'make_to_stock'" name="procure_method"/>
+            <field eval="1" name="categ_id"/>
+            <field eval="'standard'" name="cost_method"/>
+            <field eval="0" name="warranty"/>
+            <field eval="True" name="purchase_ok"/>
+            <field eval="1" name="company_id"/>
+            <field eval="False" name="rental"/>
+            <field eval="True" name="sale_ok"/>
+            <field eval="7" name="sale_delay"/>
+            <field eval="1" name="produce_delay"/>
+            <field eval="7" name="uom_id"/>
+            <field eval="7" name="uom_po_id"/>
+            <field eval="'RIOCORD 6 GRS. C-100'" name="name"/>
+            <field eval="'RIOCORD 6 GRS. C-100'" name="description"/>
+            <field eval="'RIOCORD 6 GRS. C-100'" name="description_purchase"/>
+            <field eval="'RIOCORD 6 GRS. C-100'" name="description_sale"/>
+        </record>
+        
+        <record id="product_product_1" model="product.product">
+            <field name="product_tmpl_id" ref="product_template_1"/>
+            <field eval="'manual_periodic'" name="valuation"/>
+            <field eval="'single'" name="lot_split_type"/>
+            <field eval="0.00" name="price_extra"/>
+            <field eval="1.00" name="price_margin"/>
+            <field eval="True" name="active"/>
+            <field eval="False" name="track_production"/>
+            <field eval="False" name="track_outgoing"/>
+            <field eval="True" name="track_incoming"/>
+            <field eval="'I00-0001 I00-0002'" name="default_code"/>
+            <field eval="'RIOCORD 6 GRS. C-100'" name="name_template"/>
+        </record>
+        
+        <record id="product_template_2" model="product.template">
+            <field eval="'buy'" name="supply_method"/>
+            <field eval="1.00" name="standard_price"/>
+            <field eval="'fixed'" name="mes_type"/>
+            <field eval="'consu'" name="type"/>
+            <field eval="'make_to_stock'" name="procure_method"/>
+            <field eval="1" name="categ_id"/>
+            <field eval="'standard'" name="cost_method"/>
+            <field eval="0" name="warranty"/>
+            <field eval="True" name="purchase_ok"/>
+            <field eval="1" name="company_id"/>
+            <field eval="False" name="rental"/>
+            <field eval="True" name="sale_ok"/>
+            <field eval="7" name="sale_delay"/>
+            <field eval="1" name="produce_delay"/>
+            <field eval="7" name="uom_id"/>
+            <field eval="7" name="uom_po_id"/>
+            <field eval="'RIOCORD 100 GRS.'" name="name"/>
+            <field eval="'RIOCORD 100 GRS.'" name="description"/>
+            <field eval="'RIOCORD 100 GRS.'" name="description_purchase"/>
+            <field eval="'RIOCORD 100 GRS.'" name="description_sale"/>
+        </record>
+        
+        <record id="product_product_2" model="product.product">
+            <field name="product_tmpl_id" ref="product_template_2"/>
+            <field eval="'manual_periodic'" name="valuation"/>
+            <field eval="'single'" name="lot_split_type"/>
+            <field eval="0.00" name="price_extra"/>
+            <field eval="1.00" name="price_margin"/>
+            <field eval="True" name="active"/>
+            <field eval="False" name="track_production"/>
+            <field eval="False" name="track_outgoing"/>
+            <field eval="True" name="track_incoming"/>
+            <field eval="'I00-0003 I00-0004'" name="default_code"/>
+            <field eval="'RIOCORD 100 GRS.'" name="name_template"/>
+        </record>
+        
+        <record id="product_template_3" model="product.template">
+            <field eval="'buy'" name="supply_method"/>
+            <field eval="1.00" name="standard_price"/>
+            <field eval="'fixed'" name="mes_type"/>
+            <field eval="'consu'" name="type"/>
+            <field eval="'make_to_stock'" name="procure_method"/>
+            <field eval="1" name="categ_id"/>
+            <field eval="'standard'" name="cost_method"/>
+            <field eval="0" name="warranty"/>
+            <field eval="True" name="purchase_ok"/>
+            <field eval="1" name="company_id"/>
+            <field eval="False" name="rental"/>
+            <field eval="True" name="sale_ok"/>
+            <field eval="7" name="sale_delay"/>
+            <field eval="1" name="produce_delay"/>
+            <field eval="2" name="uom_id"/>
+            <field eval="2" name="uom_po_id"/>
+            <field eval="'RIOXAM ST/ NAGOLITA ENSACADA'" name="name"/>
+            <field eval="'RIOXAM ST/ NAGOLITA ENSACADA'" name="description"/>
+            <field eval="'RIOXAM ST/ NAGOLITA ENSACADA'" name="description_purchase"/>
+            <field eval="'RIOXAM ST/ NAGOLITA ENSACADA'" name="description_sale"/>
+        </record>
+        
+        <record id="product_product_3" model="product.product">
+            <field name="product_tmpl_id" ref="product_template_3"/>
+            <field eval="'manual_periodic'" name="valuation"/>
+            <field eval="'single'" name="lot_split_type"/>
+            <field eval="0.00" name="price_extra"/>
+            <field eval="1.00" name="price_margin"/>
+            <field eval="True" name="active"/>
+            <field eval="False" name="track_production"/>
+            <field eval="False" name="track_outgoing"/>
+            <field eval="True" name="track_incoming"/>
+            <field eval="'I00-0005'" name="default_code"/>
+            <field eval="'RIOXAM ST/ NAGOLITA ENSACADA'" name="name_template"/>
+        </record>
+        
+        <record id="product_template_4" model="product.template">
+            <field eval="'buy'" name="supply_method"/>
+            <field eval="1.00" name="standard_price"/>
+            <field eval="'fixed'" name="mes_type"/>
+            <field eval="'consu'" name="type"/>
+            <field eval="'make_to_stock'" name="procure_method"/>
+            <field eval="1" name="categ_id"/>
+            <field eval="'standard'" name="cost_method"/>
+            <field eval="0" name="warranty"/>
+            <field eval="True" name="purchase_ok"/>
+            <field eval="1" name="company_id"/>
+            <field eval="False" name="rental"/>
+            <field eval="True" name="sale_ok"/>
+            <field eval="7" name="sale_delay"/>
+            <field eval="1" name="produce_delay"/>
+            <field eval="1" name="uom_id"/>
+            <field eval="1" name="uom_po_id"/>
+            <field eval="'RIONEL  LP  N, 4  6 MTS.'" name="name"/>
+            <field eval="'RIONEL  LP  N, 4  6 MTS.'" name="description"/>
+            <field eval="'RIONEL  LP  N, 4  6 MTS.'" name="description_purchase"/>
+            <field eval="'RIONEL  LP  N, 4  6 MTS.'" name="description_sale"/>
+        </record>
+        
+        <record id="product_product_4" model="product.product">
+            <field name="product_tmpl_id" ref="product_template_4"/>
+            <field eval="'manual_periodic'" name="valuation"/>
+            <field eval="'single'" name="lot_split_type"/>
+            <field eval="0.00" name="price_extra"/>
+            <field eval="1.00" name="price_margin"/>
+            <field eval="True" name="active"/>
+            <field eval="False" name="track_production"/>
+            <field eval="False" name="track_outgoing"/>
+            <field eval="True" name="track_incoming"/>
+            <field eval="'I00-0006'" name="default_code"/>
+            <field eval="'RIONEL  LP  N, 4  6 MTS.'" name="name_template"/>
+        </record>
+                                
+    </data>
+</openerp>

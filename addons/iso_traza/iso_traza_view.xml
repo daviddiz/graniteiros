@@ -10,55 +10,9 @@
     	
     	<menuitem id="menu_traza_entradas" name="Entradas" parent="menu_traza_root" sequence="5"/>
     	
-    	<!-- Vistas de los albaranes de entrada 
-    	
-    	<record id="view_picking_in_tree_traza" model="ir.ui.view">
-            <field name="name">stock.picking.in.tree.traza</field>
-            <field name="model">stock.picking</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Guías de Circulación - Entradas">
-                    <field name="name"/>
-                    <field name="partner_id" />
-                    <field name="date"/>
-                    <field name="num_catalog" string="Número catalogación"/>
-                    <field name="artillero_id" string="Artillero"/>
-                    <field name="resp_explot_id" string="Responsable explotación"/>
-                    <field name="dir_facul_id" string="Director facultativo"/>
-                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
-                </tree>
-            </field>
-        </record>
-        
-        <record id="view_picking_in_form_traza" model="ir.ui.view">
-            <field name="name">stock.picking.in.form.traza</field>
-            <field name="model">stock.picking</field>
-            <field name="type">form</field>
-            <field name="priority" eval="1"/>
-            <field name="arch" type="xml">
-                <form string="Guía de Circulación - Entrada">
-					<group colspan="4" col="4">
-						<field name="name" readonly="1"/>
-						<field name="date"/>
-                    	<field name="num_catalog" string="Número catalogación"/>
-						<field name="artillero_id" string="Artillero"/>
-						<field name="resp_explot_id" string="Responsable explotación"/>
-						<field name="dir_facul_id" string="Director facultativo"/>
-						<field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
-                    </group>
-                    <notebook colspan="4">
-                        <page string="General Information">
-                            <field colspan="4" name="move_lines" nolabel="1" context="{'pick':active_id, 'type':'in'}"/>
-                        </page>
-                        <page string="Notes">
-                            <field colspan="4" name="note" nolabel="1"/>
-                        </page>
-                    </notebook>
-                </form>
-            </field>
-        </record>
-
-        <record id="view_picking_in_search_traza" model="ir.ui.view">
+    	<!-- Vistas de los albaranes de entrada --> 
+    	      
+        <!-- <record id="view_picking_in_search_traza" model="ir.ui.view">
             <field name="name">stock.picking.in.search.traza</field>
             <field name="model">stock.picking</field>
             <field name="type">search</field>
@@ -76,39 +30,70 @@
                     </group>
                 </search>
             </field>
+        </record>-->
+        
+        <record id="view_picking_in_form_traza" model="ir.ui.view">
+	        <field name="name">view.picking.in.form_traza</field>
+	        <field name="model">stock.picking</field>
+	        <field name="inherit_id" ref="stock.view_picking_in_form" />
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <data>
+	                <xpath expr="/form/group/group/field[@name='origin']" position="replace"/>
+	                <xpath expr="/form/group/group/field[@name='address_id']" position="replace"/>
+	                <xpath expr="/form/group/group/field[@name='backorder_id']" position="replace"/>
+	                <xpath expr="/form/group/group[2]/field[@name='stock_journal_id']" position="replace"/>
+	                <xpath expr="/form/group/group/field[@name='invoice_state']" position="attributes">
+		                <attribute name="invisible">1</attribute>
+		            </xpath>
+		            <xpath expr="/form/group/group/field[@name='min_date']" position="attributes">
+		                <attribute name="invisible">1</attribute>
+		            </xpath>
+		            <xpath expr="/form/group" position="after">
+		                <group  colspan="4" col="4">
+			                <field name="consum_hab_id"/>
+			                <field name="num_catalog"/>
+			                <field name="resp_explot_id"/>
+			                <field name="dir_facul_id"/>
+			                <field name="artillero_id"/>
+			            </group>
+		            </xpath>
+		        </data>
+	        </field>
+	    </record>
+	    
+        <record id="view_picking_in_tree_traza" model="ir.ui.view">
+            <field name="name">view.picking.in.tree.traza</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_in_tree" />
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="/tree/field[@name='origin']" position="replace"/>
+		        </data>
+            </field>
         </record>
         
         <record id="action_incoming_picking_traza" model="ir.actions.act_window">
-            <field name="name">Guías de Circulación - Entradas</field>
+            <field name="name">Guías de Circulación - Albaranes de Entrada</field>
             <field name="res_model">stock.picking</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
             <field name="domain">[('type','=','in')]</field>
-            <field name="search_view_id" ref="view_picking_in_search_traza"/>
-            <field name="view_id" ref="view_picking_in_tree_traza"/>
-        </record>-->
-        
-        <record id="action_incoming_picking_traza" model="ir.actions.act_window">
-            <field name="name">Guías de Circulación - Entradas</field>
-            <field name="res_model">stock.picking</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form,calendar</field>
-            <field name="domain">[('type','=','in')]</field>
-            <field name="context">{'contact_display': 'partner_address',"search_default_available":1}</field>
+            <field name="context">{'contact_display': 'partner_address',"search_default_available":1, 'type':'in'}</field>
             <field name="search_view_id" ref="stock.view_picking_in_search"/>
         </record>
         <record id="action_incoming_picking_traza1" model="ir.actions.act_window.view">
             <field eval="1" name="sequence"/>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="stock.view_picking_in_tree"/>
+            <field name="view_id" ref="view_picking_in_tree_traza"/>
             <field name="act_window_id" ref="action_incoming_picking_traza"/>
         </record>
         <record id="action_incoming_picking_traza2" model="ir.actions.act_window.view">
             <field eval="2" name="sequence"/>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="stock.view_picking_in_form"/>
+            <field name="view_id" ref="view_picking_in_form_traza"/>
             <field name="act_window_id" ref="action_incoming_picking_traza"/>
         </record>
         <record id="action_incoming_picking_traza3" model="ir.actions.act_window.view">
