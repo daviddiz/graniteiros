@@ -85,7 +85,8 @@ class iso_traza_import_picking(osv.osv_memory):
                 product_ids = self.pool.get('product.product').search(cr, uid, [('name_template', '=', ProducerProductName)], context=context)
                 if len(product_ids) > 0 :
                     sid_existente = self.pool.get('product.product').browse(cr, uid, product_ids[0], context=context).default_code
-                    self.pool.get('product.product').write(cr, uid, product_ids[0], {'default_code': sid_existente+" "+sid})
+                    if sid not in sid_existente.split():
+                        self.pool.get('product.product').write(cr, uid, product_ids[0], {'default_code': sid_existente+" "+sid})
                 else:        
                     p_template_vals = {
                         'supply_method': 'buy',
@@ -163,7 +164,14 @@ class iso_traza_import_picking(osv.osv_memory):
                 if sid in sid_varios:
                     p_id = product_id
                     break
-                
+            
+            tracking_vals = {
+                     'active': True,
+                     'serial': uid_source,
+                     'date': datetime_now,
+                     'name': uid_source,
+                     }    
+            tracking_id = self.pool.get('stock.tracking').create(cr, uid, tracking_vals)     
  
             move_vals = {
                      'location_id': 8,
@@ -174,89 +182,32 @@ class iso_traza_import_picking(osv.osv_memory):
                      'product_uos_qty': 1,
                      'product_qty': 1,
                      'name': uid_source,
+                     'tracking_id': tracking_id,
                      }    
             move_id = self.pool.get('stock.move').create(cr, uid, move_vals)  
              
         f.close()
+        
+#         view_ids = self.pool.get('ir.ui.view').search(cr, uid, [('name', '=', 'view.picking.in.tree.traza')], context=context)
+        
+        cr.execute(
+                            "select id,name from ir_ui_view \
+                            where model= 'stock.picking' \
+                            and name = 'view.picking.in.form_traza'"
+                        )
+        view_res = cr.fetchone()
          
 #         os.remove(f)
-        
-
-
-#         book = xlrd.open_workbook(file_contents=s)
-#         
-#         data = {
-#                 'origin': self.browse(cr,uid,ids)[0].origin,
-#                 'type': 'in',
-#                 }
-#         picking_id = self.pool.get('stock.picking').create(cr, uid, data)      
-#         
-#         for s in book.sheets():
-#             end = s.nrows - 1
-#             model = s.cell(9,4).value
-#             #comienzo de las lineas de detalle : row
-#             #intento de encontrar esa linea:
-#             row = self._start_line(cr, uid, s)
-#             while row <= end:
-#                 if (row + 1 == s.nrows) or (s.cell(row+1,6).value=="" and s.cell(row+2,6).value==""):
-#                     end = row
-#                 color = s.cell(row,5).value
-#                 if s.cell(row,7).value<>"":
-#                     a = s.cell(14,7).value.find(".")
-#                     talla = s.cell(14,7).value[a+1:]
-#                     qty = s.cell(row,12).value
-#                 elif s.cell(row,8).value<>"":
-#                     a = s.cell(14,8).value.find(".")
-#                     talla = s.cell(14,8).value[a+1:]
-#                     qty = s.cell(row,12).value
-#                 elif s.cell(row,9).value<>"":
-#                     a = s.cell(14,9).value.find(".")
-#                     talla = s.cell(14,9).value[a+1:]
-#                     qty = s.cell(row,12).value
-#                 elif s.cell(row,10).value<>"":
-#                     a = s.cell(14,10).value.find(".")
-#                     talla = s.cell(14,10).value[a+1:]
-#                     qty = s.cell(row,12).value
-#                 ref = model+"-"+color+"-"+talla
-#                 
-#                 result = self.pool.get('product.product').search(cr,uid,[('default_code','=',ref)])
-#                 if result:
-#                     product_id = result[0]
-#                 else:
-#                     val = {
-#                            'name': ref,
-#                            }
-#                     product_template_id = self.pool.get('product.template').create(cr, uid, val)
-#                     
-#                     val1 = {
-#                            'product_tmpl_id': product_template_id,
-#                            'default_code': ref,
-#                            'name_template': ref,
-#                            }
-#                     product_id = self.pool.get('product.product').create(cr, uid, val1)
-#                 
-#                 data1 = {
-#                          'origin': self.browse(cr,uid,ids)[0].origin,
-#                          'location_id': loc,
-#                          'location_dest_id': loc_dest,
-#                          'product_id': product_id,
-#                          'picking_id': picking_id,
-#                          'product_uom': 1,
-#                          'product_uos_qty': qty,
-#                          'product_qty': qty,
-#                          'name': ref,
-#                          }    
-#                 move_id = self.pool.get('stock.move').create(cr, uid, data1)
-#                 row += 1
-# 
-#         return {
-#                 'domain': "[('id','=',%s)]" % (picking_id),
-#                 'view_type': 'form',
-#                 'view_mode': 'tree,form',
-#                 'res_model': 'stock.picking',
-#                 'view_id': False,
-#                 'type': 'ir.actions.act_window',
-#         }
+         
+        return {
+                'domain': "[('id','=',%s)]" % (picking_id),
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'stock.picking',
+                'view_id': view_res,
+                'type': 'ir.actions.act_window',
+                'res_id': picking_id
+        }
 
 iso_traza_import_picking()
 
