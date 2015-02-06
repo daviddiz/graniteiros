@@ -83,7 +83,7 @@ class iso_traza_import_picking(osv.osv_memory):
                     
             if sid[0]=="I":
                 product_ids = self.pool.get('product.product').search(cr, uid, [('name_template', '=', ProducerProductName)], context=context)
-                if len(product_ids) > 0 :
+                if product_ids :
                     sid_existente = self.pool.get('product.product').browse(cr, uid, product_ids[0], context=context).default_code
                     if sid not in sid_existente.split():
                         self.pool.get('product.product').write(cr, uid, product_ids[0], {'default_code': sid_existente+" "+sid})
@@ -188,16 +188,12 @@ class iso_traza_import_picking(osv.osv_memory):
              
         f.close()
         
-#         view_ids = self.pool.get('ir.ui.view').search(cr, uid, [('name', '=', 'view.picking.in.tree.traza')], context=context)
-        
         cr.execute(
                             "select id,name from ir_ui_view \
                             where model= 'stock.picking' \
                             and name = 'view.picking.in.form_traza'"
                         )
         view_res = cr.fetchone()
-         
-#         os.remove(f)
          
         return {
                 'domain': "[('id','=',%s)]" % (picking_id),
