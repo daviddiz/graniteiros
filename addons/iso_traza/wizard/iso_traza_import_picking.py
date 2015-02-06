@@ -85,8 +85,12 @@ class iso_traza_import_picking(osv.osv_memory):
                 product_ids = self.pool.get('product.product').search(cr, uid, [('name_template', '=', ProducerProductName)], context=context)
                 if len(product_ids) > 0 :
                     sid_existente = self.pool.get('product.product').browse(cr, uid, product_ids[0], context=context).default_code
+<<<<<<< HEAD
                     if sid not in sid_existente.split():
                         self.pool.get('product.product').write(cr, uid, product_ids[0], {'default_code': sid_existente+" "+sid})
+=======
+                    self.pool.get('product.product').write(cr, uid, product_ids[0], {'default_code': sid_existente+" "+sid})
+>>>>>>> branch 'master' of https://github.com/daviddiz/graniteiros.git
                 else:        
                     p_template_vals = {
                         'supply_method': 'buy',
@@ -164,6 +168,7 @@ class iso_traza_import_picking(osv.osv_memory):
                 if sid in sid_varios:
                     p_id = product_id
                     break
+<<<<<<< HEAD
             
             tracking_vals = {
                      'active': True,
@@ -183,12 +188,30 @@ class iso_traza_import_picking(osv.osv_memory):
                      'product_qty': 1,
                      'name': uid_source,
                      'tracking_id': tracking_id,
+=======
+                
+ 
+            move_vals = {
+                     'location_id': 8,
+                     'location_dest_id': 12,
+                     'product_id': p_id,
+                     'picking_id': picking_id,
+                     'product_uom': 1,
+                     'product_uos_qty': 1,
+                     'product_qty': 1,
+                     'name': uid_source,
+>>>>>>> branch 'master' of https://github.com/daviddiz/graniteiros.git
                      }    
             move_id = self.pool.get('stock.move').create(cr, uid, move_vals)  
              
         f.close()
+<<<<<<< HEAD
         
 #         view_ids = self.pool.get('ir.ui.view').search(cr, uid, [('name', '=', 'view.picking.in.tree.traza')], context=context)
+=======
+         
+#         os.remove(f)
+>>>>>>> branch 'master' of https://github.com/daviddiz/graniteiros.git
         
         cr.execute(
                             "select id,name from ir_ui_view \
