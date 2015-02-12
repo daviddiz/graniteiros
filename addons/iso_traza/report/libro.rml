@@ -91,29 +91,16 @@
     <initialize>
       <paraStyle name="all" alignment="justify"/>
     </initialize>
-    <paraStyle name="P1" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P1" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="P2" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P3" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P3" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="P4" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P5" fontName="Helvetica" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
-    <paraStyle name="P6" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
-    <paraStyle name="P7" rightIndent="6.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
-    <paraStyle name="P8" fontName="Helvetica" fontSize="10.0" leading="13" spaceBefore="0.0" spaceAfter="6.0"/>
-    <paraStyle name="P9" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
-    <paraStyle name="P10" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
-    <paraStyle name="P11" fontName="Helvetica" fontSize="10.0" leading="13"/>
-    <paraStyle name="P12" fontName="Helvetica" fontSize="8.0" leading="10"/>
-    <paraStyle name="P13" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P14" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
-    <paraStyle name="P15" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
-    <paraStyle name="P16" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P17" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
-    <paraStyle name="P18" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
-    <paraStyle name="P19" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P20" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P21" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P22" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P23" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P5" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P6" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P7" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P8" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P9" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P10" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="Standard" fontName="Helvetica"/>
     <paraStyle name="Text_20_body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="8.0" leading="10" spaceBefore="12.0" spaceAfter="6.0"/>
@@ -162,47 +149,47 @@
     <blockTable colWidths="788.0" style="Tabla1">
       <tr>
         <td>
-          <para style="P19">LIBRO DE REGISTRO</para>
+          <para style="P8">LIBRO DE REGISTRO</para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P18">DELEGACIÓN DEL GOBIERNO EN GALICIA SUBDELEGACIÓN DEL GOBIERNO EN OURENSE , ÁREA FUNCIONAL/DEPENDENCIA DE INDUSTRIA Y ENERGÍA DE OURENSE – PONTEVEDRA</para>
-          <para style="P18">DILIGENCIA DE APERTURA</para>
+          <para style="P7">DELEGACIÓN DEL GOBIERNO EN GALICIA SUBDELEGACIÓN DEL GOBIERNO EN OURENSE , ÁREA FUNCIONAL/DEPENDENCIA DE INDUSTRIA Y ENERGÍA DE OURENSE – PONTEVEDRA</para>
+          <para style="P7">DILIGENCIA DE APERTURA</para>
         </td>
       </tr>
     </blockTable>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+    <para style="P3">CERTIFICO, que se habilita el presente libro, en el día de la fecha, para el control de los explosivos recibidos, consumidos, depositados, devueltos o destruidos en la explotación denominada: Rial I – 2ª Fracción 4120.2</para>
+    <para style="P3">con domicilio social en : Mugares – Toén</para>
+    <para style="P10">cuyo Director Facultativo es <font face="Helvetica" size="8.0">[[ (o.</font><font face="Helvetica" size="8.0">dir_facul</font><font face="Helvetica" size="8.0">_id and o.</font><font face="Helvetica" size="8.0">dir_facul</font><font face="Helvetica" size="8.0">_id.name) or '' ]] con DNI [[ (o.</font><font face="Helvetica" size="8.0">dir_facul</font><font face="Helvetica" size="8.0">_id and o.</font><font face="Helvetica" size="8.0">dir_facul</font><font face="Helvetica" size="8.0">_id.dni) or '' ]]</font></para>
+    <para style="P3">con domicilio en : Mugares – Toén teléfonos de contacto: 607 777 777 / 655 555 555</para>
+    <para style="P10">y figurando como responsable de la misma <font face="Helvetica" size="8.0">[[ (o.resp_explot_id and o.resp_explot_id.name) or '' ]] con DNI [[ (o.resp_explot_id and o.resp_explot_id.dni) or '' ]]</font></para>
+    <para style="P3">con domicilio en : Mugares – Toén teléfonos de contacto: 607 777 777 / 655 555 555</para>
+    <para style="P3">
+      <font color="white"> </font>
+    </para>
     <para style="P2">
-      <font color="white"> </font>
-    </para>
-    <para style="P21">CERTIFICO, que se habilita el presente libro, en el día de la fecha, para el control de los explosivos recibidos, consumidos, depositados, devueltos o destruidos en la explotación denominada: Rial I – 2ª Fracción 4120.2</para>
-    <para style="P21">con domicilio social en : Mugares – Toén</para>
-    <para style="P21">cuyo Director Facultativo es D. Juan José Pereira Martínez con D.N.I. : 45156678L</para>
-    <para style="P21">con domicilio en : Mugares – Toén teléfonos de contacto: 607 777 777 / 655 555 555</para>
-    <para style="P21">y figurando como responsable de la misma D. Odilo Rodríguez González con D.N.I. : 45156633L</para>
-    <para style="P21">con domicilio en : Mugares – Toén teléfonos de contacto: 607 777 777 / 655 555 555</para>
-    <para style="P21">
-      <font color="white"> </font>
-    </para>
-    <para style="P20">
       <font color="white"> </font>
     </para>
     <blockTable colWidths="786.0" style="Tabla2">
       <tr>
         <td>
-          <para style="P22">
+          <para style="P9">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P22">Ourense , 18 Diciembre de 2013</para>
+          <para style="P9">Ourense , 18 Diciembre de 2013</para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P22">EL JEFE DEL ÁREA / DEPENDENCIA</para>
+          <para style="P9">EL JEFE DEL ÁREA / DEPENDENCIA</para>
         </td>
       </tr>
       <tr>
@@ -227,87 +214,86 @@
         </td>
       </tr>
     </blockTable>
-    <para style="P2">
+    <para style="P1">
       <font color="white"> </font>
     </para>
-    <para style="P2">
+    <para style="P1">
       <font color="white"> </font>
     </para>
-    <para style="P2">
+    <para style="P1">
       <font color="white"> </font>
     </para>
     <blockTable colWidths="69.0,85.0,83.0,69.0,77.0,79.0,79.0,79.0,79.0,79.0" repeatRows="1" style="Tabla4">
       <tr>
         <td>
-          <para style="P23">Fecha</para>
+          <para style="P5">Fecha</para>
         </td>
         <td>
-          <para style="P23">Nº Guía Circulación</para>
+          <para style="P5">Nº Guía Circulación</para>
         </td>
         <td>
-          <para style="P23">Explosivo y Cantidad</para>
+          <para style="P5">Explosivo</para>
         </td>
         <td>
-          <para style="P17">Nº Catalogación</para>
+          <para style="P6">Nº Catalogación</para>
         </td>
         <td>
-          <para style="P17">Identificación Explosivo</para>
+          <para style="P6">Identificación Explosivo</para>
         </td>
         <td>
-          <para style="P17">Responsable Explotación</para>
+          <para style="P6">Responsable Explotación</para>
         </td>
         <td>
-          <para style="P17">Responsable Utilización</para>
+          <para style="P6">Responsable Utilización</para>
         </td>
         <td>
-          <para style="P17">Cantidad Consumida</para>
+          <para style="P6">Cantidad Consumida</para>
         </td>
         <td>
-          <para style="P17">Destino Explosivo Sobrante</para>
+          <para style="P6">Destino Explosivo Sobrante</para>
         </td>
         <td>
-          <para style="P17">Queda en Depósito</para>
+          <para style="P6">Queda en Depósito</para>
         </td>
       </tr>
     </blockTable>
     <section>
       <para style="terp_5f_default_5f_1">[[repeatIn(o.moves_ids,'line')]]</para>
-      <blockTable colWidths="69.0,85.0,82.0,71.0,76.0,80.0,77.0,80.0,80.0,79.0" style="Tabla5">
+      <blockTable colWidths="69.0,85.0,82.0,71.0,76.0,80.0,77.0,80.0,80.0,80.0" style="Tabla5">
         <tr>
           <td>
-            <para style="P7">[[ line.<font face="Helvetica">fecha</font> ]]</para>
+            <para style="terp_5f_default_5f_9">[[ time.strftime('%d-%m-%Y', time.strptime( line.fecha , '%Y-%m-%d'))]]</para>
           </td>
           <td>
-            <para style="P6">[[ line.p<font face="Helvetica">icking</font>_id.name ]]</para>
+            <para style="terp_5f_default_5f_9">[[ line.picking_id.name ]]</para>
           </td>
           <td>
-            <para style="P13">[[ line.product_<font face="Helvetica">id</font>.name ]]</para>
-            <para style="P16">[[ line.product_qty ]]</para>
+            <para style="terp_5f_default_5f_Centre_5f_9">[[ line.product_id.name ]]</para>
           </td>
           <td>
-            <para style="P1">
+            <para style="terp_5f_default_5f_Centre_5f_9">[[ line.num_catalog ]]</para>
+          </td>
+          <td>
+            <para style="terp_5f_default_5f_9">[[ line.tracking_id.serial ]]</para>
+          </td>
+          <td>
+            <para style="terp_5f_default_5f_8">[[ (o.resp_explot_id and o.resp_explot_id.dni) or '' ]]</para>
+          </td>
+          <td>
+            <para style="terp_5f_default_5f_8">[[ (o.resp_explot_id and o.resp_explot_id.dni) or '' ]]</para>
+          </td>
+          <td>
+            <para style="terp_5f_default_5f_Centre_5f_9">[[ line.product_qty ]]</para>
+          </td>
+          <td>
+            <para style="terp_5f_default_5f_9">
               <font color="white"> </font>
             </para>
           </td>
           <td>
-            <para style="P15">SCD6666666</para>
-          </td>
-          <td>
-            <para style="P15">33455555T</para>
-          </td>
-          <td>
-            <para style="P15">67667556G</para>
-          </td>
-          <td>
-            <para style="P15">59</para>
-          </td>
-          <td>
-            <para style="P6">
+            <para style="terp_5f_default_5f_9">
               <font color="white"> </font>
             </para>
-          </td>
-          <td>
-            <para style="P15">124</para>
           </td>
         </tr>
       </blockTable>
