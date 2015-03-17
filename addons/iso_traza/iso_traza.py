@@ -21,6 +21,7 @@
 ##############################################################################
 
 from osv import osv, fields
+from datetime import datetime
 
 class iso_traza_artillero(osv.osv):
         
@@ -204,8 +205,30 @@ class stock_move(osv.osv):
     }
     
     def add_move_in_from_app(self, cr, uid, data, context=None):
-        res = data
-        return res
+        product_ref = data.split()[1]
+        serial = data.split()[0]
+        product_obj = self.pool.get('product.product')
+        tracking_obj = self.pool.get('stock.tracking')
+        move_obj = self.pool.get('stock.move')
+        product_ids = product_obj.search(cr, uid, [('default_code', '=', product_ref)])
+        product_name = product_obj.browse(cr, uid, product_ids[0], context=context).name_template
+               
+        datetime_now = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+        new_tracking_id = tracking_obj.create(cr, uid, vals = {
+                    'active': True,
+                    'serial': serial,
+                    'date': datetime_now,
+                    'name': serial}, context = context)
+        new_move_id = move_obj.create(cr, uid, vals = {
+                    'location_id': 8,
+                    'location_dest_id': 12,
+                    'product_id': product_ids[0],
+                    'product_uom': 1,
+                    'product_uos_qty': 1,
+                    'product_qty': 1,
+                    'name': product_name,
+                    'tracking_id': new_tracking_id}, context = context)
+        return False
         
 
 stock_move()
