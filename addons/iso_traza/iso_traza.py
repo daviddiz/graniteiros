@@ -202,6 +202,11 @@ class stock_move(osv.osv):
         'consum_hab_id': _default_consum_hab_id,
         'picking_id': _default_picking_id,
     }
+    
+    def add_move_in_from_app(self, cr, uid, data, context=None):
+        res = data
+        return res
+        
 
 stock_move()
 

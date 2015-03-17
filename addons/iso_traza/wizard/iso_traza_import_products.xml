@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         
+    <!--==========  
+        Wizard para importar productos 
+        ========== -->   
+         	              		  
+        <record id="iso_traza_import_products_form" model="ir.ui.view">
+            <field name="name">iso.traza.import.products.form</field>
+            <field name="model">iso.traza.import.products</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Importar productos">
+                    <group colspan="4" col="2">
+                        <field name="file"/>
+        				<button icon="gtk-cancel" special="cancel" string="Cancelar"/>
+        				<button icon="gtk-ok" name="import_products" string="Importar" type="object"/>
+        			</group>
+            	</form>
+            </field>
+        </record>
+        
+        <record id="action_iso_traza_import_products" model="ir.actions.act_window">
+            <field name="name">Importar productos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">iso.traza.import.products</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="iso_traza_import_products_form"/>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem  
+		    action="action_iso_traza_import_products" 
+		    id="menu_action_iso_traza_import_products"
+		    parent="base.next_id_11"
+        	sequence="30"/>
+         
+	</data>
+</openerp>
