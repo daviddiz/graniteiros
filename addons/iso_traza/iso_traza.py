@@ -31,7 +31,8 @@ class iso_traza_artillero(osv.osv):
         'name': fields.char("Nombre", size=145, required=True), 
         'dni': fields.char("DNI", size=32),
         'cartilla': fields.char("Cartilla de Artillero", size=32),
-        'user_id': fields.many2one('res.users', 'User', required = True),
+        'username': fields.char('Login', size = 64, required = True),
+        'password': fields.char('Password', size = 64, required = True),
     }
     
 iso_traza_artillero()
@@ -118,15 +119,13 @@ class stock_move(osv.osv):
     _inherit = 'stock.move'
     _order = 'date desc, picking_id desc'
     
-#     def _pending_quantity(self, cr, uid, ids, field_name, arg, context=None):
-#         result = {}
-#         for move in self.browse(cr, uid, ids, context):
-#             result[move.id] = move.product_qty - move.received_quantity
-#         return result
+    def _check_tracking(self, cr, uid, ids, context=None):
+        return True
+
+    def _check_product_lot(self, cr, uid, ids, context=None):
+        return True
 
     _columns = {
-#         'consumed_quantity': fields.float('Cantidad consumida', help='Cantidad consumida'),
-#         'pending_quantity': fields.function(_pending_quantity, method=True, type='float', string='Cantidad restante', store=False, help='Cantidad restante'),
         'artillero_id': fields.many2one('iso.traza.artillero', 'Artillero', ondelete='cascade', help='Responsable de utilización - Artillero'),
         'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', ondelete='cascade', help='Director facultativo'),
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', ondelete='cascade', help='Responsable explotación, encargado del libro de registro y usuario del programa'),
@@ -136,10 +135,14 @@ class stock_move(osv.osv):
         'libro_id' : fields.many2one('iso.traza.libro', 'Libro de Registro'),
         'acta_id' : fields.many2one('iso.traza.acta', 'Acta de Consumo'),
     }
+    _constraints = [
+        (_check_tracking,
+            'You must assign a production lot for this product',
+            ['prodlot_id']),
+        (_check_product_lot,
+            'You try to assign a lot which is not from the same product',
+            ['prodlot_id'])]
     
-#     def create(self, cr, uid, vals, context={}):
-#         vals.update({'state': 'done'})
-#         return super(stock_move, self).create(cr, uid, vals, context)
     
     def _default_artillero_id(self, cr, uid, context=None):
         pick = context.get('pick', False)
