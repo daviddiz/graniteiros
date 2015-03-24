@@ -31,6 +31,7 @@ class iso_traza_artillero(osv.osv):
         'name': fields.char("Nombre", size=145, required=True), 
         'dni': fields.char("DNI", size=32),
         'cartilla': fields.char("Cartilla de Artillero", size=32),
+        'user_id': fields.many2one('res.users', 'User', required = True),
     }
     
 iso_traza_artillero()
@@ -130,7 +131,7 @@ class stock_move(osv.osv):
         'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', ondelete='cascade', help='Director facultativo'),
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', ondelete='cascade', help='Responsable explotación, encargado del libro de registro y usuario del programa'),
         'num_catalog': fields.char('Número de catalogación', size=25),
-#         'serial': fields.char('Número de dentificación', required=True ,size=25, help='Número de dentificación único del producto'),
+        'serial': fields.char('Número de dentificación', required=True ,size=25, help='Número de dentificación único del producto'),
         'consum_hab_id' : fields.many2one('res.partner', 'Consumidor habitual de explosivos', ondelete='cascade', help="Consumidor habitual de explosivos"),
         'libro_id' : fields.many2one('iso.traza.libro', 'Libro de Registro'),
         'acta_id' : fields.many2one('iso.traza.acta', 'Acta de Consumo'),
@@ -232,5 +233,18 @@ class stock_move(osv.osv):
         
 
 stock_move()
+
+class stock_tracking(osv.osv):
+    _inherit = 'stock.tracking'
+    
+    _columns = {
+        'parent_id': fields.many2one('stock.tracking', 'Paquete Padre', ondelete='cascade'),
+        'nivel': fields.char('Nivel', size=16),
+    }
+    _constraints = [
+        (osv.osv._check_recursion, 'Error ! You can not create recursive categories.', ['parent_id'])
+    ]
+    
+stock_tracking()
 
 #vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

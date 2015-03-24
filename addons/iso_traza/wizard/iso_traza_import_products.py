@@ -27,7 +27,7 @@ class iso_traza_import_products(osv.osv_memory):
     _name = 'iso.traza.import.products'
     _description = 'Importar productos'
     _columns={
-        'file': fields.binary('Fichero con productos a Importar (de tipo csv cuyas líneas están compuestas por un código de 11 caracteres seguidos de una coma y el nombre del producto)'),
+        'file': fields.binary('Fichero con productos a Importar (csv con líneas: código 11 caracteres + una coma + nombre producto)'),
     }
     
     _defaults = {
@@ -36,9 +36,21 @@ class iso_traza_import_products(osv.osv_memory):
     def import_products(self, cr, uid, ids, context=None):
         content = self.browse(cr,uid,ids)[0].file
         decode_content = content.decode('base64')
+        i = 0
+        new_products = []
         for product in decode_content.split('\n'):
             ref = product[0:11]
+            if not ref:
+                continue
             product_name = product[12:]
+            i+=1
+            print i
+            print ref
+            print product_name 
+            
+            product_ids = self.pool.get('product.product').search(cr, uid, [('name_template', '=', product_name)], context=context)
+            if product_ids:
+                continue
             
             p_template_vals = {
                 'supply_method': 'buy',
@@ -80,8 +92,23 @@ class iso_traza_import_products(osv.osv_memory):
             }
              
             product_product_id = self.pool.get('product.product').create(cr, uid, p_product_vals)
-            
-        return False
+            new_products.append(product_product_id)
+        
+        cr.execute(
+                            "select id,name from ir_ui_view \
+                            where model= 'product.product' \
+                            and name = 'product.normal.stock.form.inherit'"
+                        )
+        view_res = cr.fetchone()
+         
+        return {
+                'domain': "[('id','in',%s)]" % (new_products),
+                'view_type': 'form',
+                'view_mode': 'tree',
+                'res_model': 'product.product',
+                'view_id': view_res,
+                'type': 'ir.actions.act_window'
+        }
 
 
 
