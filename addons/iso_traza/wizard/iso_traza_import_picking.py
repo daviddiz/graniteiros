@@ -49,142 +49,217 @@ class iso_traza_import_picking(osv.osv_memory):
 
         f = open(file_path,'r')
         tree = ElementTree.parse(f)
-                
-        for node in tree.iter('SummaryItem'):
-            
-            sid = node.attrib.get('SID')
-            psn = node.attrib.get('PSN')
-            
-            for i in range(len(node)):
-                if node[i].tag == "ProducerProductCode":
-                    ProducerProductCode = node[i].text
-                elif node[i].tag == "ProducerProductName":
-                    ProducerProductName = node[i].text
-                elif node[i].tag == "ItemQuantity":
-                    ItemQuantity = node[i].text
-                elif node[i].tag == "CountOfTradeUnits":
-                    CountOfTradeUnits = node[i].text
-                elif node[i].tag == "PackagingLevel":
-                    PackagingLevel = node[i].text
-                elif node[i].tag == "ProductionDate":
-                    ProductionDate = node[i].text
-                elif node[i].tag == "Length":
-                    Length = node[i].text
-                elif node[i].tag == "UnitOfMeasure":
-                    UnitOfMeasure = node[i].text
-                    if UnitOfMeasure == 'KGM':
-                        uom = 2
-                    elif UnitOfMeasure == 'MTR':
-                        uom = 7
-                    else:
-                        uom = 1
-                elif node[i].tag == "NEW":
-                    NEW = node[i].text
-                    
-            if sid[0]=="I":
-                product_ids = self.pool.get('product.product').search(cr, uid, [('name_template', '=', ProducerProductName)], context=context)
-                if product_ids :
-                    sid_existente = self.pool.get('product.product').browse(cr, uid, product_ids[0], context=context).default_code
-                    if sid not in sid_existente.split():
-                        self.pool.get('product.product').write(cr, uid, product_ids[0], {'default_code': sid_existente+" "+sid})
-                else:        
-                    p_template_vals = {
-                        'supply_method': 'buy',
-                        'standard_price': 1.00,
-                        'mes_type': 'fixed',
-                        'uom_id': uom,
-                        'uom_po_id': uom,
-                        'name': ProducerProductName,
-                        'description': ProducerProductName,
-                        'description_purchase': ProducerProductName,
-                        'description_sale': ProducerProductName,
-                        'type': 'consu',
-                        'procure_method': 'make_to_stock',
-                        'categ_id': 1,
-                        'cost_method': 'standard',
-                        'warranty': 0,
-                        'purchase_ok': True,
-                        'company_id': 1,
-                        'rental': False,
-                        'sale_ok': True,
-                        'sale_delay': 7,
-                        'produce_delay': 1,
-                    }
-                    
-                    product_template_id = self.pool.get('product.template').create(cr, uid, p_template_vals)
-                     
-                    p_product_vals = {
-                        'product_tmpl_id': product_template_id,
-                        'default_code': sid,
-                        'valuation': 'manual_periodic',
-                        'lot_split_type': 'single',
-                        'price_extra': 0.00,
-                        'name_template': ProducerProductName,
-                        'active': True,
-                        'price_margin': 1.00,
-                        'track_production': False,
-                        'track_outgoing': False,
-                        'track_incoming': True,
-                    }
-                    
-                    product_product_id = self.pool.get('product.product').create(cr, uid, p_product_vals)
-            
-        f.close()
         
-        f = open(file_path,'r')
-        tree = ElementTree.parse(f)
-         
-        picking_vals = {
-                'type': 'in',
-                'move_type': 'direct',
-                'company_id': 1,
-                'invoice_state': 'none',
-                'auto_picking': False,
-                'location_id': 8,
-                'location_dest_id': 12,
-                'state': 'draft',
-                'date': datetime_now,
+        #for node in tree.getiterator('ShipmentNumber'):
+#         for node in tree.iter('ShipmentNumber'):
+#             ShipmentNumber = node.text
+#             break
+        
+        for node in tree.getiterator('DeliveryNoteNumber'):         
+        #for node in tree.iter('DeliveryNoteNumber'):
+            DeliveryNoteNumber = node.text
+            num_recibo = "Numero de recibo: " + DeliveryNoteNumber
+            break
+        
+        for node in tree.getiterator('Sender'):
+        #for node in tree.iter('Sender'):
+#             if node.find('Code') is not None:
+#                 Code = node.find('Code').text
+            if node.find('Name') is not None:
+                Name = node.find('Name').text
+#             if node.find('Name2') is not None:
+#                 Name2 = node.find('Name2').text
+#             if node.find('AddressCode') is not None:
+#                 AddressCode = node.find('AddressCode').text
+            if node.find('Address') is not None:
+                Address = node.find('Address').text
+#             if node.find('Address2') is not None:
+#                 Address2 = node.find('Address2').text
+            if node.find('Zipcode') is not None:
+                Zipcode = node.find('Zipcode').text
+            if node.find('City') is not None:
+                City = node.find('City').text
+#             if node.find('Country') is not None:
+#                 Country = node.find('Country').text
+#             if node.find('State') is not None:
+#                 State = node.find('State').text
+            
+            proveedor_ids = self.pool.get('res.partner').search(cr, uid, [('name', '=', Name)])
+            if proveedor_ids:
+                proveedor_id = proveedor_ids[0]
+            else:
+                proveedor_vals = {
+                    'name': Name,
+                    'supplier': True,
+                    'active': True,
                 }
-        picking_id = self.pool.get('stock.picking').create(cr, uid, picking_vals)
+                proveedor_id = self.pool.get('res.partner').create(cr, uid, proveedor_vals)
+                address_vals = {
+                    'partner_id': proveedor_id,
+                    'type' : 'default',
+                    'street': Address,
+                    'zip': Zipcode,
+                    'city': City,
+                    'active': True,
+                    'country_id': 67,
+                }
+                address_id = self.pool.get('res.partner.address').create(cr, uid, address_vals)
+                
+                
+        picking_vals = {
+            'type': 'in',
+            'move_type': 'direct',
+            'company_id': 1,
+            'invoice_state': 'none',
+            'auto_picking': False,
+            'location_id': 8,
+            'location_dest_id': 12,
+            'state': 'draft',
+            'date': datetime_now,
+            'partner_id': proveedor_id,
+            'note': num_recibo,
+        }
+        picking_id = self.pool.get('stock.picking').create(cr, uid, picking_vals)        
+                
         
-        print "alta de albaran"
-         
-        i = 0
-        for node in tree.iter('Item'):
-            print i
-            i+=1
-             
-            uid_source = node.attrib.get('UID')
+        summary_items = []
+        for node in tree.getiterator('Item'):        
+        #for node in tree.iter('SummaryItem'):
             sid = node.attrib.get('SID')
             psn = node.attrib.get('PSN')
             
-            product_ids = self.pool.get('product.product').search(cr, uid, [], context=context)
-            for product_id in product_ids:
-                sid_varios = self.pool.get('product.product').browse(cr, uid, product_id, context=context).default_code.split()
-                if sid in sid_varios:
-                    p_id = product_id
-                    break
+            if node.find('ProducerProductCode') is not None:
+                ProducerProductCode = node.find('ProducerProductCode').text
+#             if node.find('ProducerProductName') is not None:
+#                 ProducerProductName = node.find('ProducerProductName').text
+#             if node.find('ItemQuantity') is not None:
+#                 ItemQuantity = node.find('ItemQuantity').text
+#             if node.find('CountOfTradeUnits') is not None:
+#                 CountOfTradeUnits = node.find('CountOfTradeUnits').text
+            if node.find('PackagingLevel') is not None:
+                PackagingLevel = node.find('PackagingLevel').text
+#             if node.find('ProductionDate') is not None:
+#                 ProductionDate = node.find('ProductionDate').text
+#             if node.find('Length') is not None:
+#                 Length = node.find('Length').text
+#             if node.find('UnitOfMeasure') is not None:
+#                 UnitOfMeasure = node.find('UnitOfMeasure').text
+
+            new_sum_item = {'sid': sid, 'psn': psn, 'product_code': ProducerProductCode, 'level': PackagingLevel}
+            summary_items.append(new_sum_item)
+                        
+        units = tree.find('Units')
+        sem = 0
+        for unit in units._children:
+            if unit.attrib.get('SID') is None:
+                continue
             
-            tracking_vals = {
-                     'active': True,
-                     'serial': uid_source,
-                     'date': datetime_now,
-                     'name': uid_source,
-                     }    
-            tracking_id = self.pool.get('stock.tracking').create(cr, uid, tracking_vals)     
- 
-            move_vals = {
-                     'location_id': 8,
-                     'location_dest_id': 12,
-                     'product_id': p_id,
-                     'picking_id': picking_id,
-                     'product_uom': 1,
-                     'product_uos_qty': 1,
-                     'product_qty': 1,
-                     'name': uid_source,
-                     'tracking_id': tracking_id,
-                     }    
-            move_id = self.pool.get('stock.move').create(cr, uid, move_vals)  
+            sid = unit.attrib.get('SID')
+            for i in range(len(summary_items)):
+                if summary_items[i]['sid']==sid and sem==0:
+                    psn = summary_items[i]['psn']
+                    product_code = summary_items[i]['product_code']
+                    level = int(summary_items[i]['level'])
+                    uid_code = unit.attrib.get('UID')
+                    serial = str(psn) + str(uid_code)
+                    tracking_vals = {
+                         'active': True,
+                         'serial': serial,
+                         'date': datetime_now,
+                         'name': serial,
+                         'nivel': level,
+                         }    
+                    tracking_id = self.pool.get('stock.tracking').create(cr, uid, tracking_vals)
+                    sem = 1
+            
+            if unit.find('Units') is not None:
+                units2 = unit.find('Units')
+                sem2 = 0
+                for unit2 in units2._children:
+                    sid = unit2.attrib.get('SID')
+                    for i in range(len(summary_items)):
+                        if summary_items[i]['sid']==sid and sem2==0:
+                            psn = summary_items[i]['psn']
+                            product_code = summary_items[i]['product_code']
+                            level = int(summary_items[i]['level'])
+                            uid_code = unit.attrib.get('UID')
+                            serial = str(psn) + str(uid_code)
+                            tracking_vals = {
+                                 'active': True,
+                                 'serial': serial,
+                                 'date': datetime_now,
+                                 'name': serial,
+                                 'nivel': level,
+                                 'parent_id': tracking_id,
+                                 }    
+                            tracking_id = self.pool.get('stock.tracking').create(cr, uid, tracking_vals) 
+                            sem2 = 1
+                    if unit2.find('Items') is not None:
+                        items = unit2.find('Items')
+                        for item in items._children:
+                            sid = item.attrib.get('SID')
+                            uid_code = item.attrib.get('UID')
+                            psn = item.attrib.get('PSN')
+                            serial = str(psn) + str(uid_code)
+                            product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code)])
+                            if product_ids:
+                                product_id = product_ids[0]
+                            else:
+                                p_template_vals = {
+                                    'supply_method': 'buy',
+                                    'standard_price': 1.00,
+                                    'mes_type': 'fixed',
+                                    'uom_id': 1,
+                                    'uom_po_id': 1,
+                                    'name': product_code,
+                                    'description': product_code,
+                                    'description_purchase': product_code,
+                                    'description_sale': product_code,
+                                    'type': 'consu',
+                                    'procure_method': 'make_to_stock',
+                                    'categ_id': 1,
+                                    'cost_method': 'standard',
+                                    'warranty': 0,
+                                    'purchase_ok': True,
+                                    'company_id': 1,
+                                    'rental': False,
+                                    'sale_ok': True,
+                                    'sale_delay': 7,
+                                    'produce_delay': 1,
+                                }
+                                
+                                product_template_id = self.pool.get('product.template').create(cr, uid, p_template_vals)
+                                 
+                                p_product_vals = {
+                                    'product_tmpl_id': product_template_id,
+                                    'default_code': product_code,
+                                    'valuation': 'manual_periodic',
+                                    'lot_split_type': 'single',
+                                    'price_extra': 0.00,
+                                    'name_template': product_code,
+                                    'active': True,
+                                    'price_margin': 1.00,
+                                    'track_production': False,
+                                    'track_outgoing': False,
+                                    'track_incoming': True,
+                                }
+                                
+                                product_id = self.pool.get('product.product').create(cr, uid, p_product_vals)
+                                
+                            move_vals = {
+                                'location_id': 8,
+                                'location_dest_id': 12,
+                                'product_id': product_id,
+                                'picking_id': picking_id,
+                                'product_uom': 1,
+                                'product_uos_qty': 1,
+                                'product_qty': 1,
+                                'serial': serial,
+                                'name': serial,
+                                'tracking_id': tracking_id,
+                            }    
+                            move_id = self.pool.get('stock.move').create(cr, uid, move_vals)  
+                            
              
         f.close()
         

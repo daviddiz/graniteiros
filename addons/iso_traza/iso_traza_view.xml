@@ -636,5 +636,47 @@
         
         <menuitem action="action_move_form2_traza" id="menu_action_move_form2_traza" parent="menu_traceability_traza" sequence="1"/>
         
+        <!-- Modificar vistas de stock_partial_move para quitar prodlot_id -->
+        
+        <record id="stock_move_memory_tree_in_traza" model="ir.ui.view">
+            <field name="name">stock.move.memory.tree.traza</field>
+            <field name="model">stock.move.memory.in</field>
+            <field name="inherit_id" ref="stock.stock_move_memory_tree_in" />
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <xpath expr="/tree/field[@name='prodlot_id']" position="replace"/>
+            </field>
+        </record>
+        
+        <record id="stock_move_memory_form_in_traza" model="ir.ui.view">
+            <field name="name">stock.move.memory.form.traza</field>
+            <field name="model">stock.move.memory.in</field>
+            <field name="inherit_id" ref="stock.stock_move_memory_form_in" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="/tree/field[@name='prodlot_id']" position="replace"/>
+            </field>
+        </record>   
+        
+        <record id="stock_move_memory_tree_out_traza" model="ir.ui.view">
+            <field name="name">stock.move.memory.tree.traza</field>
+            <field name="model">stock.move.memory.out</field>
+            <field name="inherit_id" ref="stock.stock_move_memory_tree_out" />
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <xpath expr="/tree/field[@name='prodlot_id']" position="replace"/>
+            </field>
+        </record>
+        
+        <record id="stock_move_memory_form_out_traza" model="ir.ui.view">
+            <field name="name">stock.move.memory.form.traza</field>
+            <field name="model">stock.move.memory.out</field>
+            <field name="inherit_id" ref="stock.stock_move_memory_form_out" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="/tree/field[@name='prodlot_id']" position="replace"/>
+            </field>
+        </record>
+        
 	</data>
 </openerp>

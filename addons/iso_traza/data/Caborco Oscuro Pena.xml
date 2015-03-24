@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Shipment FileVersion="1.0" FileType="FEEM-Std" FileCreator="TTE-Online beta" Hash="3c0f3bdc59c7778cd16d172620141ff1871ef46f" xsi:noNamespaceSchemaLocation="http://trustcenter.tt-e.eu/XML/1.0/FEEM-Std.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <MessageID>MS - 14c28942824 - 88276953483234682</MessageID>
+    <MessageTime>2015-03-17T17:32:20.516+01:00</MessageTime>
+    <MessageType>Shipment</MessageType>
+    <ShipmentNumber>189</ShipmentNumber>
+    <DeliveryNoteNumber>LS-24130613</DeliveryNoteNumber>
+    <Sender>
+        <Code>1150</Code>
+        <Name>DIEXPOR S.A.</Name>
+        <Address>LG A LOUXEIRA</Address>
+        <Zipcode>32336</Zipcode>
+        <City>ENTOMA-O BARCO</City>
+        <Country>SPAIN</Country>
+        <State>OURENSE</State>
+    </Sender>
+    <Receiver>
+        <Code>U0702</Code>
+        <Name>CABORCO OSCURO S.A.</Name>
+        <Address>Casayo</Address>
+        <Zipcode>32330</Zipcode>
+        <City>Carballeda de Valdeorras</City>
+        <Country>SPAIN</Country>
+        <State>OURENSE</State>
+    </Receiver>
+    <SummaryItems>
+        <SummaryItem SID="S3" PSN="ES010">
+            <ProducerProductCode>IHRT0605000</ProducerProductCode>
+            <PackagingLevel>04</PackagingLevel>
+        </SummaryItem>
+        <SummaryItem SID="S2" PSN="ES010">
+            <ProducerProductCode>IHRT0605000</ProducerProductCode>
+            <PackagingLevel>03</PackagingLevel>
+        </SummaryItem>
+        <SummaryItem SID="S1" PSN="ES010">
+            <ProducerProductCode>IHRT0605000</ProducerProductCode>
+            <PackagingLevel>00</PackagingLevel>
+        </SummaryItem>
+    </SummaryItems>
+    <Units>
+        <Unit UID="0998150316000189" PSN="ESDBV">
+            <PackagingLevel>05</PackagingLevel>
+        </Unit>
+        <Unit SID="S3" UID="0998150317000196" PSN="ESDBV">
+            <ItemQuantity>28</ItemQuantity>
+            <CountOfTradeUnits>2</CountOfTradeUnits>
+            <NEW>49.9999</NEW>
+            <Units>
+                <Unit SID="S2" UID="4003141027001763" PSN="ES010">
+                    <ItemQuantity>14</ItemQuantity>
+                    <CountOfTradeUnits>14</CountOfTradeUnits>
+                    <ProductionDate>2014-10-28</ProductionDate>
+                    <NEW>25.0000</NEW>
+                    <Items>
+                        <Item SID="S1" UID="4000141027024895" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024896" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024897" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024898" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024899" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024900" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024901" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024902" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024903" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024904" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024905" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024906" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024907" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024908" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                    </Items>
+                </Unit>
+                <Unit SID="S2" UID="4003141027001764" PSN="ES010">
+                    <ItemQuantity>14</ItemQuantity>
+                    <CountOfTradeUnits>14</CountOfTradeUnits>
+                    <ProductionDate>2014-10-28</ProductionDate>
+                    <NEW>25.0000</NEW>
+                    <Items>
+                        <Item SID="S1" UID="4000141027024909" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024910" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024911" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024912" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024913" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024914" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024915" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024916" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024917" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024918" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024919" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024920" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024921" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                        <Item SID="S1" UID="4000141027024922" PSN="ES010">
+                            <ItemQuantity>1</ItemQuantity>
+                            <CountOfTradeUnits>1</CountOfTradeUnits>
+                            <ProductionDate>2014-10-28</ProductionDate>
+                            <NEW>1.78571</NEW>
+                        </Item>
+                    </Items>
+                </Unit>
+            </Units>
+        </Unit>
+    </Units>
+</Shipment>
