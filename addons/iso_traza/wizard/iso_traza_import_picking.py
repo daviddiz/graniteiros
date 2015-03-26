@@ -149,59 +149,57 @@ class iso_traza_import_picking(osv.osv_memory):
             summary_items.append(new_sum_item)
                         
         units = tree.find('Units')
-        sem = 0
         for unit in units._children:
             if unit.attrib.get('SID') is None:
                 continue
             
-            sid = unit.attrib.get('SID')
+            sid3 = unit.attrib.get('SID')
             for i in range(len(summary_items)):
-                if summary_items[i]['sid']==sid and sem==0:
-                    psn = summary_items[i]['psn']
-                    product_code = summary_items[i]['product_code']
-                    level = int(summary_items[i]['level'])
-                    uid_code = unit.attrib.get('UID')
-                    serial = str(psn) + str(uid_code)
+                if summary_items[i]['sid']==sid3:
+                    psn3 = summary_items[i]['psn']
+                    product_code3 = summary_items[i]['product_code']
+                    level3 = int(summary_items[i]['level'])
+                    uid_code3 = unit.attrib.get('UID')
+                    serial3 = str(psn3) + str(uid_code3)
                     tracking_vals = {
                          'active': True,
-                         'serial': serial,
+                         'serial': serial3,
                          'date': datetime_now,
-                         'name': serial,
-                         'nivel': level,
+                         'name': serial3,
+                         'nivel': level3,
                          }    
-                    tracking_id = self.pool.get('stock.tracking').create(cr, uid, tracking_vals)
-                    sem = 1
+                    tracking_id3 = self.pool.get('stock.tracking').create(cr, uid, tracking_vals)
+                    break
             
             if unit.find('Units') is not None:
                 units2 = unit.find('Units')
-                sem2 = 0
                 for unit2 in units2._children:
-                    sid = unit2.attrib.get('SID')
-                    for i in range(len(summary_items)):
-                        if summary_items[i]['sid']==sid and sem2==0:
-                            psn = summary_items[i]['psn']
-                            product_code = summary_items[i]['product_code']
-                            level = int(summary_items[i]['level'])
-                            uid_code = unit.attrib.get('UID')
-                            serial = str(psn) + str(uid_code)
+                    sid2 = unit2.attrib.get('SID')
+                    for j in range(len(summary_items)):
+                        if summary_items[j]['sid']==sid2:
+                            psn2 = summary_items[j]['psn']
+                            product_code2 = summary_items[j]['product_code']
+                            level2 = int(summary_items[j]['level'])
+                            uid_code2 = unit2.attrib.get('UID')
+                            serial2 = str(psn2) + str(uid_code2)
                             tracking_vals = {
                                  'active': True,
-                                 'serial': serial,
+                                 'serial': serial2,
                                  'date': datetime_now,
-                                 'name': serial,
-                                 'nivel': level,
-                                 'parent_id': tracking_id,
+                                 'name': serial2,
+                                 'nivel': level2,
+                                 'parent_id': tracking_id3,
                                  }    
-                            tracking_id = self.pool.get('stock.tracking').create(cr, uid, tracking_vals) 
-                            sem2 = 1
+                            tracking_id2 = self.pool.get('stock.tracking').create(cr, uid, tracking_vals) 
+                            break
                     if unit2.find('Items') is not None:
                         items = unit2.find('Items')
                         for item in items._children:
-                            sid = item.attrib.get('SID')
-                            uid_code = item.attrib.get('UID')
-                            psn = item.attrib.get('PSN')
-                            serial = str(psn) + str(uid_code)
-                            product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code)])
+                            sid1 = item.attrib.get('SID')
+                            uid_code1 = item.attrib.get('UID')
+                            psn1 = item.attrib.get('PSN')
+                            serial1 = str(psn1) + str(uid_code1)
+                            product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code2)])
                             if product_ids:
                                 product_id = product_ids[0]
                             else:
@@ -211,10 +209,10 @@ class iso_traza_import_picking(osv.osv_memory):
                                     'mes_type': 'fixed',
                                     'uom_id': 1,
                                     'uom_po_id': 1,
-                                    'name': product_code,
-                                    'description': product_code,
-                                    'description_purchase': product_code,
-                                    'description_sale': product_code,
+                                    'name': product_code2,
+                                    'description': product_code2,
+                                    'description_purchase': product_code2,
+                                    'description_sale': product_code2,
                                     'type': 'consu',
                                     'procure_method': 'make_to_stock',
                                     'categ_id': 1,
@@ -232,11 +230,11 @@ class iso_traza_import_picking(osv.osv_memory):
                                  
                                 p_product_vals = {
                                     'product_tmpl_id': product_template_id,
-                                    'default_code': product_code,
+                                    'default_code': product_code2,
                                     'valuation': 'manual_periodic',
                                     'lot_split_type': 'single',
                                     'price_extra': 0.00,
-                                    'name_template': product_code,
+                                    'name_template': product_code2,
                                     'active': True,
                                     'price_margin': 1.00,
                                     'track_production': False,
@@ -254,9 +252,9 @@ class iso_traza_import_picking(osv.osv_memory):
                                 'product_uom': 1,
                                 'product_uos_qty': 1,
                                 'product_qty': 1,
-                                'serial': serial,
-                                'name': serial,
-                                'tracking_id': tracking_id,
+                                'serial': serial1,
+                                'name': serial1,
+                                'tracking_id': tracking_id2,
                             }    
                             move_id = self.pool.get('stock.move').create(cr, uid, move_vals)  
                             
