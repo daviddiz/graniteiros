@@ -123,7 +123,7 @@ class iso_traza_import_picking(osv.osv_memory):
                 
         
         summary_items = []
-        for node in tree.getiterator('Item'):        
+        for node in tree.getiterator('SummaryItem'):        
         #for node in tree.iter('SummaryItem'):
             sid = node.attrib.get('SID')
             psn = node.attrib.get('PSN')
