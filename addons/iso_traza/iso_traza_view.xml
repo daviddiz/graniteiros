@@ -376,7 +376,7 @@
                     <field name="artillero_id" string="Artillero"/>
                     <field name="resp_explot_id" string="Responsable explotación"/>
                     <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
-                    <field name="obra" string="Derecho Minero/Obra"/>
+                    <field name="obra_id" string="Obra"/>
                 </tree>
             </field>
         </record>
@@ -393,7 +393,7 @@
 	                    <field name="artillero_id" string="Artillero"/>
 	                    <field name="resp_explot_id" string="Responsable explotación"/>
 	                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
-	                    <field name="obra" string="Derecho Minero/Obra"/>
+	                    <field name="obra_id" string="Obra"/>
 	                    <field colspan="4" name="moves_ids" nolabel="1" widget="one2many_list">
                                 <tree string="Movimientos">
 				                    <field name="product_id" string="Producto"/>
@@ -451,6 +451,7 @@
                         <field name="artillero_id"/>
                         <field name="resp_explot_id"/>
                         <field name="consum_hab_id"/>
+                        <field name="obra_id" string="Obra"/>
                     </group>
                     <newline/>
                     <group expand="0" string="Group By..." colspan="4" col="4">
@@ -487,6 +488,7 @@
                     <field name="date" string="Fecha de Inicio"/>
                     <field name="dir_facul_id" string="Director facultativo"/>
                     <field name="resp_explot_id" string="Responsable explotación"/>
+                    <field name="obra_id" string="Obra"/>
                 </tree>
             </field>
         </record>
@@ -502,6 +504,7 @@
 	                    <field name="date" string="Fecha"/>
 	                    <field name="dir_facul_id" string="Director facultativo"/>
 	                    <field name="resp_explot_id" string="Responsable explotación"/>
+	                    <field name="obra_id" string="Obra"/>
 	                    <field colspan="4" name="moves_ids" nolabel="1" widget="one2many_list">
                                 <tree string="Movimientos">
 				                    <field name="product_id" string="Producto"/>
@@ -558,6 +561,7 @@
                         <field name="date"/>
                         <field name="dir_facul_id"/>
                         <field name="resp_explot_id"/>
+                        <field name="obra_id" string="Obra"/>
                     </group>
                     <newline/>
                     <group expand="0" string="Group By..." colspan="4" col="4">

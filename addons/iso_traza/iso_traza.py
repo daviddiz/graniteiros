@@ -23,6 +23,13 @@
 from osv import osv, fields
 from datetime import datetime
 
+class stock_location(osv.osv):
+    _inherit = 'stock.location'
+
+    _columns = {
+        'obra': fields.boolean('Obra'),
+        }
+
 class iso_traza_artillero(osv.osv):
         
     _name='iso.traza.artillero'
@@ -64,12 +71,13 @@ class iso_traza_acta(osv.osv):
     _name='iso.traza.acta'
     _description='Acta de Consumo'
     _columns={
-        'name': fields.char("Nombre", size=65, required=True, readonly=True, select=True),
+        'name': fields.char("Nombre", size=65, select=True),
         'date': fields.date('Fecha', required=True, select=True),
         'artillero_id': fields.many2one('iso.traza.artillero', 'Artillero', help='Responsable de utilización - Artillero'),
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', help='Responsable explotación, encargado del libro de registro y usuario del programa'),
         'consum_hab_id' : fields.many2one('res.partner', 'Consumidor habitual de explosivos', ondelete='cascade', help="Consumidor habitual de explosivos"),
-        'obra': fields.char("Derecho Minero/Obra", size=265),
+        #'obra': fields.char("Derecho Minero/Obra", size=265),
+        'obra_id': fields.many2one('stock.location', 'Obra', domain = [('obra','=',True)]),
         'moves_ids': fields.one2many('stock.move', 'acta_id', "Movimientos"),
     }
     
@@ -89,6 +97,7 @@ class iso_traza_libro(osv.osv):
         'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', help='Director facultativo'),
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', help='Responsable explotación, encargado del libro de registro y usuario del programa'),
         'moves_ids': fields.one2many('stock.move', 'libro_id', "Movimientos"),
+        'obra_id': fields.many2one('stock.location', 'Obra', domain = [('obra','=',True)]),
     }
     
     _defaults = {
