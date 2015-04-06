@@ -36,6 +36,78 @@ class iso_traza_import_picking(osv.osv_memory):
     _defaults = {
     }
     
+    def alta_tracking(self, cr, uid, ids, serial, level):
+        datetime_now = datetime.datetime.today()
+        tracking_vals = {
+             'active': True,
+             'serial': serial,
+             'date': datetime_now,
+             'name': serial,
+             'nivel': level,
+             }    
+        tracking_id = self.pool.get('stock.tracking').create(cr, uid, tracking_vals)
+        return tracking_id 
+        
+    def alta_product(self, cr, uid, ids, product_code):
+        p_template_vals = {
+            'supply_method': 'buy',
+            'standard_price': 1.00,
+            'mes_type': 'fixed',
+            'uom_id': 1,
+            'uom_po_id': 1,
+            'name': product_code,
+            'description': product_code,
+            'description_purchase': product_code,
+            'description_sale': product_code,
+            'type': 'consu',
+            'procure_method': 'make_to_stock',
+            'categ_id': 1,
+            'cost_method': 'standard',
+            'warranty': 0,
+            'purchase_ok': True,
+            'company_id': 1,
+            'rental': False,
+            'sale_ok': True,
+            'sale_delay': 7,
+            'produce_delay': 1,
+        }
+        
+        product_template_id = self.pool.get('product.template').create(cr, uid, p_template_vals)
+         
+        p_product_vals = {
+            'product_tmpl_id': product_template_id,
+            'default_code': product_code,
+            'valuation': 'manual_periodic',
+            'lot_split_type': 'single',
+            'price_extra': 0.00,
+            'name_template': product_code,
+            'active': True,
+            'price_margin': 1.00,
+            'track_production': False,
+            'track_outgoing': False,
+            'track_incoming': True,
+        }
+                
+        product_id = self.pool.get('product.product').create(cr, uid, p_product_vals)
+        return product_id
+    
+    
+    def alta_move(self, cr, uid, ids, product, picking, serial, tracking):
+        move_vals = {
+            'location_id': 8,
+            'location_dest_id': 12,
+            'product_id': product,
+            'picking_id': picking,
+            'product_uom': 1,
+            'product_uos_qty': 1,
+            'product_qty': 1,
+            'serial': serial,
+            'name': serial,
+            'tracking_id': tracking,
+        }    
+        move_id = self.pool.get('stock.move').create(cr, uid, move_vals)  
+        return move_id
+    
     def import_picking(self, cr, uid, ids, context=None):
         if not context: context = {}
         
@@ -161,14 +233,7 @@ class iso_traza_import_picking(osv.osv_memory):
                     level3 = int(summary_items[i]['level'])
                     uid_code3 = unit.attrib.get('UID')
                     serial3 = str(psn3) + str(uid_code3)
-                    tracking_vals = {
-                         'active': True,
-                         'serial': serial3,
-                         'date': datetime_now,
-                         'name': serial3,
-                         'nivel': level3,
-                         }    
-                    tracking_id3 = self.pool.get('stock.tracking').create(cr, uid, tracking_vals)
+                    tracking_id3 = self.alta_tracking(cr, uid, ids, serial3, level3)
                     break
             
             if unit.find('Units') is not None:
@@ -182,15 +247,7 @@ class iso_traza_import_picking(osv.osv_memory):
                             level2 = int(summary_items[j]['level'])
                             uid_code2 = unit2.attrib.get('UID')
                             serial2 = str(psn2) + str(uid_code2)
-                            tracking_vals = {
-                                 'active': True,
-                                 'serial': serial2,
-                                 'date': datetime_now,
-                                 'name': serial2,
-                                 'nivel': level2,
-                                 'parent_id': tracking_id3,
-                                 }    
-                            tracking_id2 = self.pool.get('stock.tracking').create(cr, uid, tracking_vals) 
+                            tracking_id2 = self.alta_tracking(cr, uid, ids, serial2, level2)
                             break
                     if unit2.find('Items') is not None:
                         items = unit2.find('Items')
@@ -203,60 +260,40 @@ class iso_traza_import_picking(osv.osv_memory):
                             if product_ids:
                                 product_id = product_ids[0]
                             else:
-                                p_template_vals = {
-                                    'supply_method': 'buy',
-                                    'standard_price': 1.00,
-                                    'mes_type': 'fixed',
-                                    'uom_id': 1,
-                                    'uom_po_id': 1,
-                                    'name': product_code2,
-                                    'description': product_code2,
-                                    'description_purchase': product_code2,
-                                    'description_sale': product_code2,
-                                    'type': 'consu',
-                                    'procure_method': 'make_to_stock',
-                                    'categ_id': 1,
-                                    'cost_method': 'standard',
-                                    'warranty': 0,
-                                    'purchase_ok': True,
-                                    'company_id': 1,
-                                    'rental': False,
-                                    'sale_ok': True,
-                                    'sale_delay': 7,
-                                    'produce_delay': 1,
-                                }
+                                product_id = self.alta_product(cr, uid, ids, product_code2)
                                 
-                                product_template_id = self.pool.get('product.template').create(cr, uid, p_template_vals)
-                                 
-                                p_product_vals = {
-                                    'product_tmpl_id': product_template_id,
-                                    'default_code': product_code2,
-                                    'valuation': 'manual_periodic',
-                                    'lot_split_type': 'single',
-                                    'price_extra': 0.00,
-                                    'name_template': product_code2,
-                                    'active': True,
-                                    'price_margin': 1.00,
-                                    'track_production': False,
-                                    'track_outgoing': False,
-                                    'track_incoming': True,
-                                }
-                                
-                                product_id = self.pool.get('product.product').create(cr, uid, p_product_vals)
-                                
-                            move_vals = {
-                                'location_id': 8,
-                                'location_dest_id': 12,
-                                'product_id': product_id,
-                                'picking_id': picking_id,
-                                'product_uom': 1,
-                                'product_uos_qty': 1,
-                                'product_qty': 1,
-                                'serial': serial1,
-                                'name': serial1,
-                                'tracking_id': tracking_id2,
-                            }    
-                            move_id = self.pool.get('stock.move').create(cr, uid, move_vals)  
+                            move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial1, tracking_id2)
+                    else:
+                        product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code2)])
+                        if product_ids:
+                            product_id = product_ids[0]
+                        else:
+                            product_id = self.alta_product(cr, uid, ids, product_code2)
+                            
+                        move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial2, tracking_id2)
+                            
+            elif unit.find('Items') is not None:
+                items = unit.find('Items')
+                for item in items._children:
+                    sid1 = item.attrib.get('SID')
+                    uid_code1 = item.attrib.get('UID')
+                    psn1 = item.attrib.get('PSN')
+                    serial1 = str(psn1) + str(uid_code1)
+                    product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code3)])
+                    if product_ids:
+                        product_id = product_ids[0]
+                    else:
+                        product_id = self.alta_product(cr, uid, ids, product_code3)
+                        
+                    move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial1, tracking_id3)  
+            else:
+                product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code3)])
+                if product_ids:
+                    product_id = product_ids[0]
+                else:
+                    product_id = self.alta_product(cr, uid, ids, product_code3)
+                    
+                move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial3, tracking_id3)
                             
              
         f.close()
