@@ -28,7 +28,10 @@ class stock_location(osv.osv):
 
     _columns = {
         'obra': fields.boolean('Obra'),
+        'polvorin': fields.boolean('Polvorin'),
         }
+
+stock_location()
 
 class iso_traza_artillero(osv.osv):
         
