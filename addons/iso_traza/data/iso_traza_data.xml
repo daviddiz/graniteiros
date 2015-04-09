@@ -1,11 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data noupdate="1">
-
-        <record id="analytic_journal_purchase" model="account.analytic.journal">
-            <field name="name">Purchases</field>
-            <field name="type">purchase</field>
-        </record>
+    <data noupdate="0">
         
+        <!-- Cambiar ubicación "Stock" a "Polvorín" -->
+
+		<record id="iso_traza_polvorin" model="ir.model.data">
+		     <field name="name">polvorin</field>
+		     <field name="noupdate">FALSE</field>
+		     <field name="module">iso_traza</field>
+		     <field name="model">stock.location</field>
+		     <field name="res_id" model="stock.location" search="[('name', '=', 'Stock')]"/>
+		</record>
+		
+		<record id="polvorin" model="stock.location">
+		    <field name="polvorin">True</field>
+		</record>
+		
+       <record id="iso_traza_polvorin_translation" model="ir.model.data">
+            <field name="name">polvorin_translation</field>
+            <field name="noupdate">FALSE</field>
+            <field name="module">iso_traza</field>
+            <field name="model">ir.translation</field>
+            <field name="res_id" model="ir.translation" search="[('name', '=', 'stock.location,name'),('src', '=', 'Stock')]"/>
+       </record>
+
+       <record id="polvorin_translation" model="ir.translation">
+           <field name="value">Polvorín</field>
+       </record>
+       
+       <!-- Cambiar ubicación "Clientes" a "Consumo en Obra" -->
+        
+		<record id="iso_traza_obra" model="ir.model.data">
+		     <field name="name">obra</field>
+		     <field name="noupdate">FALSE</field>
+		     <field name="module">iso_traza</field>
+		     <field name="model">stock.location</field>
+		     <field name="res_id" model="stock.location" search="[('name', '=', 'Customers')]"/>
+		</record>
+		
+		<record id="obra" model="stock.location">
+		    <field name="obra">True</field>
+		</record>
+		
+       <record id="iso_traza_obra_translation" model="ir.model.data">
+            <field name="name">obra_translation</field>
+            <field name="noupdate">FALSE</field>
+            <field name="module">iso_traza</field>
+            <field name="model">ir.translation</field>
+            <field name="res_id" model="ir.translation" search="[('name', '=', 'stock.location,name'),('src', '=', 'Customers')]"/>
+       </record>
+
+       <record id="obra_translation" model="ir.translation">
+           <field name="value">Consumo en Obra</field>
+       </record>
+       
+       <!-- Añadir traducciones -->
+       
+       <record id="ir_translation_draft_move" model="ir.translation">
+           <field name="lang">es_ES</field>
+           <field name="src">Draft</field>
+           <field name="name">stock.move,state</field>
+           <field name="value">Borrador</field>
+           <field name="type">selection</field>
+           <field eval="0" name="res_id"/>
+       </record>
+       
+       <record id="ir_translation_draft_picking" model="ir.translation">
+           <field name="lang">es_ES</field>
+           <field name="src">Draft</field>
+           <field name="name">stock.picking,state</field>
+           <field name="value">Borrador</field>
+           <field name="type">selection</field>
+           <field eval="0" name="res_id"/>
+       </record>
+       
     </data>
 </openerp>
