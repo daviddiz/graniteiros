@@ -48,17 +48,17 @@ class iso_traza_import_picking(osv.osv_memory):
         tracking_id = self.pool.get('stock.tracking').create(cr, uid, tracking_vals)
         return tracking_id 
         
-    def alta_product(self, cr, uid, ids, product_code):
+    def alta_product(self, cr, uid, ids, product_code, ProducerProductName=None):
         p_template_vals = {
             'supply_method': 'buy',
             'standard_price': 1.00,
             'mes_type': 'fixed',
             'uom_id': 1,
             'uom_po_id': 1,
-            'name': product_code,
-            'description': product_code,
-            'description_purchase': product_code,
-            'description_sale': product_code,
+            'name': ProducerProductName,
+            'description': ProducerProductName,
+            'description_purchase': ProducerProductName,
+            'description_sale': ProducerProductName,
             'type': 'consu',
             'procure_method': 'make_to_stock',
             'categ_id': 1,
@@ -80,7 +80,7 @@ class iso_traza_import_picking(osv.osv_memory):
             'valuation': 'manual_periodic',
             'lot_split_type': 'single',
             'price_extra': 0.00,
-            'name_template': product_code,
+            'name_template': ProducerProductName,
             'active': True,
             'price_margin': 1.00,
             'track_production': False,
@@ -202,8 +202,8 @@ class iso_traza_import_picking(osv.osv_memory):
             
             if node.find('ProducerProductCode') is not None:
                 ProducerProductCode = node.find('ProducerProductCode').text
-#             if node.find('ProducerProductName') is not None:
-#                 ProducerProductName = node.find('ProducerProductName').text
+            if node.find('ProducerProductName') is not None:
+                ProducerProductName = node.find('ProducerProductName').text
 #             if node.find('ItemQuantity') is not None:
 #                 ItemQuantity = node.find('ItemQuantity').text
 #             if node.find('CountOfTradeUnits') is not None:
@@ -217,12 +217,42 @@ class iso_traza_import_picking(osv.osv_memory):
 #             if node.find('UnitOfMeasure') is not None:
 #                 UnitOfMeasure = node.find('UnitOfMeasure').text
 
-            new_sum_item = {'sid': sid, 'psn': psn, 'product_code': ProducerProductCode, 'level': PackagingLevel}
+            product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', ProducerProductCode)])
+            if product_ids:
+                product_id = product_ids[0]
+            else:
+                product_id = self.alta_product(cr, uid, ids, ProducerProductCode, ProducerProductName)
+
+            new_sum_item = {'sid': sid, 'psn': psn, 'product_code': ProducerProductCode, 'level': PackagingLevel, 'product_name': ProducerProductName}
             summary_items.append(new_sum_item)
                         
         units = tree.find('Units')
         for unit in units._children:
             if unit.attrib.get('SID') is None:
+                #ORICA
+                uid_orica_unit = unit.attrib.get('UID')
+                psn_orica_unit = unit.attrib.get('PSN')
+                serial_orica_unit = str(psn_orica_unit) + str(uid_orica_unit)
+                level_orica_unit = unit.find('PackagingLevel').text
+                tracking_id_orica = self.alta_tracking(cr, uid, ids, serial_orica_unit, level_orica_unit)
+                if unit.find('Items') is not None:
+                    items = unit.find('Items')
+                    for item in items._children:
+                        sid_orica_item = item.attrib.get('SID')
+                        uid_code_orica_item = item.attrib.get('UID')
+                        psn_orica_item = item.attrib.get('PSN')
+                        serial_orica_item = str(psn_orica_item) + str(uid_code_orica_item)
+                        for i in range(len(summary_items)):
+                            if summary_items[i]['sid']==sid_orica_item:
+                                product_code_orica_item = summary_items[i]['product_code']
+                                product_name_orica_item = summary_items[i]['product_name']
+                        product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code_orica_item)])
+                        if product_ids:
+                            product_id = product_ids[0]
+                        else:
+                            product_id = self.alta_product(cr, uid, ids, product_code_orica_item, product_name_orica_item)
+                            
+                        move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial_orica_item, tracking_id_orica)
                 continue
             
             sid3 = unit.attrib.get('SID')
@@ -230,6 +260,7 @@ class iso_traza_import_picking(osv.osv_memory):
                 if summary_items[i]['sid']==sid3:
                     psn3 = summary_items[i]['psn']
                     product_code3 = summary_items[i]['product_code']
+                    product_name3 = summary_items[i]['product_name']
                     level3 = int(summary_items[i]['level'])
                     uid_code3 = unit.attrib.get('UID')
                     serial3 = str(psn3) + str(uid_code3)
@@ -244,6 +275,7 @@ class iso_traza_import_picking(osv.osv_memory):
                         if summary_items[j]['sid']==sid2:
                             psn2 = summary_items[j]['psn']
                             product_code2 = summary_items[j]['product_code']
+                            product_name2 = summary_items[j]['product_name']
                             level2 = int(summary_items[j]['level'])
                             uid_code2 = unit2.attrib.get('UID')
                             serial2 = str(psn2) + str(uid_code2)
@@ -260,7 +292,7 @@ class iso_traza_import_picking(osv.osv_memory):
                             if product_ids:
                                 product_id = product_ids[0]
                             else:
-                                product_id = self.alta_product(cr, uid, ids, product_code2)
+                                product_id = self.alta_product(cr, uid, ids, product_code2, product_name2)
                                 
                             move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial1, tracking_id2)
                     else:
@@ -268,7 +300,7 @@ class iso_traza_import_picking(osv.osv_memory):
                         if product_ids:
                             product_id = product_ids[0]
                         else:
-                            product_id = self.alta_product(cr, uid, ids, product_code2)
+                            product_id = self.alta_product(cr, uid, ids, product_code2, product_name2)
                             
                         move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial2, tracking_id2)
                             
@@ -283,7 +315,7 @@ class iso_traza_import_picking(osv.osv_memory):
                     if product_ids:
                         product_id = product_ids[0]
                     else:
-                        product_id = self.alta_product(cr, uid, ids, product_code3)
+                        product_id = self.alta_product(cr, uid, ids, product_code3, product_name3)
                         
                     move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial1, tracking_id3)  
             else:
@@ -291,7 +323,7 @@ class iso_traza_import_picking(osv.osv_memory):
                 if product_ids:
                     product_id = product_ids[0]
                 else:
-                    product_id = self.alta_product(cr, uid, ids, product_code3)
+                    product_id = self.alta_product(cr, uid, ids, product_code3, product_name3)
                     
                 move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial3, tracking_id3)
                             
