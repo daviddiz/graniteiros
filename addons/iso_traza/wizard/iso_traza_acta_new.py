@@ -29,13 +29,17 @@ class iso_traza_acta_new(osv.osv_memory):
     _description = 'Nueva Acta de Consumo'
     _columns = {
         'date': fields.date("Fecha"),
+        'artillero_id': fields.many2one('iso.traza.artillero', 'Artillero', help='Artillero'),
+        #'obra_id': fields.many2one('stock.location', 'Obra', domain = [('obra','=',True)]),
         }
 
     def crear_acta(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        data_form = self.read(cr, uid, ids, ['date'])[0]
+        data_form = self.read(cr, uid, ids, ['date','artillero_id','obra_id'])[0]
         d = data_form['date']
+        artillero = data_form['artillero_id']
+        #obra = data_form['obra_id']
         
         d_from = d + ' 00:00:00'
         d_from = datetime.strptime(d_from, '%Y-%m-%d %H:%M:%S')
@@ -46,13 +50,14 @@ class iso_traza_acta_new(osv.osv_memory):
         
         obj = self.pool.get('stock.move')
         
-        moves_ids = obj.search(cr, uid, [('date','>=',d_from.strftime('%Y-%m-%d %H:%M:%S')), ('date','<=',d_to.strftime('%Y-%m-%d %H:%M:%S'))])
+        moves_ids = obj.search(cr, uid, [('date','>=',d_from.strftime('%Y-%m-%d %H:%M:%S')), ('date','<=',d_to.strftime('%Y-%m-%d %H:%M:%S')), ('artillero_id','=',artillero)])
         
         d = datetime.strptime(d, '%Y-%m-%d')
         
         vals={
             "date": d.strftime('%Y-%m-%d'),
             "moves_ids": [(6,0,moves_ids)],
+            "artillero_id": artillero,
         }
         
         acta_id = self.pool.get('iso.traza.acta').create(cr,uid,vals,context)

@@ -10,6 +10,7 @@
             	<form string="Crear Acta de Consumo con las condiciones siguientes">
                     <label nolabel="1" colspan="4" string="Crear Acta con los consumos de material según las siguientes variables"/>
                     <field name="date" attrs="{'readonly':[('filter', '!=', 'filter_date')], 'required':[('filter', '=', 'filter_date')]}" colspan="4"/>
+                    <field name="artillero_id" colspan="4"/>
                     <separator colspan="4"/>
                     <group col="4" colspan="4">
                         <button icon="gtk-cancel" special="cancel" string="Cancelar" colspan="2"/>

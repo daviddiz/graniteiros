@@ -43,7 +43,6 @@
                    'wizard/iso_traza_libro_new_view.xml',
                    'wizard/iso_traza_import_picking.xml',
                    'wizard/iso_traza_import_products.xml',
-                   'data/iso_traza_data.xml',
                    ],
     'demo_xml': [],
     'installable': True,

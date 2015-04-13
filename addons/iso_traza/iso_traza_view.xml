@@ -554,43 +554,43 @@
 	                    <field name="resp_explot_id" string="Responsable explotación"/>
 	                    <field name="obra_id" string="Obra"/>
 	                    <field colspan="4" name="moves_ids" nolabel="1" widget="one2many_list">
-                                <tree string="Movimientos">
-				                    <field name="product_id" string="Producto"/>
-				                    <!-- <field name="serial" string="Código producto"/> -->
-				                    <field name="product_qty" string="Cantidad recibida"/>
-				                    <field name="product_uom" string="Unidad"/>
-				                    <field name="date" string="Fecha recepción"/>
-				                    <field name="picking_id" string="Guía de circulación"/>
-				                    <field name="partner_id" string="Proveedor"/>
-				                    <field name="num_catalog" string="Número catalogación"/>
+                            <tree string="Movimientos">
+			                    <field name="product_id" string="Producto"/>
+			                    <!-- <field name="serial" string="Código producto"/> -->
+			                    <field name="product_qty" string="Cantidad recibida"/>
+			                    <field name="product_uom" string="Unidad"/>
+			                    <field name="date" string="Fecha recepción"/>
+			                    <field name="picking_id" string="Guía de circulación"/>
+			                    <field name="partner_id" string="Proveedor"/>
+			                    <field name="num_catalog" string="Número catalogación"/>
+			                    <field name="artillero_id" string="Artillero"/>
+			                    <field name="resp_explot_id" string="Responsable explotación"/>
+			                    <field name="dir_facul_id" string="Director facultativo"/>
+			                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
+                            </tree>
+                            <form string="Movimiento">
+			                    <group colspan="4" col="4">
+			                        <field name="product_id"/>
+			                        <!--  <field name="serial" string="Código producto"/> -->
+			                        <field name="product_qty"/>
+			                        <field name="product_uom" string="Unidad"/>
+			                        <newline/>
+			                        <separator colspan="4" string="Información de la Guía"/>
+			                        <field name="picking_id" string="Guía de circulación"/>
+			                        <field name="date"/>
+			                    	<field name="partner_id" string="Proveedor"/>
+			                    	<field name="num_catalog" string="Número catalogación"/>
+			                    	<separator colspan="4" string="Otros Datos"/>
 				                    <field name="artillero_id" string="Artillero"/>
 				                    <field name="resp_explot_id" string="Responsable explotación"/>
 				                    <field name="dir_facul_id" string="Director facultativo"/>
-				                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
-                                </tree>
-                                <form string="Movimiento">
-				                    <group colspan="4" col="4">
-				                        <field name="product_id"/>
-				                        <!--  <field name="serial" string="Código producto"/> -->
-				                        <field name="product_qty"/>
-				                        <field name="product_uom" string="Unidad"/>
-				                        <newline/>
-				                        <separator colspan="4" string="Información de la Guía"/>
-				                        <field name="picking_id" string="Guía de circulación"/>
-				                        <field name="date"/>
-				                    	<field name="partner_id" string="Proveedor"/>
-				                    	<field name="num_catalog" string="Número catalogación"/>
-				                    	<separator colspan="4" string="Otros Datos"/>
-					                    <field name="artillero_id" string="Artillero"/>
-					                    <field name="resp_explot_id" string="Responsable explotación"/>
-					                    <field name="dir_facul_id" string="Director facultativo"/>
-					                    <field name="consum_hab_id" string="Consumidor explosivos"/>
-				                        <field name="location_id" invisible="1"/>
-				                        <field name="location_dest_id" invisible="1"/>
-				                        <field name="name" string="Reason" invisible="1"/>
-					                </group>
-                                </form>
-                            </field>
+				                    <field name="consum_hab_id" string="Consumidor explosivos"/>
+			                        <field name="location_id" invisible="1"/>
+			                        <field name="location_dest_id" invisible="1"/>
+			                        <field name="name" string="Reason" invisible="1"/>
+				                </group>
+                            </form>
+                        </field>
 	                </group>
                 </form>
             </field>
@@ -635,7 +635,7 @@
         
         <record id="view_move_tree_traza" model="ir.ui.view">
             <field name="name">view.move.tree.traza</field>
-            <field name="model">stock.picking</field>
+            <field name="model">stock.move</field>
             <field name="inherit_id" ref="stock.view_move_tree" />
             <field name="type">tree</field>
             <field name="arch" type="xml">
@@ -675,7 +675,7 @@
         </record>
         
         <record id="action_move_form2_traza" model="ir.actions.act_window">
-            <field name="name">Stock Moves</field>
+            <field name="name">Trazabilidad Completa</field>
             <field name="res_model">stock.move</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
@@ -730,5 +730,95 @@
             </field>
         </record>
         
+        <!-- Artilleros -->
+        
+        <record id="iso_traza_artillero_view_tree" model="ir.ui.view">
+            <field name="name">iso.traza.artillero.tree</field>
+            <field name="model">iso.traza.artillero</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Artilleros">
+                    <field name="name"/>
+                    <field name="dni"/>
+                    <field name="cartilla"/>                   
+					<field name="username"/>
+                    <field name="password"/>     
+                </tree>
+            </field>
+        </record>
+        
+        <record id="iso_traza_artillero_view_form" model="ir.ui.view">
+            <field name="name">iso.traza.artillero.form</field>
+            <field name="model">iso.traza.artillero</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Artillero">
+                    <group colspan="6" col="6">
+                        <field name="name"/>
+                        <field name="dni"/>
+                        <field name="cartilla"/>
+					</group>                        
+					<group colspan="4" col="4">                        
+						<field name="username"/>
+                        <field name="password"/>                        
+	                </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="iso_traza_artillero_view_search" model="ir.ui.view">
+            <field name="name">iso.traza.artillero.search</field>
+            <field name="model">iso.traza.artillero</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Artilleros">
+                    <group col="8" colspan="4">
+                        <field name="name"/>
+                        <field name="dni"/>
+                        <field name="cartilla"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        	
+        <record id="action_artilleros" model="ir.actions.act_window">
+            <field name="name">Artilleros</field>
+            <field name="res_model">iso.traza.artillero</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="iso_traza_artillero_view_tree"/>
+            <field name="search_view_id" ref="iso_traza_artillero_view_search"/>
+        </record>
+        	        
+		<menuitem action="action_artilleros" id="menu_action_artilleros" parent="menu_traceability_traza" sequence="2"/>
+		
+		<!-- Polvorín - Almacén - Stock -->
+        	
+        <record id="action_polvorin" model="ir.actions.act_window">
+            <field name="name">Polvorines - Almacenes - Stocks</field>
+            <field name="res_model">stock.location</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('polvorin','=',True)]</field>
+            <field name="view_id" ref="view_location_tree2_traza"/>
+            <field name="search_view_id" ref="view_location_search_traza"/>
+        </record>
+        	        
+		<menuitem action="action_polvorin" id="menu_action_polvorin" parent="menu_traceability_traza" sequence="3"/>
+		
+		<!-- Obra - Explotación -->
+        	
+        <record id="action_obra" model="ir.actions.act_window">
+            <field name="name">Obra - Explotación</field>
+            <field name="res_model">stock.location</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('obra','=',True)]</field>
+            <field name="view_id" ref="view_location_tree2_traza"/>
+            <field name="search_view_id" ref="view_location_search_traza"/>
+        </record>
+        	        
+		<menuitem action="action_obra" id="menu_action_obra" parent="menu_traceability_traza" sequence="4"/>
+						        	        
 	</data>
 </openerp>
