@@ -36,29 +36,57 @@ class iso_traza_import_picking(osv.osv_memory):
     _defaults = {
     }
     
-    def alta_tracking(self, cr, uid, ids, serial, level):
+    def alta_tracking(self, cr, uid, ids, serial, level, tracking_parent):
         datetime_now = datetime.datetime.today()
-        tracking_vals = {
-             'active': True,
-             'serial': serial,
-             'date': datetime_now,
-             'name': serial,
-             'nivel': level,
-             }    
-        tracking_id = self.pool.get('stock.tracking').create(cr, uid, tracking_vals)
+        if not level:
+            level = 0
+        if not tracking_parent:
+            tracking_vals = {
+                 'active': True,
+                 'serial': serial,
+                 'date': datetime_now,
+                 'name': serial,
+                 'nivel': level,
+                 }    
+            tracking_id = self.pool.get('stock.tracking').create(cr, uid, tracking_vals)
+        else:
+            tracking_vals = {
+                 'active': True,
+                 'serial': serial,
+                 'date': datetime_now,
+                 'name': serial,
+                 'nivel': level,
+                 'parent_id': tracking_parent,
+                 }    
+            tracking_id = self.pool.get('stock.tracking').create(cr, uid, tracking_vals)
         return tracking_id 
         
-    def alta_product(self, cr, uid, ids, product_code, ProducerProductName=None):
+    def alta_product(self, cr, uid, ids, product_code, ProducerProductName=None, uom=None):
+        if uom is not None:
+            if uom == "KGM":
+                uom_id = 2
+            elif uom == 'C62':
+                uom_id = 1
+            elif uom == 'MTR':
+                uom_id = 7
+            else:
+                uom_id = 1
+        else:
+            uom_id = 1
+        if ProducerProductName is not None:
+            p_name = ProducerProductName
+        else:
+            p_name = product_code
         p_template_vals = {
             'supply_method': 'buy',
             'standard_price': 1.00,
             'mes_type': 'fixed',
-            'uom_id': 1,
-            'uom_po_id': 1,
-            'name': ProducerProductName,
-            'description': ProducerProductName,
-            'description_purchase': ProducerProductName,
-            'description_sale': ProducerProductName,
+            'uom_id': uom_id,
+            'uom_po_id': uom_id,
+            'name': p_name,
+            'description': p_name,
+            'description_purchase': p_name,
+            'description_sale': p_name,
             'type': 'consu',
             'procure_method': 'make_to_stock',
             'categ_id': 1,
@@ -80,7 +108,7 @@ class iso_traza_import_picking(osv.osv_memory):
             'valuation': 'manual_periodic',
             'lot_split_type': 'single',
             'price_extra': 0.00,
-            'name_template': ProducerProductName,
+            'name_template': p_name,
             'active': True,
             'price_margin': 1.00,
             'track_production': False,
@@ -107,6 +135,63 @@ class iso_traza_import_picking(osv.osv_memory):
         }    
         move_id = self.pool.get('stock.move').create(cr, uid, move_vals)  
         return move_id
+    
+    def parsear_item(self, cr, uid, ids, item, picking_id, proveedor_id, summary_items, tracking_id=None):
+        uid_item = item.attrib.get('UID')
+        psn = item.attrib.get('PSN')
+        serial = str(psn) + str(uid_item)
+        sid = item.attrib.get('SID')
+        for i in range(len(summary_items)):
+            if summary_items[i]['sid']==sid:
+                product_code = summary_items[i]['product_code']
+                product_name = summary_items[i]['product_name']
+                uom = summary_items[i]['uom']
+                product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code)])
+                if product_ids:
+                    product_id = product_ids[0]
+                else:
+                    product_id = self.alta_product(cr, uid, ids, product_code, product_name, uom)
+        move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial, tracking_id)
+        return False
+    
+    def parsear_unit(self, cr, uid, ids, unit, picking_id, proveedor_id, summary_items, tracking_parent=None):
+        uid_unit = unit.attrib.get('UID')
+        psn = unit.attrib.get('PSN')
+        serial = str(psn) + str(uid_unit)
+        aux_sid = 0
+        if unit.attrib.get('SID') is not None:
+            aux_sid = 1
+            sid = unit.attrib.get('SID')
+            for i in range(len(summary_items)):
+                if summary_items[i]['sid']==sid:
+                    product_code = summary_items[i]['product_code']
+                    product_name = summary_items[i]['product_name']
+                    level = int(summary_items[i]['level'])
+                    uom = summary_items[i]['uom']
+                    product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code)])
+                    if product_ids:
+                        product_id = product_ids[0]
+                    else:
+                        product_id = self.alta_product(cr, uid, ids, product_code, product_name, uom)
+        else:
+            product_id = None    
+        if unit.find('PackagingLevel') is not None:
+            level = unit.find('PackagingLevel').text
+        tracking_id = self.alta_tracking(cr, uid, ids, serial, level, tracking_parent)
+        aux = 0
+        for subelement in unit.getchildren():
+            if subelement.tag=='Units':
+                aux = 1
+                for unit in subelement._children:
+                    self.parsear_unit(cr, uid, ids, unit, picking_id, proveedor_id, summary_items, tracking_id)
+            if subelement.tag=='Items':
+                aux = 1
+                for item in subelement._children:
+                    self.parsear_item(cr, uid, ids, item, picking_id, proveedor_id, summary_items, tracking_id)
+        if aux == 0 and aux_sid == 1:
+            move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial, tracking_parent)
+        return False
+
     
     def import_picking(self, cr, uid, ids, context=None):
         if not context: context = {}
@@ -198,12 +283,14 @@ class iso_traza_import_picking(osv.osv_memory):
         for node in tree.getiterator('SummaryItem'):        
         #for node in tree.iter('SummaryItem'):
             sid = node.attrib.get('SID')
-            psn = node.attrib.get('PSN')
+#             psn = node.attrib.get('PSN')
             
             if node.find('ProducerProductCode') is not None:
                 ProducerProductCode = node.find('ProducerProductCode').text
             if node.find('ProducerProductName') is not None:
                 ProducerProductName = node.find('ProducerProductName').text
+            else:
+                ProducerProductName = None
 #             if node.find('ItemQuantity') is not None:
 #                 ItemQuantity = node.find('ItemQuantity').text
 #             if node.find('CountOfTradeUnits') is not None:
@@ -214,119 +301,18 @@ class iso_traza_import_picking(osv.osv_memory):
 #                 ProductionDate = node.find('ProductionDate').text
 #             if node.find('Length') is not None:
 #                 Length = node.find('Length').text
-#             if node.find('UnitOfMeasure') is not None:
-#                 UnitOfMeasure = node.find('UnitOfMeasure').text
-
-            product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', ProducerProductCode)])
-            if product_ids:
-                product_id = product_ids[0]
+            if node.find('UnitOfMeasure') is not None:
+                UnitOfMeasure = node.find('UnitOfMeasure').text
             else:
-                product_id = self.alta_product(cr, uid, ids, ProducerProductCode, ProducerProductName)
+                UnitOfMeasure = None
 
-            new_sum_item = {'sid': sid, 'psn': psn, 'product_code': ProducerProductCode, 'level': PackagingLevel, 'product_name': ProducerProductName}
+            new_sum_item = {'sid': sid, 'product_code': ProducerProductCode, 'level': PackagingLevel, 'product_name': ProducerProductName, 'uom': UnitOfMeasure}
             summary_items.append(new_sum_item)
                         
         units = tree.find('Units')
         for unit in units._children:
-            if unit.attrib.get('SID') is None:
-                #ORICA
-                uid_orica_unit = unit.attrib.get('UID')
-                psn_orica_unit = unit.attrib.get('PSN')
-                serial_orica_unit = str(psn_orica_unit) + str(uid_orica_unit)
-                level_orica_unit = unit.find('PackagingLevel').text
-                tracking_id_orica = self.alta_tracking(cr, uid, ids, serial_orica_unit, level_orica_unit)
-                if unit.find('Items') is not None:
-                    items = unit.find('Items')
-                    for item in items._children:
-                        sid_orica_item = item.attrib.get('SID')
-                        uid_code_orica_item = item.attrib.get('UID')
-                        psn_orica_item = item.attrib.get('PSN')
-                        serial_orica_item = str(psn_orica_item) + str(uid_code_orica_item)
-                        for i in range(len(summary_items)):
-                            if summary_items[i]['sid']==sid_orica_item:
-                                product_code_orica_item = summary_items[i]['product_code']
-                                product_name_orica_item = summary_items[i]['product_name']
-                        product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code_orica_item)])
-                        if product_ids:
-                            product_id = product_ids[0]
-                        else:
-                            product_id = self.alta_product(cr, uid, ids, product_code_orica_item, product_name_orica_item)
-                            
-                        move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial_orica_item, tracking_id_orica)
-                continue
-            
-            sid3 = unit.attrib.get('SID')
-            for i in range(len(summary_items)):
-                if summary_items[i]['sid']==sid3:
-                    psn3 = summary_items[i]['psn']
-                    product_code3 = summary_items[i]['product_code']
-                    product_name3 = summary_items[i]['product_name']
-                    level3 = int(summary_items[i]['level'])
-                    uid_code3 = unit.attrib.get('UID')
-                    serial3 = str(psn3) + str(uid_code3)
-                    tracking_id3 = self.alta_tracking(cr, uid, ids, serial3, level3)
-                    break
-            
-            if unit.find('Units') is not None:
-                units2 = unit.find('Units')
-                for unit2 in units2._children:
-                    sid2 = unit2.attrib.get('SID')
-                    for j in range(len(summary_items)):
-                        if summary_items[j]['sid']==sid2:
-                            psn2 = summary_items[j]['psn']
-                            product_code2 = summary_items[j]['product_code']
-                            product_name2 = summary_items[j]['product_name']
-                            level2 = int(summary_items[j]['level'])
-                            uid_code2 = unit2.attrib.get('UID')
-                            serial2 = str(psn2) + str(uid_code2)
-                            tracking_id2 = self.alta_tracking(cr, uid, ids, serial2, level2)
-                            break
-                    if unit2.find('Items') is not None:
-                        items = unit2.find('Items')
-                        for item in items._children:
-                            sid1 = item.attrib.get('SID')
-                            uid_code1 = item.attrib.get('UID')
-                            psn1 = item.attrib.get('PSN')
-                            serial1 = str(psn1) + str(uid_code1)
-                            product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code2)])
-                            if product_ids:
-                                product_id = product_ids[0]
-                            else:
-                                product_id = self.alta_product(cr, uid, ids, product_code2, product_name2)
-                                
-                            move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial1, tracking_id2)
-                    else:
-                        product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code2)])
-                        if product_ids:
-                            product_id = product_ids[0]
-                        else:
-                            product_id = self.alta_product(cr, uid, ids, product_code2, product_name2)
-                            
-                        move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial2, tracking_id2)
-                            
-            elif unit.find('Items') is not None:
-                items = unit.find('Items')
-                for item in items._children:
-                    sid1 = item.attrib.get('SID')
-                    uid_code1 = item.attrib.get('UID')
-                    psn1 = item.attrib.get('PSN')
-                    serial1 = str(psn1) + str(uid_code1)
-                    product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code3)])
-                    if product_ids:
-                        product_id = product_ids[0]
-                    else:
-                        product_id = self.alta_product(cr, uid, ids, product_code3, product_name3)
-                        
-                    move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial1, tracking_id3)  
-            else:
-                product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code3)])
-                if product_ids:
-                    product_id = product_ids[0]
-                else:
-                    product_id = self.alta_product(cr, uid, ids, product_code3, product_name3)
-                    
-                move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial3, tracking_id3)
-                            
+            self.parsear_unit(cr, uid, ids, unit, picking_id, proveedor_id, summary_items)
+                                     
              
         f.close()
         
