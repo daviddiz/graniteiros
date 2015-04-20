@@ -120,15 +120,26 @@ class iso_traza_import_picking(osv.osv_memory):
         return product_id
     
     
-    def alta_move(self, cr, uid, ids, product, picking, serial, tracking):
+    def alta_move(self, cr, uid, ids, product, picking, serial, tracking, cant, uom=None):
+        if uom is not None:
+            if uom == "KGM":
+                uom_id = 2
+            elif uom == 'C62':
+                uom_id = 1
+            elif uom == 'MTR':
+                uom_id = 7
+            else:
+                uom_id = 1
+        else:
+            uom_id = 1
         move_vals = {
             'location_id': 8,
             'location_dest_id': 12,
             'product_id': product,
             'picking_id': picking,
-            'product_uom': 1,
-            'product_uos_qty': 1,
-            'product_qty': 1,
+            'product_uom': uom_id,
+            'product_uos_qty': cant,
+            'product_qty': cant,
             'serial': serial,
             'name': serial,
             'tracking_id': tracking,
@@ -141,17 +152,44 @@ class iso_traza_import_picking(osv.osv_memory):
         psn = item.attrib.get('PSN')
         serial = str(psn) + str(uid_item)
         sid = item.attrib.get('SID')
+        uom_found = 0
+        if item.find('UnitOfMeasure') is not None:
+            uom_found = 1
+            uom = item.find('UnitOfMeasure').text
+            if item.find('Length') is not None:
+                cant = float(item.find('Length').text)
+            elif item.find('NEW') is not None:
+                cant = float(item.find('NEW').text)
+            else:
+                cant = 1
         for i in range(len(summary_items)):
             if summary_items[i]['sid']==sid:
                 product_code = summary_items[i]['product_code']
                 product_name = summary_items[i]['product_name']
-                uom = summary_items[i]['uom']
+                if uom_found==0:
+                    uom = summary_items[i]['uom']
+                    if uom is not None and summary_items[i]['height'] is not None:
+                        uom_found = 1
+                        cant = float(summary_items[i]['height'])
+                    elif uom is not None and summary_items[i]['lenght'] is not None:
+                        uom_found = 1
+                        cant = float(summary_items[i]['lenght'])
+                    else:
+                        cant = 1
                 product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code)])
                 if product_ids:
                     product_id = product_ids[0]
+                    if uom_found==1:
+                        if uom == "KGM":
+                            uom_id = 2
+                        elif uom == 'MTR':
+                            uom_id = 7
+                        else:
+                            uom_id = 1
+                        self.pool.get('product.template').write(cr, uid, [product_id], {'uom_id': uom_id, 'uom_po_id': uom_id})
                 else:
                     product_id = self.alta_product(cr, uid, ids, product_code, product_name, uom)
-        move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial, tracking_id)
+        move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial, tracking_id, cant, uom)
         return False
     
     def parsear_unit(self, cr, uid, ids, unit, picking_id, proveedor_id, summary_items, tracking_parent=None):
@@ -159,6 +197,16 @@ class iso_traza_import_picking(osv.osv_memory):
         psn = unit.attrib.get('PSN')
         serial = str(psn) + str(uid_unit)
         aux_sid = 0
+        uom_found = 0
+        if unit.find('UnitOfMeasure') is not None:
+            uom_found = 1
+            uom = unit.find('UnitOfMeasure').text
+            if unit.find('Length') is not None:
+                cant = float(unit.find('Length').text)
+            elif unit.find('NEW') is not None:
+                cant = float(unit.find('NEW').text)
+            else:
+                cant = 1
         if unit.attrib.get('SID') is not None:
             aux_sid = 1
             sid = unit.attrib.get('SID')
@@ -167,10 +215,27 @@ class iso_traza_import_picking(osv.osv_memory):
                     product_code = summary_items[i]['product_code']
                     product_name = summary_items[i]['product_name']
                     level = int(summary_items[i]['level'])
-                    uom = summary_items[i]['uom']
+                    if uom_found==0:
+                        uom = summary_items[i]['uom']
+                        if uom is not None and summary_items[i]['height'] is not None:
+                            uom_found = 1
+                            cant = float(summary_items[i]['height'])
+                        elif uom is not None and summary_items[i]['lenght'] is not None:
+                            uom_found = 1
+                            cant = float(summary_items[i]['lenght'])
+                        else:
+                            cant = 1
                     product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code)])
                     if product_ids:
                         product_id = product_ids[0]
+                        if uom_found==1:
+                            if uom == "KGM":
+                                uom_id = 2
+                            elif uom == 'MTR':
+                                uom_id = 7
+                            else:
+                                uom_id = 1
+                            self.pool.get('product.template').write(cr, uid, [product_id], {'uom_id': uom_id, 'uom_po_id': uom_id})
                     else:
                         product_id = self.alta_product(cr, uid, ids, product_code, product_name, uom)
         else:
@@ -189,7 +254,7 @@ class iso_traza_import_picking(osv.osv_memory):
                 for item in subelement._children:
                     self.parsear_item(cr, uid, ids, item, picking_id, proveedor_id, summary_items, tracking_id)
         if aux == 0 and aux_sid == 1:
-            move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial, tracking_parent)
+            move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial, tracking_parent, cant, uom)
         return False
 
     
@@ -299,14 +364,20 @@ class iso_traza_import_picking(osv.osv_memory):
                 PackagingLevel = node.find('PackagingLevel').text
 #             if node.find('ProductionDate') is not None:
 #                 ProductionDate = node.find('ProductionDate').text
-#             if node.find('Length') is not None:
-#                 Length = node.find('Length').text
+            if node.find('Length') is not None:
+                Length = node.find('Length').text
+            else:
+                Length = None
+            if node.find('NEW') is not None:
+                Height = node.find('NEW').text
+            else:
+                Height = None
             if node.find('UnitOfMeasure') is not None:
                 UnitOfMeasure = node.find('UnitOfMeasure').text
             else:
                 UnitOfMeasure = None
 
-            new_sum_item = {'sid': sid, 'product_code': ProducerProductCode, 'level': PackagingLevel, 'product_name': ProducerProductName, 'uom': UnitOfMeasure}
+            new_sum_item = {'sid': sid, 'product_code': ProducerProductCode, 'level': PackagingLevel, 'product_name': ProducerProductName, 'uom': UnitOfMeasure, 'height': Height, 'lenght': Length}
             summary_items.append(new_sum_item)
                         
         units = tree.find('Units')

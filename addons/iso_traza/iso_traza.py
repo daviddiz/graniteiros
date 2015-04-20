@@ -114,6 +114,7 @@ class stock_picking(osv.osv):
     _order = 'date desc, id'
      
     _columns = {
+        'num_guia': fields.char('Número de Guía', size=25),
         'artillero_id': fields.many2one('iso.traza.artillero', 'Artillero', ondelete='cascade', help='Responsable de utilización - Artillero'),
         'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', ondelete='cascade', help='Director facultativo'),
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', ondelete='cascade', help='Responsable explotación, encargado del libro de registro y usuario del programa'),

@@ -103,8 +103,21 @@
             <field name="arch" type="xml">
                 <xpath expr="/search/group/field[@name='origin']" position="replace"/>
                 <xpath expr="/search/group/field[@name='stock_journal_id']" position="replace"/>
+                <xpath expr="/search/group/field[@name='partner_id']" position="replace"/>
+                <xpath expr="/search/group/field[@name='company_id']" position="replace"/>
                 <xpath expr="/search/group/filter[@string='Back Orders']" position="replace"/>
                 <xpath expr="/search/group/filter[@string='Available']" position="replace"/>
+                <xpath expr="/search/group/filter[@string='Done']" position="replace"/>
+                <xpath expr="/search/group[@string='Extended Filters...']" position="replace"/>
+                <xpath expr="/search/group/filter[@string='Partner']" position="replace"/>
+                <xpath expr="/search/group/filter[@string='Expected Date']" position="replace"/>
+                <xpath expr="/search/group/filter[@string='Journal']" position="replace"/>
+                <xpath expr="/search/group/field[@name='name']" position="after">
+	                <field name="num_guia"/>
+	            </xpath>
+	            <xpath expr="/search/group/field[@name='name']" position="before">
+	                <filter icon="terp-dialog-close" name="draft" string="Borrador" domain="[('state','=','draft')]" help="Albaranes sin validar"/>
+	            </xpath>
             </field>
         </record>
         
@@ -127,6 +140,7 @@
 		            </xpath>
 		            <xpath expr="/form/group" position="after">
 		                <group  colspan="4" col="4">
+		                	<field name="num_guia"/>
 			                <field name="consum_hab_id"/>
 			                <field name="num_catalog"/>
 			                <field name="resp_explot_id"/>
@@ -152,6 +166,9 @@
 		            </xpath>
 		            <xpath expr="/form/notebook/page/field/tree/field[@name='prodlot_id']" position="replace"/>
 		            <xpath expr="/form/notebook/page/field/tree/button[@name='%(stock.track_line)d']" position="replace"/>
+		            <xpath expr="/form/notebook/page[@string='Additional Info']" position="attributes">
+		                <attribute name="invisible">1</attribute>
+		            </xpath>
 		        </data>
 	        </field>
 	    </record>
@@ -164,6 +181,14 @@
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="/tree/field[@name='origin']" position="replace"/>
+                    <xpath expr="/tree/field[@name='partner_id']" position="replace"/>
+                    <xpath expr="/tree/field[@name='backorder_id']" position="replace"/>
+                    <xpath expr="/tree/field[@name='min_date']" position="replace"/>
+                    <xpath expr="/tree/field[@name='invoice_state']" position="replace"/>
+                    <xpath expr="/tree/field[@name='stock_journal_id']" position="replace"/>
+                    <xpath expr="/tree/field[@name='name']" position="after">
+		                <field name="num_guia"/>
+		            </xpath>
 		        </data>
             </field>
         </record>
@@ -243,9 +268,14 @@
             <field name="inherit_id" ref="stock.view_move_search_reception_incoming_picking" />
             <field name="type">search</field>
             <field name="arch" type="xml">
+            	<xpath expr="/search/group/filter[@string='To Do']" position="replace">
+	                <filter icon="terp-gtk-go-back-rtl" name="draft" string="Borrador" domain="[('state','=','draft')]"/>
+	            </xpath>
+	            <xpath expr="/search/group/filter[@string='Supplier']" position="replace"/>
+	            <xpath expr="/search/group/filter[@string='Order']" position="replace"/>
+	            <xpath expr="/search/group[@string='Extended Filters...']" position="replace"/>
             	<xpath expr="/search/group/field[@name='origin']" position="replace"/>
             	<xpath expr="/search/group/field[@name='partner_id']" position="replace"/>
-                <xpath expr="/search/group/field[@name='prodlot_id']" position="replace"/>
                 <xpath expr="/search/group/field[@name='product_id']" position="after">
 	                <field name="serial"/>
 	            </xpath>
