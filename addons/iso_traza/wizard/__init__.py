@@ -25,6 +25,7 @@ import iso_traza_report_acta
 import iso_traza_report_libro
 import iso_traza_import_picking
 import iso_traza_import_products
+import iso_traza_import_products_epc
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

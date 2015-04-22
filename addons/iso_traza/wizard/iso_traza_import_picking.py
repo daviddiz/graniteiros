@@ -189,6 +189,7 @@ class iso_traza_import_picking(osv.osv_memory):
                         self.pool.get('product.template').write(cr, uid, [product_id], {'uom_id': uom_id, 'uom_po_id': uom_id})
                 else:
                     product_id = self.alta_product(cr, uid, ids, product_code, product_name, uom)
+                break
         move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial, tracking_id, cant, uom)
         return False
     
@@ -238,6 +239,7 @@ class iso_traza_import_picking(osv.osv_memory):
                             self.pool.get('product.template').write(cr, uid, [product_id], {'uom_id': uom_id, 'uom_po_id': uom_id})
                     else:
                         product_id = self.alta_product(cr, uid, ids, product_code, product_name, uom)
+                    break
         else:
             product_id = None    
         if unit.find('PackagingLevel') is not None:
@@ -255,6 +257,19 @@ class iso_traza_import_picking(osv.osv_memory):
                     self.parsear_item(cr, uid, ids, item, picking_id, proveedor_id, summary_items, tracking_id)
         if aux == 0 and aux_sid == 1:
             move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial, tracking_parent, cant, uom)
+        elif aux==0 and aux_sid==0 and unit.find('CountOfTradeUnits') is not None and unit.find('ItemQuantity') is not None:
+            cant = float(unit.find('CountOfTradeUnits').text)
+            for i in range(len(summary_items)):
+                if summary_items[i]['sid']==serial:
+                    product_code = summary_items[i]['product_code']
+                    level = int(summary_items[i]['level'])
+                    product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code)])
+                    if product_ids:
+                        product_id = product_ids[0]
+                    else:
+                        product_id = self.alta_product(cr, uid, ids, product_code)
+                    break
+            move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial, tracking_id, cant)   
         return False
 
     
