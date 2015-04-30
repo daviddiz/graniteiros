@@ -75,6 +75,7 @@ class iso_traza_acta(osv.osv):
     _description='Acta de Consumo'
     _columns={
         'name': fields.char("Nombre", size=65, select=True),
+        'num_acta': fields.char("Número de Acta", size=65, select=True),
         'date': fields.date('Fecha', required=True, select=True),
         'artillero_id': fields.many2one('iso.traza.artillero', 'Artillero', help='Responsable de utilización - Artillero'),
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', help='Responsable explotación, encargado del libro de registro y usuario del programa'),
@@ -82,6 +83,7 @@ class iso_traza_acta(osv.osv):
         #'obra': fields.char("Derecho Minero/Obra", size=265),
         'obra_id': fields.many2one('stock.location', 'Obra', domain = [('obra','=',True)]),
         'moves_ids': fields.one2many('stock.move', 'acta_id', "Movimientos"),
+        'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', ondelete='cascade', help='Director facultativo'),
     }
     
     _defaults = {

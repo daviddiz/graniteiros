@@ -157,6 +157,9 @@
 		            <xpath expr="/form/notebook/page/field/tree/field[@name='product_id']" position="before">
 		                <field name="serial"/>
 		            </xpath>
+		            <xpath expr="/form/notebook/page/field/tree/field[@name='state']" position="before">
+		                <field name="date"/>
+		            </xpath>
 		            <!-- we need to have the "name" field in the tree view, because it is a required field that is set by the on_change on product_id... otherwise we get an error message when adding a new move line via the editable tree view -->
 		            <xpath expr="/form/notebook/page/field/tree/field[@name='product_id']" position="after">
 		                <field name="name" invisible="1"/>
@@ -255,9 +258,30 @@
                 <xpath expr="/form/group/button[@name='%(stock.split_into)d']" position="replace"/>
                 <xpath expr="/form/group/field[@name='prodlot_id']" position="replace"/>
                 <xpath expr="/form/group/field[@name='address_id']" position="replace"/>
+                <xpath expr="/form/group/field[@name='create_date']" position="replace"/>
+                <xpath expr="/form/group/field[@name='date_expected']" position="replace"/>
+                <xpath expr="/form/group/field[@name='date']" position="replace"/>
                 <xpath expr="/form/group/button[@name='%(stock.track_line)d']" position="replace"/>
+                <xpath expr="/form/group/field[@name='picking_id']" position="replace"/>
+                <xpath expr="/form/group/field[@name='tracking_id']" position="replace"/>
+                <xpath expr="/form/group/separator[@string='Move Information']" position="replace"/>
+                <xpath expr="/form/group/separator[@string='Dates']" position="replace"/>
+                <xpath expr="/form/group/separator[@string='Picking']" position="replace"/>
+                <xpath expr="/form/group/separator[@string='Traceability']" position="replace"/>
+                <xpath expr="/form/group/field[@name='name']" position="attributes">
+	                <attribute name="invisible">1</attribute>
+	            </xpath>
                 <xpath expr="/form/group/field[@name='location_id']" position="before">
 	                <field name="serial"/>
+	            </xpath>
+	            <xpath expr="/form/field[@name='state']" position="before">
+	                <field name="date"/>
+	            </xpath>
+	            <xpath expr="/form/field[@name='state']" position="before">
+	                <field name="picking_id"/>
+	            </xpath>
+	            <xpath expr="/form/field[@name='state']" position="before">
+	                <field name="tracking_id"/>
 	            </xpath>
             </field>
         </record>
@@ -468,44 +492,50 @@
                     <group colspan="4" col="4">
                         <field name="name" string="Nombre"/>
 	                    <field name="date" string="Fecha"/>
+	                    <field name="obra_id" string="Obra"/>
+	                    <field name="num_acta" string="Número de Acta"/>
 	                    <field name="artillero_id" string="Artillero"/>
 	                    <field name="resp_explot_id" string="Responsable explotación"/>
 	                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
-	                    <field name="obra_id" string="Obra"/>
+	                    <field name="dir_facul_id" string="Director Facultativo"/>
 	                    <field colspan="4" name="moves_ids" nolabel="1" widget="one2many_list">
                                 <tree string="Movimientos">
 				                    <field name="product_id" string="Producto"/>
-				                    <!-- <field name="serial" string="Código producto"/> -->
+				                    <field name="serial" string="Número de dentificación"/>
 				                    <field name="product_qty" string="Cantidad recibida"/>
 				                    <field name="product_uom" string="Unidad"/>
 				                    <field name="date" string="Fecha recepción"/>
-				                    <field name="picking_id" string="Guía de circulación"/>
+				                    <field name="location_id"/>
+			                        <field name="location_dest_id"/>
+			                        <field name="tracking_id"/>
+				                    <!-- <field name="picking_id" string="Guía de circulación"/>
 				                    <field name="partner_id" string="Proveedor"/>
 				                    <field name="num_catalog" string="Número catalogación"/>
 				                    <field name="artillero_id" string="Artillero"/>
 				                    <field name="resp_explot_id" string="Responsable explotación"/>
 				                    <field name="dir_facul_id" string="Director facultativo"/>
-				                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
+				                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/> -->
                                 </tree>
                                 <form string="Movimiento">
 				                    <group colspan="4" col="4">
 				                        <field name="product_id"/>
-				                        <!-- <field name="serial" string="Código producto"/> -->
+				                        <field name="serial" string="Número de dentificación"/>
 				                        <field name="product_qty"/>
 				                        <field name="product_uom" string="Unidad"/>
-				                        <newline/>
+				                        <!-- <newline/>
 				                        <separator colspan="4" string="Información de la Guía"/>
-				                        <field name="picking_id" string="Guía de circulación"/>
+				                        <field name="picking_id" string="Guía de circulación"/> -->
 				                        <field name="date"/>
-				                    	<field name="partner_id" string="Proveedor"/>
+				                    	<!-- <field name="partner_id" string="Proveedor"/>
 				                    	<field name="num_catalog" string="Número catalogación"/>
 				                    	<separator colspan="4" string="Otros Datos"/>
 					                    <field name="artillero_id" string="Artillero"/>
 					                    <field name="resp_explot_id" string="Responsable explotación"/>
 					                    <field name="dir_facul_id" string="Director facultativo"/>
-					                    <field name="consum_hab_id" string="Consumidor explosivos"/>
-				                        <field name="location_id" invisible="1"/>
-				                        <field name="location_dest_id" invisible="1"/>
+					                    <field name="consum_hab_id" string="Consumidor explosivos"/> -->
+				                        <field name="location_id"/>
+				                        <field name="location_dest_id"/>
+				                        <field name="tracking_id"/>
 				                        <field name="name" string="Reason" invisible="1"/>
 					                </group>
                                 </form>
