@@ -1,0 +1,30 @@
+<openerp>
+    <data>
+
+        <record id="iso_traza_albaran_to_acta_view" model="ir.ui.view">
+            <field name="name">iso.traza.albaran.to.acta.form</field>
+            <field name="model">iso.traza.albaran.to.acta</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	            <form string="Crear Acta a partir de Albarán">
+	                <field name="date" attrs="{'readonly':[('filter', '!=', 'filter_date')], 'required':[('filter', '=', 'filter_date')]}" colspan="4"/>
+                    <field name="artillero_id" colspan="4"/>
+                    <field name="obra_id" colspan="4"/>
+                    <separator colspan="4"/>
+                    <group colspan="4" col="4">
+                        <button icon="gtk-cancel" special="cancel" string="Cerrar" colspan="2"/>
+                        <button icon="terp-camera_test" string="Crear Acta" name="albaran_to_acta" type="object" default_focus="1" colspan="2"/>
+                   </group>
+	            </form>
+            </field>
+        </record>
+
+        <act_window id="action_iso_traza_albaran_to_acta"
+            name="Crear Actas a partir de Albaranes"
+            res_model="iso.traza.albaran.to.acta"
+            src_model="stock.picking"
+            key2="client_action_multi"
+            view_mode="form" target="new" view_type="form"/>
+
+    </data>
+</openerp>

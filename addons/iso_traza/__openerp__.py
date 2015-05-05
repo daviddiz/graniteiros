@@ -44,6 +44,7 @@
                    'wizard/iso_traza_import_picking.xml',
                    'wizard/iso_traza_import_products.xml',
                    'wizard/iso_traza_import_products_epc.xml',
+                   'wizard/iso_traza_albaran_to_acta_view.xml',
                    ],
     'demo_xml': [],
     'installable': True,
