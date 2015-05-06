@@ -50,15 +50,12 @@ class iso_traza_albaran_to_acta(osv.osv_memory):
         if not d or not artillero or not obra:
             return False
         
-        d_from = d + ' 00:00:00'
-        d_from = datetime.strptime(d_from, '%Y-%m-%d %H:%M:%S')
-        
-        d_to = d + ' 23:59:59'
-        d_to = datetime.strptime(d_to, '%Y-%m-%d %H:%M:%S')
+        d = datetime.strptime(d, '%Y-%m-%d')
         
         albaranes = context['active_ids']
         albaran_obj = self.pool.get('stock.picking')
         move_obj = self.pool.get('stock.move')
+        actas = []
  
         for albaran in albaranes:
             albaran_data = albaran_obj.browse(cr, uid, albaran, context=context)
@@ -74,6 +71,7 @@ class iso_traza_albaran_to_acta(osv.osv_memory):
                 "dir_facul_id": albaran_data.dir_facul_id,
             }
             acta_id = self.pool.get('iso.traza.acta').create(cr,uid,vals,context)
+            actas.append(acta_id)
             albaran_moves_ids = move_obj.search(cr, uid, [('picking_id', '=', albaran)])
             for albaran_move_id in albaran_moves_ids:
                 albaran_move_data = move_obj.browse(cr, uid, albaran_move_id, context=context)
@@ -81,13 +79,34 @@ class iso_traza_albaran_to_acta(osv.osv_memory):
                     "date": d.strftime('%Y-%m-%d'),
                     "date_expected": d.strftime('%Y-%m-%d'),
                     "artillero_id": artillero,
-                    "obra_id": obra,
-                    "consum_hab_id": albaran_data.consum_hab_id,
-                    "resp_explot_id": albaran_data.resp_explot_id,
-                    "dir_facul_id": albaran_data.dir_facul_id,
+                    "location_dest_id": obra,
+                    "location_id": albaran_move_data.location_dest_id.id,
+                    "consum_hab_id": albaran_move_data.consum_hab_id,
+                    "resp_explot_id": albaran_move_data.resp_explot_id,
+                    "dir_facul_id": albaran_move_data.dir_facul_id,
+                    "name": albaran_move_data.name,
+                    "serial": albaran_move_data.serial,
+                    "state": "draft",
+                    "priority": "1",
+                    "company_id": 1,
+                    "acta_id": acta_id,
+                    "tracking_id": albaran_move_data.tracking_id.id,
+                    "auto_validate": False,
+                    "product_id": albaran_move_data.product_id.id,
+                    "product_qty": albaran_move_data.product_qty,
+                    "product_uos_qty": albaran_move_data.product_uos_qty,
+                    "product_uom": albaran_move_data.product_uom.id,
                 }
+                new_move_id = self.pool.get('stock.move').create(cr,uid,vals_move,context)
             
-        return {'type': 'ir.actions.act_window_close'}
+        return {
+            'domain': "[('id','in', %s)]" % (actas),
+            'name': 'Actas de Consumo',
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'iso.traza.acta',
+            'type': 'ir.actions.act_window',
+            }
 
 iso_traza_albaran_to_acta()
 
