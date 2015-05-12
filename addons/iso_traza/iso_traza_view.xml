@@ -757,6 +757,9 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <xpath expr="/tree/field[@name='prodlot_id']" position="replace"/>
+                <xpath expr="/tree/field[@name='quantity']" position="replace">
+                     <field name="quantity" digits="(14, 3)"/>
+                </xpath>
             </field>
         </record>
         
@@ -767,6 +770,9 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <xpath expr="/tree/field[@name='prodlot_id']" position="replace"/>
+                <xpath expr="/tree/field[@name='quantity']" position="replace">
+                     <field name="quantity" digits="(14, 3)"/>
+                </xpath>
             </field>
         </record>   
         
@@ -777,6 +783,9 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <xpath expr="/tree/field[@name='prodlot_id']" position="replace"/>
+                <xpath expr="/tree/field[@name='quantity']" position="replace">
+                     <field name="quantity" digits="(14, 3)"/>
+                </xpath>
             </field>
         </record>
         
@@ -787,6 +796,9 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <xpath expr="/tree/field[@name='prodlot_id']" position="replace"/>
+                <xpath expr="/tree/field[@name='quantity']" position="replace">
+                     <field name="quantity" digits="(14, 3)"/>
+                </xpath>
             </field>
         </record>
         
