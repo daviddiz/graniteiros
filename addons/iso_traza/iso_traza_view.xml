@@ -172,6 +172,19 @@
 		            <xpath expr="/form/notebook/page[@string='Additional Info']" position="attributes">
 		                <attribute name="invisible">1</attribute>
 		            </xpath>
+		            <xpath expr="/form/group/field[@name='artillero_id']" position="after">
+	                	<field name="location_dest_id" string="Polvorín/Almacén/Stock" domain="[('polvorin', '=', True)]"/>
+		            </xpath>
+		            <xpath expr="/form/notebook" position="before">
+		                <group  colspan="2" col="2">
+	                		<button name="polvorin_to_moves" states="draft" string="Asignar el anterior polvorín/almacén/stock a todos los movimientos" type="object" icon="gtk-media-play"/>
+	                	</group>
+		            </xpath>
+		            <xpath expr="/form/notebook" position="before">
+		                <group  colspan="2" col="2">
+	                		<button name="date_to_moves" states="draft" string="Asignar la fecha del albarán a todos los movimientos" type="object" icon="gtk-media-play"/>
+	                	</group>
+		            </xpath>
 		        </data>
 	        </field>
 	    </record>

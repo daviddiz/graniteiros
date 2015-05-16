@@ -90,45 +90,45 @@ class iso_traza_acta(osv.osv):
         'name': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'iso.traza.acta'),
     }
     
-    def add_move_in_from_app(self, cr, uid, id, moves, polvorin, context=None):
-        move_obj = self.pool.get('stock.move')
-        tracking_obj = self.pool.get('stock.tracking')
-        acta_data = self.browse(cr, uid, id, context=context)
-        for move_code in moves:
-            m = move_obj.search(cr, uid, [('serial', '=', move_code)])
-            t = tracking_obj.search(cr, uid, [('serial', '=', move_code)])
-            if m:
-                #alta de un solo movimiento de salida
-            elif t:
-                #alta de todos los movimientos del paquete
-                #si no existen movimientos daré de alta un movimiento sin producto con el paquete
-            else:
-                #alta de movimiento con producto no existente
-                
-        product_ref = data.split()[1]
-        serial = data.split()[0]
-        product_obj = self.pool.get('product.product')
-        tracking_obj = self.pool.get('stock.tracking')
-        move_obj = self.pool.get('stock.move')
-        product_ids = product_obj.search(cr, uid, [('default_code', '=', product_ref)])
-        product_name = product_obj.browse(cr, uid, product_ids[0], context=context).name_template
-               
-        datetime_now = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-        new_tracking_id = tracking_obj.create(cr, uid, vals = {
-                    'active': True,
-                    'serial': serial,
-                    'date': datetime_now,
-                    'name': serial}, context = context)
-        new_move_id = move_obj.create(cr, uid, vals = {
-                    'location_id': 8,
-                    'location_dest_id': 12,
-                    'product_id': product_ids[0],
-                    'product_uom': 1,
-                    'product_uos_qty': 1,
-                    'product_qty': 1,
-                    'name': product_name,
-                    'tracking_id': new_tracking_id}, context = context)
-        return False
+#     def add_move_in_from_app(self, cr, uid, id, moves, polvorin, context=None):
+#         move_obj = self.pool.get('stock.move')
+#         tracking_obj = self.pool.get('stock.tracking')
+#         acta_data = self.browse(cr, uid, id, context=context)
+#         for move_code in moves:
+#             m = move_obj.search(cr, uid, [('serial', '=', move_code)])
+#             t = tracking_obj.search(cr, uid, [('serial', '=', move_code)])
+#             if m:
+#                 #alta de un solo movimiento de salida
+#             elif t:
+#                 #alta de todos los movimientos del paquete
+#                 #si no existen movimientos daré de alta un movimiento sin producto con el paquete
+#             else:
+#                 #alta de movimiento con producto no existente
+#                 
+#         product_ref = data.split()[1]
+#         serial = data.split()[0]
+#         product_obj = self.pool.get('product.product')
+#         tracking_obj = self.pool.get('stock.tracking')
+#         move_obj = self.pool.get('stock.move')
+#         product_ids = product_obj.search(cr, uid, [('default_code', '=', product_ref)])
+#         product_name = product_obj.browse(cr, uid, product_ids[0], context=context).name_template
+#                
+#         datetime_now = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+#         new_tracking_id = tracking_obj.create(cr, uid, vals = {
+#                     'active': True,
+#                     'serial': serial,
+#                     'date': datetime_now,
+#                     'name': serial}, context = context)
+#         new_move_id = move_obj.create(cr, uid, vals = {
+#                     'location_id': 8,
+#                     'location_dest_id': 12,
+#                     'product_id': product_ids[0],
+#                     'product_uom': 1,
+#                     'product_uos_qty': 1,
+#                     'product_qty': 1,
+#                     'name': product_name,
+#                     'tracking_id': new_tracking_id}, context = context)
+#         return False
     
 iso_traza_acta()
 
@@ -163,6 +163,26 @@ class stock_picking(osv.osv):
         'num_catalog': fields.char('Número de catalogación', size=25),                
         'consum_hab_id' : fields.many2one('res.partner', 'Consumidor habitual de explosivos', ondelete='cascade', help="Consumidor habitual de explosivos"),
                 }
+    
+    def date_to_moves(self, cr, uid, ids, context=None):
+        """ Changes move date
+        """
+        move_obj = self.pool.get('stock.move')
+        date = self.browse(cr, uid, ids[0], context=context).date
+        moves = self.browse(cr, uid, ids[0], context=context).move_lines
+        for move in moves:
+            move_obj.write(cr, uid, move.id, {'date':date, 'create_date':date, 'date_expected':date}, context=context)
+        return True
+    
+    def polvorin_to_moves(self, cr, uid, ids, context=None):
+        """ Changes location_dest_id
+        """
+        move_obj = self.pool.get('stock.move')
+        location_dest_id = self.browse(cr, uid, ids[0], context=context).location_dest_id
+        moves = self.browse(cr, uid, ids[0], context=context).move_lines
+        for move in moves:
+            move_obj.write(cr, uid, move.id, {'location_dest_id':location_dest_id.id}, context=context)
+        return True
     
 #     def create(self, cr, uid, vals, context={}):
 #         vals.update({'type': 'in'})
