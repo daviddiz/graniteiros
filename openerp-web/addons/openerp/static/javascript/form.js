@@ -69,7 +69,13 @@ function openRecord(id, src, target, readonly){
 
     if (kind == 'many2many') {
         args['source'] = src;
-        jQuery.frame_dialog({src:openobject.http.getURL(get_form_action('/openerp/openm2m/edit', args))});
+        jQuery.frame_dialog({
+                src: openobject.http.getURL(get_form_action('/openerp/openm2m/edit', args))
+            }, {}, {
+                width: '70%',
+                height: '90%',
+                max_height: 700
+            });
         return;
     }
 
@@ -187,11 +193,11 @@ function error_display(msg) {
                     jQuery("<tr>").append(
                         jQuery("<td>", {'colspan': 2, align: 'right'}).append(
                             jQuery("<a>", {'class': 'button-a', 'href': 'javascript: void(0)'})
-                            .click(function(){jQuery.fancybox.close();})
+                            .click(function(){window.top.jQuery.fancybox.close();})
                             .text('OK')
                         )
                 ));
-    jQuery.fancybox(error, {scrolling: 'no'});
+    window.top.jQuery.fancybox(error, {scrolling: 'no'});
 }
 
 
@@ -301,13 +307,26 @@ function onBooleanClicked(name){
  * readonly fields (default: excludes disabled fields and fields with
  * readonly="True"
  */
-function getFormData(extended, include_readonly) {
+function getFormData(extended, include_readonly, source) {
 
     var parentNode = openobject.dom.get('_terp_list') || document.forms['view_form'];
 
     var frm = {};
+    var prefix = '';
+    if (source) {
+        var source_paths = source.split('/')
+        while (source_paths.length > 0) {
+            var sp = source_paths.join('/')+'/_terp_editable';
+            if (jQuery(idSelector(sp)).length > 0) {
+                prefix = source_paths.join('/') + '/'; 
+                break;
+            }
+            source_paths = source_paths.slice(0, source_paths.length - 1);
+        }
+    }
 
-    var is_editable = jQuery('#_terp_editable').val() == 'True';
+    var editable = jQuery(idSelector(prefix+'_terp_editable')).val();
+    var is_editable = (editable == 'True' || editable == '1') ? true : false;
 
     var $fields = jQuery(parentNode).find('img[kind=picture]');
     if (is_editable) {
@@ -644,6 +663,7 @@ function onChange(caller){
                         $(idSelector(fld_name+'/_terp_ids')).val(fld_val || '[]');
                         jQuery.ajax({
                             url: '/openerp/listgrid/get_m2m',
+                            async: false,
                             data: {
                                 'name': fld_name,
                                 'model': jQuery(fld).attr('relation'),
@@ -745,7 +765,7 @@ function eval_domain_context_request(options){
     if (prefix[0] == '_terp_listfields') {
         prefix.shift();
     }
-    var params = jQuery.extend(getFormData(1, true), {
+    var params = jQuery.extend(getFormData(1, true, options.source), {
         '_terp_domain': options.domain,
         '_terp_context': options.context,
         '_terp_prefix': prefix.join('/'),
@@ -1305,11 +1325,17 @@ function validateForm(){
 
 function validate_action() {
     var $form = jQuery('#view_form');
-    if ($form.data('is_form_changed')
-        && !confirm(_('Warning, the record has been modified,\nyour changes will be discarded.'))) {
-        return false;
+    if ($form.data('is_form_changed')) {
+        if (!confirm(_('Warning, the record has been modified,\nyour changes will be discarded.'))) {
+            return false;
+        } else {
+            // user accept to discard changes:
+            // - mark view as unchanged
+            // - disable all binary fields so that jQuery does not try to send them
+            $form.removeData('is_form_changed');
+            $form.find('input:file:enabled[value]').attr('disabled', 'disabled');
+        }
     }
-    $form.removeData('is_form_changed');
     if (arguments.length) {
         var params = arguments[0];
         var action = arguments[1];

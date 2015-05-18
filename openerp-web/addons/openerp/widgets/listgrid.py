@@ -253,6 +253,12 @@ class List(TinyWidget):
             else:
                 self.count = proxy.search_count(search_param, context)
 
+        if not default_data and self.m2m and not self.view_using_sum_attrs(root):
+            # for many2many we limits 'ids' to be readed only when view is not
+            # using sum, otherwise we need to get all 'ids' to compute sums correctly
+            if ids and self.limit not in (0, -1):
+                ids = self.ids[self.offset:self.offset+self.limit]
+
         self.data_dict = {}
         data = []
 
@@ -281,7 +287,10 @@ class List(TinyWidget):
             for item in data:
                 self.data_dict[item['id']] = item.copy()
 
-            self.ids = ids
+            if not self.m2m:
+                # update active 'ids' except for many2many which need to get
+                # all known ids for update to work correctly
+                self.ids = ids
         elif kw.get('default_data', []):
             data = kw['default_data']
 
@@ -381,43 +390,22 @@ class List(TinyWidget):
                         values[field] = value
                     elif operator == 'in' and len(value) == 1:
                         values[field] = value[0]
-                        
-            #call on_change methods
-            headers_index = dict([(item[0], item[1]) for item in self.headers])
-            to_check = values.keys()
-            for field_name in to_check:
-                if not field_name in headers_index:
-                    continue
-                props = headers_index[field_name]
-                if not "on_change" in props:
-                    continue
-                on_change_method = props["on_change"]
-                
-                match = re.match('^(.*?)\((.*)\)$', on_change_method)
-                if not match:
-                    raise common.error(_('Application Error'), _('Wrong on_change trigger'))
-                func_name = match.group(1)
-                arg_names = [n.strip() for n in match.group(2).split(',')]
-                
-                args = [values[arg] if arg in values else False for arg in arg_names]
-                
-                proxy = rpc.RPCProxy(self.model)
-                response = getattr(proxy, func_name)([], *args)
-                if response is False:
-                    response = {}
-                if 'value' not in response:
-                    response['value'] = {}
-                
-                new_values = response["value"]
-                for k, v in new_values.items():
-                    if v not in values or values[k] != v:
-                        values[k] = v
 
         for f in fields:
             if f in values:
                 self.editors[f].set_value(values[f])
 
         return super(List, self).display(value, **params)
+
+    def view_using_sum_attrs(self, root):
+        """ detect if supplied view is using <field sum=""/>
+
+        @return: True/False
+        """
+        for node in root.childNodes:
+            if node.nodeName == 'field' and 'attrs' in node_attributes(node):
+                return True
+        return False
 
     def parse(self, root, fields, data=[]):
         """Parse the given node to generate valid list headers.

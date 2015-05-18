@@ -191,11 +191,11 @@ class browse_record(object):
             # if the field is a classic one or a many2one, we'll fetch all classic and many2one fields
             if col._prefetch:
                 # gen the list of "local" (ie not inherited) fields which are classic or many2one
-                fields_to_fetch = filter(lambda x: x[1]._classic_write, self._table._columns.items())
+                fields_to_fetch = filter(lambda x: x[1]._classic_write and x[1]._prefetch, self._table._columns.items())
                 # gen the list of inherited fields
                 inherits = map(lambda x: (x[0], x[1][2]), self._table._inherit_fields.items())
                 # complete the field list with the inherited fields which are classic or many2one
-                fields_to_fetch += filter(lambda x: x[1]._classic_write, inherits)
+                fields_to_fetch += filter(lambda x: x[1]._classic_write and x[1]._prefetch, inherits)
             # otherwise we fetch only that field
             else:
                 fields_to_fetch = [(name, col)]
@@ -879,7 +879,7 @@ class orm_template(object):
                      current_module, res, mode=mode, xml_id=xml_id,
                      noupdate=noupdate, res_id=res_id, context=context)
             except Exception, e:
-                return (-1, res, 'Line ' + str(position) +' : ' + str(e), '')
+                return (-1, res, 'Line ' + str(position) +' : ' + tools.ustr(e), '')
 
             if config.get('import_partial', False) and filename and (not (position%100)):
                 data = pickle.load(file(config.get('import_partial')))
@@ -3256,12 +3256,18 @@ class orm(orm_template):
 
         self.pool.get('ir.model.access').check(cr, uid, self._name, 'unlink', context=context)
 
-        properties = self.pool.get('ir.property')
+        ir_property = self.pool.get('ir.property')
+
+        # Check if the records are used as default properties.
         domain = [('res_id', '=', False),
                   ('value_reference', 'in', ['%s,%s' % (self._name, i) for i in ids]),
                  ]
-        if properties.search(cr, uid, domain, context=context):
+        if ir_property.search(cr, uid, domain, context=context):
             raise except_orm(_('Error'), _('Unable to delete this document because it is used as a default property'))
+
+        # Delete the records' properties.
+        property_ids = ir_property.search(cr, uid, [('res_id', 'in', ['%s,%s' % (self._name, i) for i in ids])], context=context)
+        ir_property.unlink(cr, uid, property_ids, context=context)
 
         wf_service = netsvc.LocalService("workflow")
         for oid in ids:
@@ -4011,7 +4017,7 @@ class orm(orm_template):
                 order_direction = order_split[1].strip() if len(order_split) == 2 else ''
                 inner_clause = None
                 if order_field == 'id':
-                    order_by_clause = '"%s"."%s"' % (self._table, order_field)
+                    inner_clause = '"%s"."%s"' % (self._table, order_field)
                 elif order_field in self._columns:
                     order_column = self._columns[order_field]
                     if order_column._classic_read:

@@ -47,6 +47,12 @@ version = release.version
                         <li class="first last"><a href="${py.url('/openerp')}" target="_top">${_("Home")}</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="${py.url('/openerp/requests')}" class="req_messages"><small>${total_request}</small></a>
+                    <ul>
+                        <li class="first last"><a href="${py.url('/openerp/requests')}">${_("Requests")}</a></li>
+                    </ul>
+                </li>
 
                 <li class="preferences">
                     <a href="${py.url('/openerp/pref/create')}"
@@ -56,7 +62,29 @@ version = release.version
                                                   target="_blank">${_("Edit Preferences")}</a></li>
                     </ul>
                 </li>
-                
+                <li><a href="${py.url('/', next='/openerp/about')}"
+                       target="_top" class="info">${_("About")}</a>
+                    <ul>
+                        <li class="first last"><a href="${py.url('/', next='/openerp/about')}"
+                                                  target="_top">${_("About")}</a></li>
+                    </ul>
+                </li>
+
+                <li><a target="_blank" href="http://doc.openerp.com/v6.0/book?version=${version}" class="help">${_("Help")}</a>
+                    <ul>
+                        <li class="first last"><a target="_blank" href="http://doc.openerp.com/v6.0/book?version={version}">${_("Help")}</a></li>
+                    </ul>
+                </li>
+
+                % if cp.config('server.environment') == 'production':
+                    <li id="clear_cache"><a href="${py.url('/openerp/pref/clear_cache')}"
+                                            class="clear_cache" target="_top">${_("Clear Cache")}</a>
+                        <ul>
+                            <li class="first last"><a href="${py.url('/openerp/pref/clear_cache')}"
+                                                      target="_top">${_("Clear Cache")}</a></li>
+                        </ul>
+                    </li>
+                % endif
             </ul>
             <p class="logout"><a href="${py.url('/openerp/logout')}" target="_top">${_("Logout")}</a></p>
         </div>

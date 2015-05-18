@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//addons/account/account.py=utf-8
+encoding//addons/iso_traza/__openerp__.py=utf-8
+encoding//addons/iso_traza/iso_traza.py=utf-8
+encoding//addons/iso_traza/wizard/__init__.py=utf-8
+encoding//addons/iso_traza/wizard/iso_traza_acta_new.py=utf-8
+encoding//addons/iso_traza/wizard/iso_traza_albaran_to_acta.py=utf-8
+encoding//addons/iso_traza/wizard/iso_traza_import_picking.py=utf-8
+encoding//addons/stock/wizard/stock_partial_move.py=utf-8
+encoding//addons/stock/wizard/stock_partial_picking.py=utf-8
+encoding//openerp-server/bin/osv/orm.py=utf-8
+encoding//openerp-server/bin/osv/osv.py=utf-8

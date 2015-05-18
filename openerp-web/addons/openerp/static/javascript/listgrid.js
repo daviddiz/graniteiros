@@ -254,9 +254,7 @@ MochiKit.Base.update(ListView.prototype, {
             // get listview selectable value, so we know if we are in
             // simple or multiple selection mode
             var selectable = openobject.dom.get('_terp_selectable');
-            if (selectable) {
-                selectable = selectable.value
-            }
+            selectable = selectable ? selectable.value : undefined;
             jQuery.ajax({
                 url: '/openerp/listgrid/multiple_groupby',
                 type: 'POST',
@@ -752,6 +750,8 @@ MochiKit.Base.update(ListView.prototype, {
 
         var current_id = edit_inline ? (parseInt(edit_inline) || 0) : edit_inline;
         var prefix = this.name == '_terp_list' ? '' : this.name + '/';
+        var names = this.name.split('/');
+        var parent_prefix = names.length < 2 ? '' : names.slice(0, names.length - 1).join('/') + '/';
 
         var args = jQuery.extend(this.makeArgs(), {
             _terp_source: this.name,
@@ -766,7 +766,17 @@ MochiKit.Base.update(ListView.prototype, {
             jQuery.extend(args, {
                 _terp_search_domain: openobject.dom.get('_terp_search_domain').value,
                 _terp_search_data: openobject.dom.get('_terp_search_data').value,
-                _terp_filter_domain: openobject.dom.get('_terp_filter_domain').value
+                _terp_filter_domain: openobject.dom.get('_terp_filter_domain').value,
+                _terp_context: openobject.dom.get(prefix + '_terp_context').value,
+                _terp_domain: openobject.dom.get(prefix + '_terp_domain').value
+            });
+        } else {
+            jQuery.extend(args, {
+                _terp_search_domain: "[]",
+                _terp_search_data: "{}",
+                _terp_filter_domain: "[]",
+                _terp_context: openobject.dom.get(parent_prefix + "_terp_context").value,
+                _terp_domain: openobject.dom.get(parent_prefix + "_terp_domain").value
             });
         }
 
@@ -843,7 +853,12 @@ MochiKit.Base.update(ListView.prototype, {
                     $editors.each(function () {
                         var $this = jQuery(this);
                         if ($this.val() && $this.attr('callback')) {
-                            MochiKit.Signal.signal(this, 'onchange');
+                            if (($this.attr('kind') == 'many2one' && $this.attr('id').slice($this.attr('id').length - 5) == '_text')
+				|| ($this.attr('kind') == 'many2many' && $this.attr('id').slice($this.attr('id').length - 4) == '_set')) {
+                                // skip many2x 'text' element, onchange will be triggered from real many2x field
+                                return;
+                            }
+                            $this.trigger('change');
                         }
                     });
                 }

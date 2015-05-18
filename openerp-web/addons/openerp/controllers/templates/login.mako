@@ -81,7 +81,7 @@
                 <div style="margin-top: 10px">
                     <table cellpadding="0" cellspacing="0" width="100%" style="border:none;">
                         <tr>
-                            <td style="padding-left:0;"><h3></h3></td>
+                            <td style="padding-left:0;"><h3> ${_("Top Contributor:")}</h3></td>
                         </tr>
                         <tr>
                             <td style="padding-left:0;"><img src="/openerp/static/images/axelor_logo.png"/></td>
@@ -91,32 +91,35 @@
             </td>
 
             <td style="padding:55px 35px 5px 10px; min-width: 200px;" valign="top">
-                <p></p>
-                <h3></h3>
+                <p>${_("We think that daily job activities can be more intuitive, efficient, automated, .. and even fun.")}</p>
+                <h3>${_("OpenERP's vision to be:")}</h3>
 
                 <table cellpadding="0" cellspacing="0" width="100%" style="border:none;">
                     <tr>
-                        <td >
-                            
+                        <td class="feature-image">
+                            <img src="/openerp/static/images/icons/product.png"/>
                         </td>
-                        <td >
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td >
-                            
-                        </td>
-                        <td >
-                            
+                        <td class="feature-description">
+                            <strong>${_("Full featured")}</strong><br/>
+                            ${_("Today's enterprise challenges are multiple. We provide one module for each need.")}
                         </td>
                     </tr>
                     <tr>
-                        <td >
-                            
+                        <td class="feature-image">
+                            <img src="/openerp/static/images/icons/accessories-archiver.png"/>
                         </td>
-                        <td >
-                            
+                        <td class="feature-description">
+                            <strong>${_("Open Source")}</strong><br/>
+                            ${_("To Build a great product, we rely on the knowledge of thousands of contributors.")}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="feature-image">
+                            <img src="/openerp/static/images/icons/partner.png"/>
+                        </td>
+                        <td class="feature-description">
+                            <strong>${_("User Friendly")}</strong><br/>
+                            ${_("In order to be productive, people need clean and easy to use interface.")}
                         </td>
                     </tr>
                 </table>
