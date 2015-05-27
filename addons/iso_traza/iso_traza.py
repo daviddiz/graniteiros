@@ -211,6 +211,23 @@ class iso_traza_acta(osv.osv):
             return True
         else:
             return False
+        
+    def regenerar_acta(self, cr, uid, id, context=None):
+        move_obj = self.pool.get('stock.move')
+        acta_moves = move_obj.search(cr, uid, [('acta_id', '=', id)], context=context)
+        for acta_move in acta_moves:
+            product_id = move_obj.browse(cr, uid, acta_move, context=context).product_id.id
+            name_template = self.pool.get('product.product').browse(cr, uid, product_id, context=context).name
+            if name_template == "producto no existente":
+                move_old_data = move_obj.browse(cr, uid, acta_move, context=context)
+                serial_old = move_old_data.serial
+                location_id_old = move_old_data.location_id.id
+                tracking_id_old = move_old_data.tracking_id.id
+                product_id_old = move_old_data.product_id.id
+                product_uom_old = move_old_data.product_uom.id
+                product_qty_old = move_old_data.product_qty
+                move_in = move_obj.search(cr, uid, [('serial', '=', serial_old),('picking_id', '=', serial_old)], context=context)
+                
     
 iso_traza_acta()
 
