@@ -188,6 +188,7 @@
 		            <xpath expr="/form/notebook/page/group/button[@name='action_process']" position="after">
                     	<button name="action_reopen" type="object" states="done,cancel,assigned,confirmed" string="Reabrir" icon="gtk-convert"/>
                 	</xpath>
+                	<xpath expr="/form/notebook/page/group/button[@name='draft_force_assign']" position="replace"/>
 		        </data>
 	        </field>
 	    </record>
@@ -529,6 +530,7 @@
 				            <field name="location_id"/>
 			                <field name="location_dest_id"/>
 			                <field name="tracking_id"/>
+			                <field name="state"/>
                         </tree>
                         <form string="Movimiento">
 				            <group colspan="4" col="4">
@@ -540,11 +542,16 @@
 				                <field name="location_id"/>
 				                <field name="location_dest_id"/>
 				                <field name="tracking_id"/>
+				                <field name="state"/>
 				                <field name="name" string="Reason" invisible="1"/>
 					        </group>
                         </form>
                     </field>
-                    <button name="regenerar_acta" string="Regenerar Acta para buscar productos no existentes" type="object" icon="gtk-media-play"/>
+                    <!-- <button name="action_reopen" string="Regenerar Acta para buscar productos no existentes" type="object" icon="gtk-media-play"/> -->
+                    <group  colspan="4" col="2">
+                    	<button name="action_done_moves" string="Poner como realizados todos los consumos o movimientos de salida" type="object" icon="gtk-media-play"/>
+                    	<button name="regenerar_acta" string="Regenerar Acta para buscar productos no existentes" type="object" icon="gtk-media-play"/>
+                    </group>
                 </form>
             </field>
         </record>

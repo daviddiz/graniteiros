@@ -23,7 +23,7 @@
 
 {
     'name': 'Software de Trazabilidad de Explosivos',
-    'version': '0.14',
+    'version': '0.15',
     'category': 'Stock',
     'description': """Software para la trazabilidad de productos explosivos.""",
     'author': 'David Diz Martínez (daviddiz@gmail.com)',
@@ -46,6 +46,7 @@
                    'wizard/iso_traza_import_products_epc.xml',
                    'wizard/iso_traza_albaran_to_acta_view.xml',
                    'data/iso_traza_data_uom.xml',
+                   'data/iso_traza_data_trad_draft.xml',
                    ],
     'demo_xml': [],
     'installable': True,

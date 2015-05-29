@@ -304,6 +304,24 @@ class iso_traza_acta(osv.osv):
             move_obj.write(cr, uid, move.id, {'location_dest_id':obra_id.id}, context=context)
         return True
     
+    def action_done_moves(self, cr, uid, ids, context=None):
+        move_obj = self.pool.get('stock.move')
+        for acta in self.browse(cr, uid, ids, context=context):
+            ml_ids = []
+            for ml in acta.moves_ids:
+                ml_ids.append(ml.id)
+            move_obj.write(cr, uid, ml_ids, {'state': 'done'})
+        return True
+    
+#     def action_reopen(self, cr, uid, ids, context=None):
+#         move_obj = self.pool.get('stock.move')
+#         for acta in self.browse(cr, uid, ids):
+#             ml_ids = []
+#             for ml in acta.moves_ids:
+#                 ml_ids.append(ml.id)
+#             move_obj.write(cr, uid, ml_ids, {'state':'draft'})
+#         return True
+    
 iso_traza_acta()
 
 class iso_traza_libro(osv.osv):
