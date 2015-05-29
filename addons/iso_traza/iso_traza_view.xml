@@ -158,7 +158,7 @@
 		                <field name="serial"/>
 		            </xpath>
 		            <xpath expr="/form/notebook/page/field/tree/field[@name='state']" position="before">
-		                <field name="date_expected"/>
+		                <field name="date_expected" string="Fecha"/>
 		            </xpath>
 		            <!-- we need to have the "name" field in the tree view, because it is a required field that is set by the on_change on product_id... otherwise we get an error message when adding a new move line via the editable tree view -->
 		            <xpath expr="/form/notebook/page/field/tree/field[@name='product_id']" position="after">
@@ -185,6 +185,9 @@
 	                		<button name="date_to_moves" states="draft" string="Asignar la fecha del albarán a todos los movimientos" type="object" icon="gtk-media-play"/>
 	                	</group>
 		            </xpath>
+		            <xpath expr="/form/notebook/page/group/button[@name='action_process']" position="after">
+                    	<button name="action_reopen" type="object" states="done,cancel,assigned,confirmed" string="Reabrir" icon="gtk-convert"/>
+                	</xpath>
 		        </data>
 	        </field>
 	    </record>

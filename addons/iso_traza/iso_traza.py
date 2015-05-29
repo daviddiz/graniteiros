@@ -22,6 +22,7 @@
 
 from osv import osv, fields
 from datetime import datetime
+import netsvc
 
 class stock_location(osv.osv):
     _inherit = 'stock.location'
@@ -355,6 +356,24 @@ class stock_picking(osv.osv):
         moves = self.browse(cr, uid, ids[0], context=context).move_lines
         for move in moves:
             move_obj.write(cr, uid, move.id, {'location_dest_id':location_dest_id.id}, context=context)
+        return True
+    
+    def action_reopen(self, cr, uid, ids, context=None):
+        move_line_obj = self.pool.get('stock.move')
+        for pick in self.browse(cr, uid, ids):
+            ml_ids = []
+            for ml in pick.move_lines:
+                ml_ids.append(ml.id)
+            move_line_obj.write(cr, uid, ml_ids, {'state':'draft'})
+
+            self.write(cr, uid, pick.id, {'state':'draft'})
+            wf_service = netsvc.LocalService("workflow")
+
+            wf_service.trg_delete(uid, 'stock.picking', pick.id, cr)
+            wf_service.trg_create(uid, 'stock.picking', pick.id, cr)
+
+            self.log_picking(cr, uid, ids, context=context)  
+            
         return True
     
 #     def create(self, cr, uid, vals, context={}):
