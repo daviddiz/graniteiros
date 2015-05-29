@@ -213,21 +213,95 @@ class iso_traza_acta(osv.osv):
             return False
         
     def regenerar_acta(self, cr, uid, id, context=None):
+        obra = self.browse(cr, uid, id[0], context=context).obra_id.id
         move_obj = self.pool.get('stock.move')
-        acta_moves = move_obj.search(cr, uid, [('acta_id', '=', id)], context=context)
+        acta_moves = move_obj.search(cr, uid, [('acta_id', '=', id[0])], context=context)
+        # recorro los movimientos del acta
         for acta_move in acta_moves:
-            product_id = move_obj.browse(cr, uid, acta_move, context=context).product_id.id
-            name_template = self.pool.get('product.product').browse(cr, uid, product_id, context=context).name
-            if name_template == "producto no existente":
-                move_old_data = move_obj.browse(cr, uid, acta_move, context=context)
-                serial_old = move_old_data.serial
-                location_id_old = move_old_data.location_id.id
-                tracking_id_old = move_old_data.tracking_id.id
-                product_id_old = move_old_data.product_id.id
-                product_uom_old = move_old_data.product_uom.id
-                product_qty_old = move_old_data.product_qty
-                move_in = move_obj.search(cr, uid, [('serial', '=', serial_old),('picking_id', '=', serial_old)], context=context)
-                
+            move_data = move_obj.browse(cr, uid, acta_move, context=context)
+            product_id = move_data.product_id.id
+            product_name = self.pool.get('product.product').browse(cr, uid, product_id, context=context).name
+            # miro si el movimiento es de los de producto no existente
+            if product_name == "producto no existente":
+                # el serial del movimiento tiene 3 posibilidades:
+                # 1 que pertenezca a un paquete que sería el caso normal a tratar
+                # 2 que pertenezca a un movimiento existente (no debería ser así)
+                # 3 que no exista ese serial en el programa (no debería ser así)
+                # trataré solamente el primer caso
+                # busco el serial entre los paquetes y creo un movimiento por cada elemento del paquete
+                # posteriormente elimino el movimiento de salida con producto no existente
+                serial_paquete = move_data.serial
+                paquetes_id = self.pool.get('stock.tracking').search(cr, uid, [('serial', '=', serial_paquete)], context=context)
+                moves_del_paquete = move_obj.search(cr, uid, [('tracking_id', '=', paquetes_id[0])], context=context)
+                if not moves_del_paquete:
+                    #busco el paquete hijo y sus movimientos
+                    paquetes_hijos_id = self.pool.get('stock.tracking').search(cr, uid, [('parent_id', '=', paquetes_id[0])], context=context)
+                    if not paquetes_hijos_id:
+                        # no hay nada que hacer o en todo caso ver si entra dentro de los casos 2 o 3
+                        continue
+                    else:
+                        se_hizo = 0
+                        for paquete_hijo_id in paquetes_hijos_id:
+                            moves_del_paquete_hijo = move_obj.search(cr, uid, [('tracking_id', '=', paquete_hijo_id)], context=context)
+                            if moves_del_paquete_hijo:
+                                se_hizo = 1
+                                for move_del_paquete_hijo in moves_del_paquete_hijo:
+                                    # crear un movimiento de salida
+                                    move_del_paquete_hijo_data = move_obj.browse(cr, uid, move_del_paquete_hijo, context=context)
+                                    move_obj.create(cr, uid, vals = {
+                                        'acta_id': id[0],
+                                        'serial': move_del_paquete_hijo_data.serial,                                               
+                                        'location_id': move_data.location_id.id,
+                                        'location_dest_id': obra,
+                                        'product_id': move_del_paquete_hijo_data.product_id.id,
+                                        'product_uom': move_del_paquete_hijo_data.product_uom.id,
+                                        'product_uos_qty': move_del_paquete_hijo_data.product_uos_qty,
+                                        'product_qty': move_del_paquete_hijo_data.product_qty,
+                                        'name': move_del_paquete_hijo_data.serial,
+                                        'tracking_id': move_del_paquete_hijo_data.tracking_id.id}, context = context)
+                            if se_hizo:
+                                # borrar el movimiento sin producto
+                                move_obj.unlink(cr, uid, acta_move, context=None)
+                            else:
+                                continue
+                else:
+                    for move_del_paquete in moves_del_paquete:
+                        # crear un movimiento de salida
+                        move_del_paquete_data = move_obj.browse(cr, uid, move_del_paquete, context=context)
+                        move_obj.create(cr, uid, vals = {
+                            'acta_id': id[0],
+                            'serial': move_del_paquete_data.serial,                                               
+                            'location_id': move_data.location_id.id,
+                            'location_dest_id': obra,
+                            'product_id': move_del_paquete_data.product_id.id,
+                            'product_uom': move_del_paquete_data.product_uom.id,
+                            'product_uos_qty': move_del_paquete_data.product_uos_qty,
+                            'product_qty': move_del_paquete_data.product_qty,
+                            'name': move_del_paquete_data.serial,
+                            'tracking_id': move_del_paquete_data.tracking_id.id}, context = context)
+                    #borrar el movimiento sin producto
+                    move_obj.unlink(cr, uid,[acta_move], context=None)
+        return True
+    
+    def date_to_moves(self, cr, uid, ids, context=None):
+        """ Changes move date
+        """
+        move_obj = self.pool.get('stock.move')
+        date = self.browse(cr, uid, ids[0], context=context).date
+        moves = self.browse(cr, uid, ids[0], context=context).moves_ids
+        for move in moves:
+            move_obj.write(cr, uid, move.id, {'date':date, 'create_date':date, 'date_expected':date}, context=context)
+        return True
+    
+    def obra_to_moves(self, cr, uid, ids, context=None):
+        """ Changes location_dest_id
+        """
+        move_obj = self.pool.get('stock.move')
+        obra_id = self.browse(cr, uid, ids[0], context=context).obra_id
+        moves = self.browse(cr, uid, ids[0], context=context).moves_ids
+        for move in moves:
+            move_obj.write(cr, uid, move.id, {'location_dest_id':obra_id.id}, context=context)
+        return True
     
 iso_traza_acta()
 

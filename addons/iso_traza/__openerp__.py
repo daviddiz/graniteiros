@@ -23,7 +23,7 @@
 
 {
     'name': 'Software de Trazabilidad de Explosivos',
-    'version': '0.12',
+    'version': '0.13',
     'category': 'Stock',
     'description': """Software para la trazabilidad de productos explosivos.""",
     'author': 'David Diz Martínez (daviddiz@gmail.com)',
