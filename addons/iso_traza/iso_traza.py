@@ -233,8 +233,7 @@ class iso_traza_acta(osv.osv):
                 # posteriormente elimino el movimiento de salida con producto no existente
                 serial_paquete = move_data.serial
                 paquetes_id = self.pool.get('stock.tracking').search(cr, uid, [('serial', '=', serial_paquete)], context=context)
-                moves_del_paquete = move_obj.search(cr, uid, [('tracking_id', '=', paquetes_id[0])], context=context)
-                if not moves_del_paquete:
+                if not paquetes_id:
                     #busco el paquete hijo y sus movimientos
                     paquetes_hijos_id = self.pool.get('stock.tracking').search(cr, uid, [('parent_id', '=', paquetes_id[0])], context=context)
                     if not paquetes_hijos_id:
@@ -266,6 +265,7 @@ class iso_traza_acta(osv.osv):
                             else:
                                 continue
                 else:
+                    moves_del_paquete = move_obj.search(cr, uid, [('tracking_id', '=', paquetes_id[0])], context=context)
                     for move_del_paquete in moves_del_paquete:
                         # crear un movimiento de salida
                         move_del_paquete_data = move_obj.browse(cr, uid, move_del_paquete, context=context)
