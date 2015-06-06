@@ -174,7 +174,7 @@ class iso_traza_acta(osv.osv):
             'tracking_id': move_in_obj.tracking_id.id}, context = context)
         return new_move_out_id
     
-    def add_moves(self, cr, uid, acta_id, moves, polvorin, context=None):
+    def add_moves2(self, cr, uid, acta_id, moves, polvorin, context=None):
         new_moves_out = []
         move_obj = self.pool.get('stock.move')
         tracking_obj = self.pool.get('stock.tracking')
