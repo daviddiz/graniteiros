@@ -184,7 +184,8 @@ class iso_traza_acta(osv.osv):
             if m:
                 #alta de un solo movimiento de salida
                 new_move_out = self.alta_mov_out(cr, uid, m[0], move_code[1], acta_id, polvorin, context)
-                new_moves_out.append(new_move_out)
+                if new_move_out:
+                    new_moves_out.append(new_move_out)
             elif t:
                 #alta de todos los movimientos del paquete
                 moves_from_tracking = move_obj.search(cr, uid, [('tracking_id', '=', t[-1])], context=context)
@@ -192,7 +193,8 @@ class iso_traza_acta(osv.osv):
                     for move_from_tracking in moves_from_tracking:
                         #alta de cada movimiento del paquete
                         new_move_out = self.alta_mov_out(cr, uid, move_from_tracking, None, acta_id, polvorin, context)
-                        new_moves_out.append(new_move_out)
+                        if new_move_out:
+                            new_moves_out.append(new_move_out)
                 else:
                     paquete_hijo_id = tracking_obj.search(cr, uid, [('parent_id', '=', t[-1])], context=context)
                     moves_from_tracking_hijo = move_obj.search(cr, uid, [('tracking_id', '=', paquete_hijo_id[-1])], context=context)
@@ -200,13 +202,16 @@ class iso_traza_acta(osv.osv):
                         for move_from_tracking_hijo in moves_from_tracking_hijo:
                             #alta de cada movimiento del paquete
                             new_move_out = self.alta_mov_out(cr, uid, move_from_tracking_hijo, None, acta_id, polvorin, context)
-                            new_moves_out.append(new_move_out)
+                            if new_move_out:
+                                new_moves_out.append(new_move_out)
                     else:
                         new_move_out = self.alta_mov_out_sinproducto(cr, uid, move_code[0], move_code[1], acta_id, polvorin, context)
-                        new_moves_out.append(new_move_out)
+                        if new_move_out:
+                            new_moves_out.append(new_move_out)
             else:
                 new_move_out = self.alta_mov_out_sinproducto(cr, uid, move_code[0], move_code[1], acta_id, polvorin, context)
-                new_moves_out.append(new_move_out)
+                if new_move_out:
+                    new_moves_out.append(new_move_out)
 
         if new_moves_out:
             return True
