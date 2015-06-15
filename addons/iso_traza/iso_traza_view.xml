@@ -524,9 +524,9 @@
                         <tree string="Movimientos">
 				            <field name="product_id" string="Producto"/>
 				            <field name="serial" string="Número de dentificación"/>
-				            <field name="product_qty" string="Cantidad recibida"/>
+				            <field name="product_qty" string="Cantidad"/>
 				            <field name="product_uom" string="Unidad"/>
-				            <field name="date" string="Fecha recepción"/>
+				            <field name="date" string="Fecha"/>
 				            <field name="location_id"/>
 			                <field name="location_dest_id"/>
 			                <field name="tracking_id"/>

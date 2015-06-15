@@ -77,7 +77,7 @@ class iso_traza_acta(osv.osv):
     _columns={
         'name': fields.char("Nombre", size=65, select=True),
         'num_acta': fields.char("Número de Acta", size=65, select=True),
-        'date': fields.date('Fecha', required=True, select=True),
+        'date': fields.datetime('Fecha', required=True, select=True),
         'artillero_id': fields.many2one('iso.traza.artillero', 'Artillero', help='Responsable de utilización - Artillero'),
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', help='Responsable explotación, encargado del libro de registro y usuario del programa'),
         'consum_hab_id' : fields.many2one('res.partner', 'Consumidor habitual de explosivos', ondelete='cascade', help="Consumidor habitual de explosivos"),
