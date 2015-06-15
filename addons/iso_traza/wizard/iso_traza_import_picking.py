@@ -153,13 +153,18 @@ class iso_traza_import_picking(osv.osv_memory):
         serial = str(psn) + str(uid_item)
         sid = item.attrib.get('SID')
         uom_found = 0
+        cant_found = 0
+        uom = ""
+        uom2 = ""
         if item.find('UnitOfMeasure') is not None:
             uom_found = 1
             uom = item.find('UnitOfMeasure').text
             if item.find('Length') is not None:
                 cant = float(item.find('Length').text)
-            elif item.find('NEW') is not None:
+                cant_found = 1
+            elif item.find('NEW') is not None and uom<>"MTR":
                 cant = float(item.find('NEW').text)
+                cant_found = 1
             else:
                 cant = 1
         for i in range(len(summary_items)):
@@ -167,29 +172,38 @@ class iso_traza_import_picking(osv.osv_memory):
                 product_code = summary_items[i]['product_code']
                 product_name = summary_items[i]['product_name']
                 if uom_found==0:
-                    uom = summary_items[i]['uom']
-                    if uom is not None and summary_items[i]['height'] is not None:
+                    uom2 = summary_items[i]['uom']
+                    if uom2 is not None and summary_items[i]['height'] is not None:
                         uom_found = 1
                         cant = float(summary_items[i]['height'])
-                    elif uom is not None and summary_items[i]['lenght'] is not None:
+                        cant_found = 1
+                    elif uom2 is not None and summary_items[i]['lenght'] is not None:
                         uom_found = 1
                         cant = float(summary_items[i]['lenght'])
+                        cant_found = 1
                     else:
                         cant = 1
+                elif uom_found==1 and uom=="MTR" and summary_items[i]['lenght'] is not None:
+                    cant = float(summary_items[i]['lenght'])
+                    cant_found = 1
                 product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code)])
                 if product_ids:
                     product_id = product_ids[0]
                     if uom_found==1:
-                        if uom == "KGM":
+                        if uom == "KGM" or uom2 == "KGM":
                             uom_id = 2
-                        elif uom == 'MTR':
+                        elif uom == 'MTR' or uom2 == 'MTR':
                             uom_id = 7
                         else:
                             uom_id = 1
                         self.pool.get('product.template').write(cr, uid, [product_id], {'uom_id': uom_id, 'uom_po_id': uom_id})
                 else:
+                    if uom == "":
+                        uom = uom2
                     product_id = self.alta_product(cr, uid, ids, product_code, product_name, uom)
                 break
+        if uom == "":
+            uom = uom2
         move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial, tracking_id, cant, uom)
         return False
     
@@ -199,13 +213,18 @@ class iso_traza_import_picking(osv.osv_memory):
         serial = str(psn) + str(uid_unit)
         aux_sid = 0
         uom_found = 0
+        cant_found = 0
+        uom = ""
+        uom2 = ""
         if unit.find('UnitOfMeasure') is not None:
             uom_found = 1
             uom = unit.find('UnitOfMeasure').text
             if unit.find('Length') is not None:
                 cant = float(unit.find('Length').text)
-            elif unit.find('NEW') is not None:
+                cant_found = 1
+            elif unit.find('NEW') is not None and uom<>"MTR":
                 cant = float(unit.find('NEW').text)
+                cant_found = 1
             else:
                 cant = 1
         if unit.attrib.get('SID') is not None:
@@ -217,27 +236,34 @@ class iso_traza_import_picking(osv.osv_memory):
                     product_name = summary_items[i]['product_name']
                     level = int(summary_items[i]['level'])
                     if uom_found==0:
-                        uom = summary_items[i]['uom']
-                        if uom is not None and summary_items[i]['height'] is not None:
+                        uom2 = summary_items[i]['uom']
+                        if uom2 is not None and summary_items[i]['height'] is not None:
                             uom_found = 1
                             cant = float(summary_items[i]['height'])
-                        elif uom is not None and summary_items[i]['lenght'] is not None:
+                            cant_found = 1
+                        elif uom2 is not None and summary_items[i]['lenght'] is not None:
                             uom_found = 1
                             cant = float(summary_items[i]['lenght'])
+                            cant_found = 1
                         else:
                             cant = 1
+                    elif uom_found==1 and uom=="MTR" and summary_items[i]['lenght'] is not None:
+                        cant = float(summary_items[i]['lenght'])
+                        cant_found = 1
                     product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code)])
                     if product_ids:
                         product_id = product_ids[0]
                         if uom_found==1:
-                            if uom == "KGM":
+                            if uom == "KGM" or uom2 == "KGM":
                                 uom_id = 2
-                            elif uom == 'MTR':
+                            elif uom == 'MTR' or uom2 == 'MTR':
                                 uom_id = 7
                             else:
                                 uom_id = 1
                             self.pool.get('product.template').write(cr, uid, [product_id], {'uom_id': uom_id, 'uom_po_id': uom_id})
                     else:
+                        if uom == "":
+                            uom = uom2
                         product_id = self.alta_product(cr, uid, ids, product_code, product_name, uom)
                     break
         else:
@@ -256,6 +282,8 @@ class iso_traza_import_picking(osv.osv_memory):
                 for item in subelement._children:
                     self.parsear_item(cr, uid, ids, item, picking_id, proveedor_id, summary_items, tracking_id)
         if aux == 0 and aux_sid == 1:
+            if uom == "":
+                uom = uom2
             move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial, tracking_parent, cant, uom)
         elif aux==0 and aux_sid==0 and unit.find('CountOfTradeUnits') is not None and unit.find('ItemQuantity') is not None:
             cant = float(unit.find('CountOfTradeUnits').text)
@@ -399,7 +427,12 @@ class iso_traza_import_picking(osv.osv_memory):
         for unit in units._children:
             self.parsear_unit(cr, uid, ids, unit, picking_id, proveedor_id, summary_items)
                                      
-             
+        items_sueltos = tree.find('Items')
+        if items_sueltos:
+            for item_suelto in items_sueltos._children:
+                self.parsear_item(cr, uid, ids, item_suelto, picking_id, proveedor_id, summary_items, None)
+            
+        
         f.close()
         
         cr.execute(
