@@ -81,23 +81,25 @@
     </initialize>
     <paraStyle name="P1" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="P2" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P3" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P4" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
-    <paraStyle name="P5" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
-    <paraStyle name="P6" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P7" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
-    <paraStyle name="P8" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
-    <paraStyle name="P9" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
-    <paraStyle name="P10" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT"/>
-    <paraStyle name="P11" rightIndent="0.0" leftIndent="37.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="3.0" spaceAfter="9.0"/>
-    <paraStyle name="P12" rightIndent="0.0" leftIndent="35.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P13" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P14" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P15" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P16" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P17" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P3" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P4" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P5" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P6" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
+    <paraStyle name="P7" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P8" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P9" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P10" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P11" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P12" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P13" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P14" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P15" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT"/>
+    <paraStyle name="P16" rightIndent="0.0" leftIndent="35.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P17" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="P18" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P19" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P19" fontName="Helvetica" fontSize="6.0" leading="8" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P20" rightIndent="0.0" leftIndent="37.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="3.0" spaceAfter="9.0"/>
+    <paraStyle name="P21" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="Standard" fontName="Helvetica"/>
     <paraStyle name="Text_20_body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="8.0" leading="10" spaceBefore="12.0" spaceAfter="6.0"/>
@@ -147,14 +149,14 @@
     <blockTable colWidths="541.0" style="Tabla1">
       <tr>
         <td>
-          <para style="P6">ACTA DE USO DE EXPLOSIVOS</para>
+          <para style="P9">ACTA DE USO DE EXPLOSIVOS</para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P5">Nº Acta: [[ o.name ]]</para>
-          <para style="P5">Empresa: [[ (o.consum_hab_id and o.consum_hab_id.name) or '' ]]</para>
-          <para style="P17">Derecho Minero / Obra: [[ <font face="Helvetica">(</font>o.obra_<font face="Helvetica">id and </font>o.obra_<font face="Helvetica">id.name)</font> or '' ]]</para>
+          <para style="P7">Nº Acta: [[ o.name ]]</para>
+          <para style="P7">Empresa: [[ (o.consum_hab_id and o.consum_hab_id.name) or '' ]]</para>
+          <para style="P8">Derecho Minero / Obra: [[ (o.obra_id and o.obra_id.name) or '' ]]</para>
         </td>
       </tr>
     </blockTable>
@@ -167,33 +169,33 @@
     <blockTable colWidths="539.0" style="Tabla2">
       <tr>
         <td>
-          <para style="P3">
+          <para style="P4">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P3">
+          <para style="P4">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P13">En el día de la fecha abajo reseñada <font face="Helvetica">D.</font><font face="Helvetica"> [[ (o.resp_explot_id and o.resp_explot_id.name) or '' ]] </font><font face="Helvetica">(</font><font face="Helvetica">[[ (o.resp_explot_id and o.resp_explot_id.dni) or '' ]]</font><font face="Helvetica">)</font> como respons<font face="Helvetica">a</font>ble <font face="Helvetica">de la llevanza del Libro Registro de Voladuras del permiso de investigación </font><font face="Helvetica">[[( o.obra_id and o.obra_id.</font><font face="Helvetica">complete_</font><font face="Helvetica">name) or '' ]]</font><font face="Helvetica"> y </font><font face="Helvetica">D. [[ (o.artillero_id and o.artillero_id.name) or '' ]] ([[ (o.artillero_id and o.artillero_id.dni) or '']])</font><font face="Helvetica"> con cartilla de artillero </font><font face="Helvetica">[[ (o.artillero_id and o.artillero_id.cartilla) or '' ]],</font><font face="Helvetica"> como artillero responsable de la utilización del explosivo en la misma, certifican lo siguiente:</font></para>
+          <para style="P21"><font face="Helvetica" size="8.0">En el día de la fecha abajo reseñada </font><font face="Helvetica-Bold" size="8.0">D.</font><font face="Helvetica-Bold" size="8.0"> [[ (o.resp_explot_id and o.resp_explot_id.name) or '' ]] </font><font face="Helvetica-Bold" size="8.0">(</font><font face="Helvetica-Bold" size="8.0">[[ (o.resp_explot_id and o.resp_explot_id.dni) or '' ]]</font><font face="Helvetica-Bold" size="8.0">)</font><font face="Helvetica" size="8.0"/>como responsable de la<font face="Helvetica" size="8.0"> llevanza del Libro Registro de Voladuras del permiso de investigación </font><font face="Helvetica">[[( o.obra_id and o.obra_id.complete_name) or '' ]]</font><font face="Helvetica" size="8.0"> y </font><font face="Helvetica-Bold" size="8.0">D. [[ (o.artillero_id and o.artillero_id.name) or '' ]] ([[ (o.artillero_id and o.artillero_id.dni) or '']])</font><font face="Helvetica" size="8.0"> con cartilla de artillero </font><font face="Helvetica-Bold" size="8.0">[[ (o.artillero_id and o.artillero_id.cartilla) or '' ]],</font><font face="Helvetica" size="8.0"> como artillero responsable de la utilización del explosivo en la misma, certifican lo siguiente:</font></para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P16">
+          <para style="P17">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P14">Las cantidades de explosivos entregadas, consumidas y sobrantes han sido:</para>
+          <para style="P5">Las cantidades de explosivos entregadas, consumidas y sobrantes han sido:</para>
         </td>
       </tr>
     </blockTable>
@@ -206,52 +208,46 @@
     <para style="P1">
       <font color="white"> </font>
     </para>
-    <blockTable colWidths="81.0,142.0,65.0,81.0,80.0,80.0" repeatRows="1" style="Tabla4">
+    <blockTable colWidths="131.0,107.0,50.0,81.0,80.0,80.0" repeatRows="1" style="Tabla4">
       <tr>
         <td>
-          <para style="P7">Código</para>
+          <para style="P11">Producto</para>
         </td>
         <td>
-          <para style="P7">Producto</para>
+          <para style="P11">Código</para>
         </td>
         <td>
-          <para style="P7">Unidades</para>
+          <para style="P10">Unidad</para>
         </td>
         <td>
-          <para style="P9">Entregado</para>
+          <para style="P13">Entregado</para>
         </td>
         <td>
-          <para style="P9">Consumido</para>
+          <para style="P13">Consumido</para>
         </td>
         <td>
-          <para style="P19">
-            <font face="Helvetica">Sobrante</font>
-          </para>
+          <para style="P14">Sobrante</para>
         </td>
       </tr>
     </blockTable>
     <section>
       <para style="terp_5f_default_5f_2">[[repeatIn(process(o.moves_ids),'l')]]</para>
-      <blockTable colWidths="81.0,142.0,65.0,81.0,80.0,80.0" style="Tabla5">
+      <blockTable colWidths="131.0,107.0,50.0,81.0,80.0,81.0" style="Tabla5">
         <tr>
           <td>
-            <para style="terp_5f_default_5f_Centre_5f_8">[[ l['serial'] or removeParentNode('para') ]]</para>
+            <para style="P18">[[ l['nombre'] or removeParentNode('para') ]]</para>
           </td>
           <td>
-            <para style="terp_5f_default_5f_Centre_5f_8">[[ l['nombre'] or removeParentNode('para') ]]</para>
+            <para style="P19">[[ l['serial'] or removeParentNode('para') ]]</para>
           </td>
           <td>
-            <para style="P18">
-              <font color="white"> </font>
-            </para>
+            <para style="terp_5f_default_5f_Centre_5f_8">[[ l['unidad'] or removeParentNode('para') ]]</para>
           </td>
           <td>
             <para style="terp_5f_default_5f_Centre_5f_8">[[ l['entregado'] or removeParentNode('para') ]]</para>
           </td>
           <td>
-            <para style="P18">
-              <font color="white"> </font>
-            </para>
+            <para style="terp_5f_default_5f_Centre_5f_8">[[ l['consumido'] or removeParentNode(',para') ]]</para>
           </td>
           <td>
             <para style="terp_5f_default_5f_Centre_5f_8">[[ l['sobrante'] or removeParentNode('para') ]]</para>
@@ -271,7 +267,7 @@
     <blockTable colWidths="539.0" style="Tabla3">
       <tr>
         <td>
-          <para style="P11"><font face="Helvetica">E</font>l explosivo sobrante ha sido destruido, devuelto al depósito comercial autorizado o depositado en los depósitos auxiliares autorizados en la obra / explotación.</para>
+          <para style="P20"><font face="Helvetica">E</font>l explosivo sobrante ha sido destruido, devuelto al depósito comercial autorizado o depositado en los depósitos auxiliares autorizados en la obra / explotación.</para>
         </td>
       </tr>
     </blockTable>
@@ -281,33 +277,33 @@
     <blockTable colWidths="539.0" style="Tabla6">
       <tr>
         <td>
-          <para style="P12">Fecha: [[ time.strftime('%d-%m-%Y', time.strptime( o.date , '%Y-%m-%d'))]]</para>
+          <para style="P3"><font face="Helvetica" size="8.0">Fecha: </font>[[ time.strftime('%d-%m-%Y', time.strptime( o.date , '%Y-%m-%d %H:%M:%S')) ]]</para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P12">
+          <para style="P16">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P12">
+          <para style="P16">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P12">
+          <para style="P16">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P12">
+          <para style="P16">
             <font color="white"> </font>
           </para>
         </td>
@@ -328,262 +324,262 @@
     <blockTable colWidths="57.0,159.0,108.0,158.0,57.0" style="Tabla7">
       <tr>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P4">El Responsable de la llevanza del Libro-Registro de Consumo</para>
+          <para style="P6">El Responsable de la llevanza del Libro-Registro de Consumo</para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P4">El Responsable del Equipo de trabajo o voladura</para>
+          <para style="P6">El Responsable del Equipo de trabajo o voladura</para>
         </td>
         <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P8">[[ (o.resp_explot_id and o.resp_explot_id.name) or '----']]</para>
-        </td>
-        <td>
-          <para style="P10">
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P8">[[ (o.artillero_id and o.artillero_id.name) or '----']]</para>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
         </td>
         <td>
-          <para style="P10">
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P12">[[ (o.resp_explot_id and o.resp_explot_id.name) or '----']]</para>
+        </td>
+        <td>
+          <para style="P15">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P12">[[ (o.artillero_id and o.artillero_id.name) or '----']]</para>
+        </td>
+        <td>
+          <para style="P15">
             <font color="white"> </font>
           </para>
         </td>
