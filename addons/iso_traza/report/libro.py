@@ -30,7 +30,7 @@ class libro(report_sxw.rml_parse):
             'time': time,
         })
 
-report_sxw.report_sxw('report.libro', 'iso.traza.libro', 'addons/iso_traza/report/libro.rml', parser=libro, header=False)
+report_sxw.report_sxw('report.libro', 'iso.traza.libro.report', 'addons/iso_traza/report/libro.rml', parser=libro, header=False)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

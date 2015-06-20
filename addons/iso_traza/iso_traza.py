@@ -330,7 +330,7 @@ class iso_traza_acta(osv.osv):
 iso_traza_acta()
 
 class iso_traza_libro(osv.osv):
-        
+         
     _name='iso.traza.libro'
     _description='Libro de Registro'
     _columns={
@@ -341,11 +341,11 @@ class iso_traza_libro(osv.osv):
         'moves_ids': fields.one2many('stock.move', 'libro_id', "Movimientos"),
         'obra_id': fields.many2one('stock.location', 'Obra', domain = [('obra','=',True)]),
     }
-    
+     
     _defaults = {
         'name': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'iso.traza.libro'),
     }
-    
+     
 iso_traza_libro()
 
 class stock_picking(osv.osv):

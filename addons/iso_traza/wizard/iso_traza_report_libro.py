@@ -26,17 +26,15 @@ class iso_traza_libro_report(osv.osv_memory):
     _name = 'iso.traza.libro.report'
     _description = 'Imprimir Libro de Registro'
     _columns = {
+        'obra_id': fields.many2one('stock.location', 'Explotacion - Obra', domain = [('obra','=',True)], required=True),
         'date_from': fields.date("Fecha Inicial"),
-        'date_to': fields.date("Fecha Final"),
     }
 
     def print_report(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
         data = {}
-        data['ids'] = context.get('active_ids', [])
-        data['model'] = context.get('active_model', 'ir.ui.menu')
-        data['form'] = self.read(cr, uid, ids, ['date_from',  'date_to'])[0]
+        data['form'] = self.read(cr, uid, ids, ['obra_id',  'date_from'])[0]
         return {
             'type': 'ir.actions.report.xml',
             'report_name': 'libro',

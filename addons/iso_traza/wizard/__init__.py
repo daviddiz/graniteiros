@@ -20,7 +20,7 @@
 ##############################################################################
 
 import iso_traza_acta_new
-import iso_traza_libro_new
+#import iso_traza_libro_new
 import iso_traza_report_acta
 import iso_traza_report_libro
 import iso_traza_import_picking

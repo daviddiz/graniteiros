@@ -40,7 +40,7 @@
                    'wizard/iso_traza_report_acta_view.xml',
                    'wizard/iso_traza_report_libro_view.xml',
                    'wizard/iso_traza_acta_new_view.xml',
-                   'wizard/iso_traza_libro_new_view.xml',
+                   #'wizard/iso_traza_libro_new_view.xml',
                    'wizard/iso_traza_import_picking.xml',
                    'wizard/iso_traza_import_products.xml',
                    'wizard/iso_traza_import_products_epc.xml',

@@ -11,13 +11,8 @@
                 	<separator string="Libro de Registro" colspan="4"/>
                     <label nolabel="1" colspan="4" string="Este informe es un Libro de Registro con los consumos de material según las siguientes variables"/>
                 	<newline/>
-                    <notebook tabpos="up" colspan="4">
-                    	<page string="Filtros" name="filters">
-                            <separator string="Fechas" colspan="4"/>
-                            <field name="date_from" attrs="{'readonly':[('filter', '!=', 'filter_date')], 'required':[('filter', '=', 'filter_date')]}" colspan="4"/>
-                            <field name="date_to" attrs="{'readonly':[('filter', '!=', 'filter_date')], 'required':[('filter', '=', 'filter_date')]}"  colspan="4"/>
-                        </page>
-                    </notebook>
+                	<field name="obra_id" string="Explotacion - Obra" colspan="4"/>
+                    <field name="date_from" colspan="4"/>
                     <separator colspan="4"/>
                     <group col="4" colspan="4">
                         <button icon="gtk-cancel" special="cancel" string="Cancelar" colspan="2"/>
@@ -39,12 +34,12 @@
             <field name="help">Imprimir Libro de Registro de explosivos.</field>
        </record>
 
-       <!--  <menuitem 
+       <menuitem 
            name="Imprimir Libro de Registro"
            action="action_libro_report"
            id="menu_traza_libros_report"
-           parent="menu_traza_libros"
-           sequence="2"/> -->
+           parent="menu_traceability_traza"
+           sequence="50"/>
 
     </data>
 </openerp>

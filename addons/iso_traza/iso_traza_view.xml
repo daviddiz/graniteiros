@@ -595,9 +595,9 @@
         
         <!-- Vistas de los libros de registro -->
         
-        <menuitem id="menu_traza_libros" name="Libros de Registro" parent="menu_traza_root" sequence="20"/>
+        <!--  <menuitem id="menu_traza_libros" name="Libros de Registro" parent="menu_traza_root" sequence="20"/>    -->
         
-        <record id="iso_traza_libro_view_tree" model="ir.ui.view">
+        <!--  <record id="iso_traza_libro_view_tree" model="ir.ui.view">
             <field name="name">iso.traza.libro.tree</field>
             <field name="model">iso.traza.libro</field>
             <field name="type">tree</field>
@@ -610,9 +610,9 @@
                     <field name="obra_id" string="Obra"/>
                 </tree>
             </field>
-        </record>
+        </record>    -->
         
-        <record id="iso_traza_libro_view_form" model="ir.ui.view">
+        <!--  <record id="iso_traza_libro_view_form" model="ir.ui.view">
             <field name="name">iso.traza.libro.form</field>
             <field name="model">iso.traza.libro</field>
             <field name="type">form</field>
@@ -627,7 +627,7 @@
 	                    <field colspan="4" name="moves_ids" nolabel="1" widget="one2many_list">
                             <tree string="Movimientos">
 			                    <field name="product_id" string="Producto"/>
-			                    <!-- <field name="serial" string="Código producto"/> -->
+			                    <field name="serial" string="Código producto"/>
 			                    <field name="product_qty" string="Cantidad recibida"/>
 			                    <field name="product_uom" string="Unidad"/>
 			                    <field name="date" string="Fecha recepción"/>
@@ -642,7 +642,7 @@
                             <form string="Movimiento">
 			                    <group colspan="4" col="4">
 			                        <field name="product_id"/>
-			                        <!--  <field name="serial" string="Código producto"/> -->
+			                        <field name="serial" string="Código producto"/>
 			                        <field name="product_qty"/>
 			                        <field name="product_uom" string="Unidad"/>
 			                        <newline/>
@@ -665,9 +665,9 @@
 	                </group>
                 </form>
             </field>
-        </record>
+        </record> -->
 
-        <record id="iso_traza_libro_view_search" model="ir.ui.view">
+        <!--  <record id="iso_traza_libro_view_search" model="ir.ui.view">
             <field name="name">iso.traza.libro.search</field>
             <field name="model">iso.traza.libro</field>
             <field name="type">search</field>
@@ -689,18 +689,18 @@
                     </group>
                 </search>
             </field>
-        </record>
+        </record> -->
         
-        <record id="action_iso_traza_libro" model="ir.actions.act_window">
+        <!-- <record id="action_iso_traza_libro" model="ir.actions.act_window">
             <field name="name">Libros de Registro</field>
             <field name="res_model">iso.traza.libro</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="iso_traza_libro_view_tree"/>
-        </record>
+        </record> -->
         
-        <menuitem id="menu_traza_libro_libros" name="Libros de Registro" parent="menu_traza_libros" sequence="5" action="action_iso_traza_libro"/>
+        <!--  <menuitem id="menu_traza_libro_libros" name="Libros de Registro" parent="menu_traza_libros" sequence="5" action="action_iso_traza_libro"/>   -->
         
         <!-- Trazabilidad de los movimientos de stock -->
         
@@ -757,7 +757,7 @@
         
         <menuitem id="menu_traceability_traza" name="Trazabilidad" parent="menu_traza_root" sequence="25"/>
         
-        <menuitem action="action_move_form2_traza" id="menu_action_move_form2_traza" parent="menu_traceability_traza" sequence="1"/>
+        <menuitem action="action_move_form2_traza" id="menu_action_move_form2_traza" parent="menu_traceability_traza" sequence="10"/>
         
         <!-- Modificar vistas de stock_partial_move para quitar prodlot_id -->
         
@@ -873,7 +873,7 @@
             <field name="search_view_id" ref="iso_traza_artillero_view_search"/>
         </record>
         	        
-		<menuitem action="action_artilleros" id="menu_action_artilleros" parent="menu_traceability_traza" sequence="2"/>
+		<menuitem action="action_artilleros" id="menu_action_artilleros" parent="menu_traceability_traza" sequence="20"/>
 		
 		<!-- Polvorín - Almacén - Stock -->
         	
@@ -887,7 +887,7 @@
             <field name="search_view_id" ref="view_location_search_traza"/>
         </record>
         	        
-		<menuitem action="action_polvorin" id="menu_action_polvorin" parent="menu_traceability_traza" sequence="3"/>
+		<menuitem action="action_polvorin" id="menu_action_polvorin" parent="menu_traceability_traza" sequence="30"/>
 		
 		<!-- Obra - Explotación -->
         	
@@ -901,7 +901,7 @@
             <field name="search_view_id" ref="view_location_search_traza"/>
         </record>
         	        
-		<menuitem action="action_obra" id="menu_action_obra" parent="menu_traceability_traza" sequence="4"/>
+		<menuitem action="action_obra" id="menu_action_obra" parent="menu_traceability_traza" sequence="40"/>
 						        	        
 	</data>
 </openerp>
