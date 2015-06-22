@@ -66,9 +66,9 @@ class iso_traza_albaran_to_acta(osv.osv_memory):
                 "date": d.strftime('%Y-%m-%d'),
                 "artillero_id": artillero,
                 "obra_id": obra,
-                "consum_hab_id": albaran_data.consum_hab_id,
-                "resp_explot_id": albaran_data.resp_explot_id,
-                "dir_facul_id": albaran_data.dir_facul_id,
+                "consum_hab_id": albaran_data.consum_hab_id.id,
+                "resp_explot_id": albaran_data.resp_explot_id.id,
+                "dir_facul_id": albaran_data.dir_facul_id.id,
             }
             acta_id = self.pool.get('iso.traza.acta').create(cr,uid,vals,context)
             actas.append(acta_id)

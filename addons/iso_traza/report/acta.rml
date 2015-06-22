@@ -94,13 +94,9 @@
     <paraStyle name="P13" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
     <paraStyle name="P14" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT"/>
     <paraStyle name="P15" rightIndent="0.0" leftIndent="35.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P16" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P17" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P18" fontName="Helvetica" fontSize="6.0" leading="8" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P19" rightIndent="0.0" leftIndent="37.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="3.0" spaceAfter="9.0"/>
-    <paraStyle name="P20" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P21" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P22" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P16" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P17" fontName="Helvetica" fontSize="6.0" leading="8" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P18" rightIndent="0.0" leftIndent="37.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="3.0" spaceAfter="9.0"/>
     <paraStyle name="Standard" fontName="Helvetica"/>
     <paraStyle name="Text_20_body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="8.0" leading="10" spaceBefore="12.0" spaceAfter="6.0"/>
@@ -164,9 +160,6 @@
     <para style="P1">
       <font color="white"> </font>
     </para>
-    <para style="P1">
-      <font color="white"> </font>
-    </para>
     <blockTable colWidths="539.0" style="Tabla2">
       <tr>
         <td>
@@ -184,20 +177,20 @@
       </tr>
       <tr>
         <td>
-          <para style="P20"><font face="Helvetica" size="8.0">En el día de la fecha abajo reseñada </font><font face="Helvetica-Bold" size="8.0">D.</font><font face="Helvetica-Bold" size="8.0"> [[ (o.resp_</font><font face="Helvetica-Bold" size="8.0">equipo</font><font face="Helvetica-Bold" size="8.0">_id and o.resp_</font><font face="Helvetica-Bold" size="8.0">equipo</font><font face="Helvetica-Bold" size="8.0">_id.name) or '' ]] </font><font face="Helvetica-Bold" size="8.0">(</font><font face="Helvetica-Bold" size="8.0">[[ (o.resp_</font><font face="Helvetica-Bold" size="8.0">equipo</font><font face="Helvetica-Bold" size="8.0">_id and o.resp_</font><font face="Helvetica-Bold" size="8.0">equipo</font><font face="Helvetica-Bold" size="8.0">_id.dni) or '' ]]</font><font face="Helvetica-Bold" size="8.0">)</font><font face="Helvetica" size="8.0"/>como responsable de<font face="Helvetica">l equipo de trabajo o voladura de la explotación/obra denominada</font><font face="Helvetica" size="8.0"/><font face="Helvetica">[[( o.obra_id and o.obra_id.complete_name) or '' ]]</font><font face="Helvetica" size="8.0"> y </font><font face="Helvetica-Bold" size="8.0">D. [[ (o.artillero_id and o.artillero_id.name) or '' ]] ([[ (o.artillero_id and o.artillero_id.dni) or '']])</font><font face="Helvetica" size="8.0"> con cartilla de artillero </font><font face="Helvetica-Bold" size="8.0">[[ (o.artillero_id and o.artillero_id.cartilla) or '' ]],</font><font face="Helvetica" size="8.0"> como artillero responsable de la utilización del explosivo en la misma, certifican lo siguiente:</font></para>
+          <para style="terp_5f_default_5f_8">En el día de la fecha abajo reseñada D. [[ (o.resp_equipo_id and o.resp_equipo_id.name) or '' ]] ([[ (o.resp_equipo_id and o.resp_equipo_id.dni) or '' ]]) como responsable del equipo de trabajo o voladura de la explotación/obra denominada [[( o.obra_id and o.obra_id.complete_name) or '' ]] y D. [[ (o.artillero_id and o.artillero_id.name) or '' ]] ([[ (o.artillero_id and o.artillero_id.dni) or '']]) con cartilla de artillero [[ (o.artillero_id and o.artillero_id.cartilla) or '' ]], como artillero responsable de la utilización del explosivo en la misma, certifican lo siguiente:</para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P16">
+          <para style="terp_5f_default_5f_8">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P21" leftIndent="15" bulletIndent="0"><bullet size="8.0"><seq id="L1"/>.</bullet>El explosivo a utilizar ha sido entregado por <font face="Helvetica">D.</font><font face="Helvetica"> [[ (o.resp_</font><font face="Helvetica">libros</font><font face="Helvetica">_id and o.resp_</font><font face="Helvetica">libros</font><font face="Helvetica">_id.name) or '' ]] </font><font face="Helvetica">(</font><font face="Helvetica">[[ (o.resp_</font><font face="Helvetica">libros</font><font face="Helvetica">_id and o.resp_</font><font face="Helvetica">libros</font><font face="Helvetica">_id.dni) or '' ]]</font><font face="Helvetica">) </font><font face="Helvetica">como responsible de la llevanza del Libro-Registro de consumo a </font><font face="Helvetica">D. [[ (o.artillero_id and o.artillero_id.name) or '' ]] ([[ (o.artillero_id and o.artillero_id.dni) or '']])</font></para>
-          <para style="P22" leftIndent="15" bulletIndent="0"><bullet size="8.0"><seq id="L1"/>.</bullet>Las cantidades de explosivos entregadas, consumidas y sobrantes han sido:</para>
+          <para style="terp_5f_default_5f_8">El explosivo a utilizar ha sido entregado por D. [[ (o.resp_libros_id and o.resp_libros_id.name) or '' ]] ([[ (o.resp_libros_id and o.resp_libros_id.dni) or '' ]]) como responsable de la llevanza del Libro-Registro de consumo a D. [[ (o.artillero_id and o.artillero_id.name) or '' ]] ([[ (o.artillero_id and o.artillero_id.dni) or '']]).</para>
+          <para style="terp_5f_default_5f_8">Las cantidades de explosivos entregadas, consumidas y sobrantes han sido:</para>
         </td>
       </tr>
     </blockTable>
@@ -231,10 +224,10 @@
       <blockTable colWidths="131.0,107.0,50.0,81.0,80.0,81.0" style="Tabla5">
         <tr>
           <td>
-            <para style="P17">[[ l['nombre'] or removeParentNode('para') ]]</para>
+            <para style="P16">[[ l['nombre'] or removeParentNode('para') ]]</para>
           </td>
           <td>
-            <para style="P18">[[ l['serial'] or removeParentNode('para') ]]</para>
+            <para style="P17">[[ l['serial'] or removeParentNode('para') ]]</para>
           </td>
           <td>
             <para style="terp_5f_default_5f_Centre_5f_8">[[ l['unidad'] or removeParentNode('para') ]]</para>
@@ -254,16 +247,10 @@
     <para style="terp_5f_default_5f_8">
       <font color="white"> </font>
     </para>
-    <para style="terp_5f_default_5f_8">
-      <font color="white"> </font>
-    </para>
-    <para style="terp_5f_default_5f_8">
-      <font color="white"> </font>
-    </para>
     <blockTable colWidths="539.0" style="Tabla3">
       <tr>
         <td>
-          <para style="P19"><font face="Helvetica">E</font>l explosivo sobrante ha sido destruido, devuelto al depósito comercial autorizado o depositado en los depósitos auxiliares autorizados en la obra / explotación.</para>
+          <para style="P18"><font face="Helvetica">E</font>l explosivo sobrante ha sido destruido, devuelto al depósito comercial autorizado o depositado en los depósitos auxiliares autorizados en la obra / explotación.</para>
         </td>
       </tr>
     </blockTable>
@@ -283,37 +270,7 @@
           </para>
         </td>
       </tr>
-      <tr>
-        <td>
-          <para style="P15">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P15">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P15">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
     </blockTable>
-    <para style="P2">
-      <font color="white"> </font>
-    </para>
-    <para style="P2">
-      <font color="white"> </font>
-    </para>
-    <para style="P2">
-      <font color="white"> </font>
-    </para>
     <para style="P2">
       <font color="white"> </font>
     </para>
@@ -334,114 +291,6 @@
         </td>
         <td>
           <para style="P5">El Responsable del Equipo de trabajo o voladura</para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P14">
-            <font color="white"> </font>
-          </para>
         </td>
         <td>
           <para style="P14">

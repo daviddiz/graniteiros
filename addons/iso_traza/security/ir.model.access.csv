@@ -7,6 +7,8 @@ access_iso_traza_acta,iso.traza.acta,iso_traza.model_iso_traza_acta,iso_traza.gr
 access_iso_traza_libro,iso.traza.libro,iso_traza.model_iso_traza_libro,iso_traza.group_traza,1,1,1,1
 access_iso_traza_artillero,iso.traza.artillero,iso_traza.model_iso_traza_artillero,iso_traza.group_traza,1,1,1,1
 access_iso_traza_dirfacul,iso.traza.dirfacul,iso_traza.model_iso_traza_dirfacul,iso_traza.group_traza,1,1,1,1
+access_iso_traza_respequipo,iso.traza.respequipo,iso_traza.model_iso_traza_respequipo,iso_traza.group_traza,1,1,1,1
+access_iso_traza_resplibros,iso.traza.resplibros,iso_traza.model_iso_traza_resplibros,iso_traza.group_traza,1,1,1,1
 access_iso_traza_respexplot,iso.traza.respexplot,iso_traza.model_iso_traza_respexplot,iso_traza.group_traza,1,1,1,1
 access_res_partner,res.partner,base.model_res_partner,iso_traza.group_traza,1,1,1,1
 access_stock_location_user,stock.location.user,stock.model_stock_location,base.group_user,1,1,1,1
