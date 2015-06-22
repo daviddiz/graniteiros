@@ -496,6 +496,8 @@
                     <field name="resp_explot_id" string="Responsable explotación"/>
                     <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
                     <field name="obra_id" string="Obra"/>
+                    <field name="resp_equipo_id" string="Responsable del Equipo de Trabajo o Voladura"/>
+                    <field name="resp_libros_id" string="Responsable de la LLevanza de los Libros"/>
                 </tree>
             </field>
         </record>
@@ -515,6 +517,8 @@
 	                    <field name="resp_explot_id" string="Responsable explotación"/>
 	                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
 	                    <field name="dir_facul_id" string="Director Facultativo"/>
+	                    <field name="resp_equipo_id" string="Responsable del Equipo de Trabajo o Voladura"/>
+                    	<field name="resp_libros_id" string="Responsable de la LLevanza de los Libros"/>
 	                </group>
 	                <group  colspan="4" col="2">
 	                    <button name="obra_to_moves" string="Asignar la obra a todos los movimientos" type="object" icon="gtk-media-play"/>
@@ -569,6 +573,8 @@
                         <field name="date"/>
                         <field name="artillero_id"/>
                         <field name="resp_explot_id"/>
+                        <field name="resp_equipo_id"/>
+                    	<field name="resp_libros_id"/>
                         <field name="consum_hab_id"/>
                         <field name="obra_id" string="Obra"/>
                     </group>

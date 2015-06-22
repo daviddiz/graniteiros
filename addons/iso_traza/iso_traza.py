@@ -54,7 +54,9 @@ class iso_traza_dirfacul(osv.osv):
     _description='Director facultativo'
     _columns={
         'name': fields.char("Nombre", size=145, required=True),
-        'dni': fields.char("DNI", size=32), 
+        'dni': fields.char("DNI", size=32),
+        'direccion': fields.char("Dirección", size=145),
+        'telefonos': fields.char("Teléfonos", size=145), 
     }
     
 iso_traza_dirfacul()
@@ -66,9 +68,33 @@ class iso_traza_respexplot(osv.osv):
     _columns={
         'name': fields.char("Nombre", size=145, required=True),
         'dni': fields.char("DNI", size=32), 
+        'direccion': fields.char("Dirección", size=145),
+        'telefonos': fields.char("Teléfonos", size=145),
     }
     
 iso_traza_respexplot()
+
+class iso_traza_respequipo(osv.osv):
+        
+    _name='iso.traza.respequipo'
+    _description='Responsable del Equipo de Trabajo o Voladura'
+    _columns={
+        'name': fields.char("Nombre", size=145, required=True),
+        'dni': fields.char("DNI", size=32), 
+    }
+    
+iso_traza_respequipo()
+
+class iso_traza_resplibros(osv.osv):
+        
+    _name='iso.traza.resplibros'
+    _description='Responsable de la LLevanza de los Libros'
+    _columns={
+        'name': fields.char("Nombre", size=145, required=True),
+        'dni': fields.char("DNI", size=32), 
+    }
+    
+iso_traza_resplibros()
 
 class iso_traza_acta(osv.osv):
         
@@ -79,12 +105,14 @@ class iso_traza_acta(osv.osv):
         'num_acta': fields.char("Número de Acta", size=65, select=True),
         'date': fields.datetime('Fecha', required=True, select=True),
         'artillero_id': fields.many2one('iso.traza.artillero', 'Artillero', help='Responsable de utilización - Artillero'),
-        'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', help='Responsable explotación, encargado del libro de registro y usuario del programa'),
+        'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', help='Responsable de la explotación'),
         'consum_hab_id' : fields.many2one('res.partner', 'Consumidor habitual de explosivos', ondelete='cascade', help="Consumidor habitual de explosivos"),
         #'obra': fields.char("Derecho Minero/Obra", size=265),
         'obra_id': fields.many2one('stock.location', 'Obra', domain = [('obra','=',True)]),
         'moves_ids': fields.one2many('stock.move', 'acta_id', "Movimientos"),
         'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', ondelete='cascade', help='Director facultativo'),
+        'resp_equipo_id': fields.many2one('iso.traza.respequipo', 'Responsable del Equipo de Trabajo o Voladura'),
+        'resp_libros_id': fields.many2one('iso.traza.resplibros', 'Responsable de la LLevanza de los Libros'),
     }
     
     _defaults = {
