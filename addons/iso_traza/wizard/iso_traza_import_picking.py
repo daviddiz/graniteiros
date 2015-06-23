@@ -162,6 +162,9 @@ class iso_traza_import_picking(osv.osv_memory):
             if item.find('Length') is not None:
                 cant = float(item.find('Length').text)
                 cant_found = 1
+            elif item.find('ItemQuantity') is not None and uom=="C62":
+                cant = float(item.find('ItemQuantity').text)
+                cant_found = 1
             elif item.find('NEW') is not None and uom<>"MTR":
                 cant = float(item.find('NEW').text)
                 cant_found = 1
