@@ -50,8 +50,8 @@
                 <form string="Panel de Trazabilidad">
                     <hpaned position="200">
                         <child1>
-                            <action colspan="4" name="%(stock.action_reception_picking_move)d" string="Entradas"  width="510"/>
-                            <action colspan="4" name="%(stock.action_out_picking_move)d" string="Salidas" width="510"/>
+                            <action colspan="4" name="%(iso_traza.action_incoming_picking_traza)d" string="Guías de Circulación - Albaranes de Entrada"  width="510"/>
+                            <action colspan="4" name="%(iso_traza.action_iso_traza_acta)d" string="Actas de Consumo" width="510"/>
                         </child1>
                     </hpaned>
                 </form>

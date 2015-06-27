@@ -551,10 +551,10 @@
 					        </group>
                         </form>
                     </field>
-                    <!-- <button name="action_reopen" string="Regenerar Acta para buscar productos no existentes" type="object" icon="gtk-media-play"/> -->
-                    <group  colspan="4" col="2">
+                    <group  colspan="4" col="3">
                     	<button name="action_done_moves" string="Poner como realizados todos los consumos o movimientos de salida" type="object" icon="gtk-media-play"/>
                     	<button name="regenerar_acta" string="Regenerar Acta para buscar productos no existentes" type="object" icon="gtk-media-play"/>
+                    	<button name="action_reopen_acta" type="object" string="Poner los movimientos del acta como Borrador" icon="gtk-convert"/>
                     </group>
                 </form>
             </field>
@@ -719,6 +719,16 @@
                 <xpath expr="/tree/field[@name='origin']" position="replace"/>
                 <xpath expr="/tree/field[@name='partner_id']" position="replace"/>
                 <xpath expr="/tree/field[@name='prodlot_id']" position="replace"/>
+                <xpath expr="/tree/field[@name='date']" position="replace"/>
+                <xpath expr="/tree/field[@name='date_expected']" position="replace">
+                    <field name="date_expected" string="Fecha"/>
+                </xpath>
+                <xpath expr="/tree/field[@name='picking_id']" position="replace">
+                    <field name="picking_id" string="Albarán de Entrada"/>
+                </xpath>
+                <xpath expr="/tree/field[@name='picking_id']" position="after">
+	                <field name="acta_id" string="Acta de Consumo"/>
+	            </xpath>
                 <xpath expr="/tree/button[@name='%(stock.move_scrap)d']" position="replace"/>
                 <xpath expr="/tree/button[@name='%(stock.track_line)d']" position="replace"/>
                 <xpath expr="/tree/button[@name='%(stock.split_into)d']" position="replace"/>
@@ -908,6 +918,24 @@
         </record>
         	        
 		<menuitem action="action_obra" id="menu_action_obra" parent="menu_traceability_traza" sequence="40"/>
-						        	        
+		
+		<!--  Reabrir Movimientos para eliminarlos, sólo administrador -->
+		
+		<record id="action_reopen_mov_salida_server" model="ir.actions.server">
+            <field name="name">Reabrir Movimientos</field>
+            <field name="model_id" ref="model_stock_move"/>
+            <field name="state">code</field>
+            <field name="code">action = obj.action_reopen_mov_salida()</field>
+        </record>
+		
+		<record id="ir_act_stock_move_reopen" model="ir.values">
+            <field name="key2">client_action_multi</field>
+            <field name="model">stock.move</field>
+            <field name="name">Reabrir Movimientos</field>
+            <field name="user_id">1</field>
+            <field eval="'ir.actions.server,%d'%action_reopen_mov_salida_server" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+		
 	</data>
 </openerp>

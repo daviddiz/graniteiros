@@ -100,6 +100,7 @@ class iso_traza_acta(osv.osv):
         
     _name='iso.traza.acta'
     _description='Acta de Consumo'
+    _order = 'date desc, id'
     _columns={
         'name': fields.char("Nombre", size=65, select=True),
         'num_acta': fields.char("Número de Acta", size=65, select=True),
@@ -109,14 +110,19 @@ class iso_traza_acta(osv.osv):
         'consum_hab_id' : fields.many2one('res.partner', 'Consumidor habitual de explosivos', ondelete='cascade', help="Consumidor habitual de explosivos"),
         #'obra': fields.char("Derecho Minero/Obra", size=265),
         'obra_id': fields.many2one('stock.location', 'Obra', domain = [('obra','=',True)]),
-        'moves_ids': fields.one2many('stock.move', 'acta_id', "Movimientos"),
+        'moves_ids': fields.one2many('stock.move', 'acta_id', "Movimientos" ),
         'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', ondelete='cascade', help='Director facultativo'),
         'resp_equipo_id': fields.many2one('iso.traza.respequipo', 'Responsable del Equipo de Trabajo o Voladura'),
         'resp_libros_id': fields.many2one('iso.traza.resplibros', 'Responsable de la LLevanza de los Libros'),
     }
     
+    def _get_default_obra(self, cr, uid, context=None):
+        obra_id = self.pool.get('stock.location').search(cr, uid, [('usage', '=', "internal"),('obra', '=', True)])[0]
+        return obra_id
+        
     _defaults = {
         'name': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'iso.traza.acta'),
+        'obra_id': _get_default_obra,
     }
     
     def alta_mov_out_sinproducto(self, cr, uid, serial, qty, acta_id, polvorin, context=None):
@@ -346,14 +352,14 @@ class iso_traza_acta(osv.osv):
             move_obj.write(cr, uid, ml_ids, {'state': 'done'})
         return True
     
-#     def action_reopen(self, cr, uid, ids, context=None):
-#         move_obj = self.pool.get('stock.move')
-#         for acta in self.browse(cr, uid, ids):
-#             ml_ids = []
-#             for ml in acta.moves_ids:
-#                 ml_ids.append(ml.id)
-#             move_obj.write(cr, uid, ml_ids, {'state':'draft'})
-#         return True
+    def action_reopen_acta(self, cr, uid, ids, context=None):
+        move_obj = self.pool.get('stock.move')
+        for acta in self.browse(cr, uid, ids):
+            ml_ids = []
+            for ml in acta.moves_ids:
+                ml_ids.append(ml.id)
+            move_obj.write(cr, uid, ml_ids, {'state':'draft'})
+        return True
     
 iso_traza_acta()
 
@@ -387,7 +393,20 @@ class stock_picking(osv.osv):
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', ondelete='cascade', help='Responsable explotación, encargado del libro de registro y usuario del programa'),
         'num_catalog': fields.char('Número de catalogación', size=25),                
         'consum_hab_id' : fields.many2one('res.partner', 'Consumidor habitual de explosivos', ondelete='cascade', help="Consumidor habitual de explosivos"),
-                }
+    }
+    
+    def _get_default_location_origen(self, cr, uid, context=None):
+        location_id = self.pool.get('stock.location').search(cr, uid, [('usage', '=', "supplier")])[0]
+        return location_id
+    
+    def _get_default_location_destino(self, cr, uid, context=None):
+        location_dest_id = self.pool.get('stock.location').search(cr, uid, [('usage', '=', "internal"),('polvorin', '=', True)])[0]
+        return location_dest_id
+    
+    _defaults = {
+        'location_id': _get_default_location_origen,
+        'location_dest_id': _get_default_location_destino,
+    }
     
     def date_to_moves(self, cr, uid, ids, context=None):
         """ Changes move date
@@ -451,7 +470,7 @@ class stock_move(osv.osv):
         'serial': fields.char('Número de dentificación', required=True ,size=25, help='Número de dentificación único del producto'),
         'consum_hab_id' : fields.many2one('res.partner', 'Consumidor habitual de explosivos', ondelete='cascade', help="Consumidor habitual de explosivos"),
         'libro_id' : fields.many2one('iso.traza.libro', 'Libro de Registro'),
-        'acta_id' : fields.many2one('iso.traza.acta', 'Acta de Consumo'),
+        'acta_id' : fields.many2one('iso.traza.acta', 'Acta de Consumo', ondelete='cascade'),
     }
     _constraints = [
         (_check_tracking,
@@ -551,6 +570,17 @@ class stock_move(osv.osv):
                     'name': product_name,
                     'tracking_id': new_tracking_id}, context = context)
         return False
+    
+    def action_reopen_mov_salida(self, cr, uid, ids, context=None):
+        self.write(cr, uid, ids, {'state':'draft'})
+        return {
+            'domain': "[('id','in', %s)]" % (ids),
+            'name': 'Movimientos Reabiertos',
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'stock.move',
+            'type': 'ir.actions.act_window',
+            }
         
 
 stock_move()
