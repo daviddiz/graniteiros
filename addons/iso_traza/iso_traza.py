@@ -265,44 +265,18 @@ class iso_traza_acta(osv.osv):
             if product_name == "producto no existente":
                 # el serial del movimiento tiene 3 posibilidades:
                 # 1 que pertenezca a un paquete que sería el caso normal a tratar
-                # 2 que pertenezca a un movimiento existente (no debería ser así)
-                # 3 que no exista ese serial en el programa (no debería ser así)
-                # trataré solamente el primer caso
                 # busco el serial entre los paquetes y creo un movimiento por cada elemento del paquete
                 # posteriormente elimino el movimiento de salida con producto no existente
+                # 2 que ponga producto no existente porque no reconoció el producto
+                # busco el movimiento de entrada y le asigno su producto a la salida                
                 serial_paquete = move_data.serial
-                paquetes_id = self.pool.get('stock.tracking').search(cr, uid, [('serial', '=', serial_paquete)], context=context)
+                paquetes_id = self.pool.get('stock.tracking').search(cr, uid, [('name', '=', serial_paquete)], context=context)
                 if not paquetes_id:
-                    #busco el paquete hijo y sus movimientos
-                    paquetes_hijos_id = self.pool.get('stock.tracking').search(cr, uid, [('parent_id', '=', paquetes_id[0])], context=context)
-                    if not paquetes_hijos_id:
-                        # no hay nada que hacer o en todo caso ver si entra dentro de los casos 2 o 3
-                        continue
-                    else:
-                        se_hizo = 0
-                        for paquete_hijo_id in paquetes_hijos_id:
-                            moves_del_paquete_hijo = move_obj.search(cr, uid, [('tracking_id', '=', paquete_hijo_id)], context=context)
-                            if moves_del_paquete_hijo:
-                                se_hizo = 1
-                                for move_del_paquete_hijo in moves_del_paquete_hijo:
-                                    # crear un movimiento de salida
-                                    move_del_paquete_hijo_data = move_obj.browse(cr, uid, move_del_paquete_hijo, context=context)
-                                    move_obj.create(cr, uid, vals = {
-                                        'acta_id': id[0],
-                                        'serial': move_del_paquete_hijo_data.serial,                                               
-                                        'location_id': move_data.location_id.id,
-                                        'location_dest_id': obra,
-                                        'product_id': move_del_paquete_hijo_data.product_id.id,
-                                        'product_uom': move_del_paquete_hijo_data.product_uom.id,
-                                        'product_uos_qty': move_del_paquete_hijo_data.product_uos_qty,
-                                        'product_qty': move_del_paquete_hijo_data.product_qty,
-                                        'name': move_del_paquete_hijo_data.serial,
-                                        'tracking_id': move_del_paquete_hijo_data.tracking_id.id}, context = context)
-                            if se_hizo:
-                                # borrar el movimiento sin producto
-                                move_obj.unlink(cr, uid, acta_move, context=None)
-                            else:
-                                continue
+                    move_entradas = self.pool.get('stock.move').search(cr, uid, [('serial', '=', serial_paquete), ('picking_id', '!=', None)], context=context)
+                    if move_entradas:
+                        #regenerar linea de salida asignandole el producto
+                        producto_a_asignar_id = move_obj.browse(cr, uid, move_entradas[0], context=context).product_id.id
+                        move_obj.write(cr, uid, acta_move, {'product_id':producto_a_asignar_id}, context=context)
                 else:
                     moves_del_paquete = move_obj.search(cr, uid, [('tracking_id', '=', paquetes_id[0])], context=context)
                     for move_del_paquete in moves_del_paquete:
