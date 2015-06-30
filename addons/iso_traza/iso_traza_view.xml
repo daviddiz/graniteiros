@@ -925,7 +925,7 @@
             <field name="name">Reabrir Movimientos</field>
             <field name="model_id" ref="model_stock_move"/>
             <field name="state">code</field>
-            <field name="code">action = obj.action_reopen_mov_salida()</field>
+            <field name="code">action = obj.action_reopen_mov_salida(context=context)</field>
         </record>
 		
 		<record id="ir_act_stock_move_reopen" model="ir.values">

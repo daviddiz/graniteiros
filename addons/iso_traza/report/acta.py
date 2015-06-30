@@ -56,6 +56,9 @@ class acta(report_sxw.rml_parse):
                 if data:
                     if aux==2 and serial_anterior:
                         data['serial'] = data['serial'] + "\n" + serial_anterior
+                    data['entregado'] = float("%1.f" % data['entregado'])
+                    data['sobrante'] = float("%1.f" % data['sobrante'])
+                    data['consumido'] = float("%1.f" % data['consumido'])
                     lineas.append(data)
                     data = {}
                 aux = 0
@@ -98,6 +101,9 @@ class acta(report_sxw.rml_parse):
                 data['consumido'] = abs(data['consumido'])
         if aux==2 and serial_anterior:
             data['serial'] = data['serial'] + "\n" + serial_anterior
+        data['entregado'] = float("%1.f" % data['entregado'])
+        data['sobrante'] = float("%1.f" % data['sobrante'])
+        data['consumido'] = float("%1.f" % data['consumido'])
         lineas.append(data)
         return lineas
 

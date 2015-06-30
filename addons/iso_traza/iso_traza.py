@@ -546,9 +546,10 @@ class stock_move(osv.osv):
         return False
     
     def action_reopen_mov_salida(self, cr, uid, ids, context=None):
-        self.write(cr, uid, ids, {'state':'draft'})
+        if context is None: context = {}
+        self.write(cr, uid, context['active_ids'], {'state':'draft'})
         return {
-            'domain': "[('id','in', %s)]" % (ids),
+            'domain': "[('id','in', %s)]" % (context['active_ids']),
             'name': 'Movimientos Reabiertos',
             'view_type': 'form',
             'view_mode': 'tree,form',
