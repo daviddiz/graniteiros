@@ -493,8 +493,6 @@
                     <field name="name" string="Nombre"/>
                     <field name="date" string="Fecha"/>
                     <field name="artillero_id" string="Artillero"/>
-                    <field name="resp_explot_id" string="Responsable explotación"/>
-                    <field name="consum_hab_id" string="Consumidor habitual de explosivos"/>
                     <field name="obra_id" string="Obra"/>
                     <field name="resp_equipo_id" string="Responsable del Equipo de Trabajo o Voladura"/>
                     <field name="resp_libros_id" string="Responsable de la LLevanza de los Libros"/>
@@ -773,6 +771,8 @@
         
         <menuitem id="menu_traceability_traza" name="Trazabilidad" parent="menu_traza_root" sequence="25"/>
         
+        <menuitem id="menu_traceability_conf" name="Configuración" parent="menu_traza_root" sequence="30"/>
+        
         <menuitem action="action_move_form2_traza" id="menu_action_move_form2_traza" parent="menu_traceability_traza" sequence="10"/>
         
         <!-- Modificar vistas de stock_partial_move para quitar prodlot_id -->
@@ -889,7 +889,7 @@
             <field name="search_view_id" ref="iso_traza_artillero_view_search"/>
         </record>
         	        
-		<menuitem action="action_artilleros" id="menu_action_artilleros" parent="menu_traceability_traza" sequence="20"/>
+		<menuitem action="action_artilleros" id="menu_action_artilleros" parent="menu_traceability_conf" sequence="30"/>
 		
 		<!-- Polvorín - Almacén - Stock -->
         	
@@ -903,7 +903,7 @@
             <field name="search_view_id" ref="view_location_search_traza"/>
         </record>
         	        
-		<menuitem action="action_polvorin" id="menu_action_polvorin" parent="menu_traceability_traza" sequence="30"/>
+		<menuitem action="action_polvorin" id="menu_action_polvorin" parent="menu_traceability_conf" sequence="10"/>
 		
 		<!-- Obra - Explotación -->
         	
@@ -917,7 +917,7 @@
             <field name="search_view_id" ref="view_location_search_traza"/>
         </record>
         	        
-		<menuitem action="action_obra" id="menu_action_obra" parent="menu_traceability_traza" sequence="40"/>
+		<menuitem action="action_obra" id="menu_action_obra" parent="menu_traceability_conf" sequence="20"/>
 		
 		<!--  Reabrir Movimientos para eliminarlos, sólo administrador -->
 		
@@ -936,6 +936,120 @@
             <field eval="'ir.actions.server,%d'%action_reopen_mov_salida_server" name="value"/>
             <field eval="True" name="object"/>
         </record>
+        
+		<!-- Director Facultativo -->
+		
+		<record id="iso_traza_dirfacul_view_tree" model="ir.ui.view">
+            <field name="name">iso.traza.dirfacul.tree</field>
+            <field name="model">iso.traza.dirfacul</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Director Facultativo">
+                    <field name="name"/>
+                    <field name="dni"/>
+                    <field name="direccion"/>
+                    <field name="telefonos"/>     
+                </tree>
+            </field>
+        </record>
+        
+        <record id="iso_traza_dirfacul_view_form" model="ir.ui.view">
+            <field name="name">iso.traza.dirfacul.form</field>
+            <field name="model">iso.traza.dirfacul</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Director Facultativo">
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                        <field name="dni"/>
+                        <field name="direccion"/>
+                        <field name="telefonos"/>
+					</group>
+                </form>
+            </field>
+        </record>
+
+        <record id="iso_traza_dirfacul_view_search" model="ir.ui.view">
+            <field name="name">iso.traza.dirfacul.search</field>
+            <field name="model">iso.traza.dirfacul</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Director Facultativo">
+                    <group col="4" colspan="4">
+                        <field name="name"/>
+                        <field name="dni"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        	
+        <record id="action_dirfacul" model="ir.actions.act_window">
+            <field name="name">Director Facultativo</field>
+            <field name="res_model">iso.traza.dirfacul</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="iso_traza_dirfacul_view_tree"/>
+            <field name="search_view_id" ref="iso_traza_dirfacul_view_search"/>
+        </record>
+        	        
+		<menuitem action="action_dirfacul" id="menu_action_dirfacul" parent="menu_traceability_conf" sequence="40"/>
+		
+		<!-- Responsable explotación -->
+		
+		<record id="iso_traza_respexplot_view_tree" model="ir.ui.view">
+            <field name="name">iso.traza.respexplot.tree</field>
+            <field name="model">iso.traza.respexplot</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Responsable explotación">
+                    <field name="name"/>
+                    <field name="dni"/>
+                    <field name="direccion"/>
+                    <field name="telefonos"/>     
+                </tree>
+            </field>
+        </record>
+        
+        <record id="iso_traza_respexplot_view_form" model="ir.ui.view">
+            <field name="name">iso.traza.respexplot.form</field>
+            <field name="model">iso.traza.respexplot</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Responsable explotación">
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                        <field name="dni"/>
+                        <field name="direccion"/>
+                        <field name="telefonos"/>
+					</group>
+                </form>
+            </field>
+        </record>
+
+        <record id="iso_traza_respexplot_view_search" model="ir.ui.view">
+            <field name="name">iso.traza.respexplot.search</field>
+            <field name="model">iso.traza.respexplot</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Responsable explotación">
+                    <group col="4" colspan="4">
+                        <field name="name"/>
+                        <field name="dni"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        	
+        <record id="action_respexplot" model="ir.actions.act_window">
+            <field name="name">Responsable explotación</field>
+            <field name="res_model">iso.traza.respexplot</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="iso_traza_respexplot_view_tree"/>
+            <field name="search_view_id" ref="iso_traza_respexplot_view_search"/>
+        </record>
+        	        
+		<menuitem action="action_respexplot" id="menu_action_respexplot" parent="menu_traceability_conf" sequence="50"/>
 		
 	</data>
 </openerp>

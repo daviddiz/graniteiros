@@ -344,7 +344,7 @@ class iso_traza_libro(osv.osv):
     _columns={
         'name': fields.char("Nombre", size=65, required=True, readonly=True, select=True),
         'date': fields.date('Fecha Inicio Libro', required=True, select=True),
-        'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', help='Director facultativo'),
+        'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', ondelete='cascade', help='Director facultativo'),
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', help='Responsable explotación, encargado del libro de registro y usuario del programa'),
         'moves_ids': fields.one2many('stock.move', 'libro_id', "Movimientos"),
         'obra_id': fields.many2one('stock.location', 'Obra', domain = [('obra','=',True)]),

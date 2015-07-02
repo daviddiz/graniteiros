@@ -28,13 +28,24 @@ class iso_traza_libro_report(osv.osv_memory):
     _columns = {
         'obra_id': fields.many2one('stock.location', 'Explotacion - Obra', domain = [('obra','=',True)], required=True),
         'date_from': fields.date("Fecha Inicial"),
+        'date_to': fields.date("Fecha Final"),
+        'delegacion': fields.char("Delegación", size=150),
+        'subdelegacion': fields.char("Subdelegación", size=150),
+        'area': fields.char("Área Funcional", size=150),
+        'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', ondelete='cascade', help='Director facultativo'),
+        'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', help='Responsable de la explotación'),
+    }
+    _defaults = {
+        'obra_id': lambda self, cr, uid, c: self.pool.get('stock.location').search(cr, uid, [('obra', '=', True)])[0],
+        'dir_facul_id': lambda self, cr, uid, c: self.pool.get('iso.traza.dirfacul').search(cr, uid, [])[0],
+        'resp_explot_id': lambda self, cr, uid, c: self.pool.get('iso.traza.respexplot').search(cr, uid, [])[0]
     }
 
     def print_report(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
         data = {}
-        data['form'] = self.read(cr, uid, ids, ['obra_id',  'date_from'])[0]
+        data['form'] = self.read(cr, uid, ids, ['obra_id',  'date_from', 'date_to', 'delegacion', 'subdelegacion', 'area', 'dir_facul_id', 'resp_explot_id'])[0]
         return {
             'type': 'ir.actions.report.xml',
             'report_name': 'libro',

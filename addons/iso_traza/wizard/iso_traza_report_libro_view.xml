@@ -12,7 +12,22 @@
                     <label nolabel="1" colspan="4" string="Este informe es un Libro de Registro con los consumos de material según las siguientes variables"/>
                 	<newline/>
                 	<field name="obra_id" string="Explotacion - Obra" colspan="4"/>
-                    <field name="date_from" colspan="4"/>
+                	<separator colspan="4"/>
+                	<group col="4" colspan="4">
+                    	<field name="date_from" string="Fecha Desde"/>
+                    	<field name="date_to" string="Fecha Desde"/>
+                    </group>
+                    <separator colspan="4"/>
+                    <group col="6" colspan="4">
+                    	<field name="delegacion"/>
+                    	<field name="subdelegacion"/>
+                    	<field name="area"/>
+                    </group>
+                    <separator colspan="4"/>
+                    <group col="4" colspan="4">
+                    	<field name="dir_facul_id"/>
+                    	<field name="resp_explot_id"/>
+                    </group>
                     <separator colspan="4"/>
                     <group col="4" colspan="4">
                         <button icon="gtk-cancel" special="cancel" string="Cancelar" colspan="2"/>
@@ -39,7 +54,7 @@
            action="action_libro_report"
            id="menu_traza_libros_report"
            parent="menu_traceability_traza"
-           sequence="50"/>
+           sequence="20"/>
 
     </data>
 </openerp>
