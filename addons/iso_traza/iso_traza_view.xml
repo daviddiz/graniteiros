@@ -10,11 +10,50 @@
             <field name="inherit_id" ref="stock.view_location_form" />
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <xpath expr="/form/group/field[@name='location_id']" position="after">
+                <xpath expr="/form/group/field[@name='name']" position="after">
 	                <field name="polvorin"/>
 	            </xpath>
-	            <xpath expr="/form/group/field[@name='location_id']" position="after">
+	            <xpath expr="/form/group/field[@name='name']" position="after">
 	                <field name="obra"/>
+	            </xpath>
+	            <xpath expr="/form/group/field[@name='name']" position="after">
+	                <field name="direccion"/>
+	            </xpath>
+	            <xpath expr="/form/group/separator[@string='Location']" position="replace"/>
+	            <xpath expr="/form/group/separator[@string='Additional Information']" position="replace"/>
+	            <xpath expr="/form/group/separator[@string='Chained Locations']" position="replace"/>
+	            <xpath expr="/form/group/separator[@string='Localization']" position="replace"/>
+	            <xpath expr="/form/group/separator[@string='Accounting Information']" position="replace"/>
+	            <xpath expr="/form/separator[@string='Additional Information']" position="replace"/>
+	            
+	            <xpath expr="/form/group/field[@name='location_id']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='address_id']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='company_id']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='icon']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='scrap_location']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='chained_location_id']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='chained_delay']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='chained_journal_id']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='chained_picking_type']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='chained_company_id']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='posx']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='posy']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='posz']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='valuation_in_account_id']" position="replace"/>
+	            <xpath expr="/form/group/field[@name='valuation_out_account_id']" position="replace"/>
+	            <xpath expr="/form/field[@name='comment']" position="replace"/>
+	            
+                <xpath expr="/form/group/field[@name='usage']" position="attributes">
+	                <attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="/form/group/field[@name='active']" position="attributes">
+	                <attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="/form/group/field[@name='chained_location_type']" position="attributes">
+	                <attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="/form/group/field[@name='chained_auto_packing']" position="attributes">
+	                <attribute name="invisible">1</attribute>
 	            </xpath>
             </field>
         </record>
@@ -25,12 +64,15 @@
             <field name="inherit_id" ref="stock.view_location_search" />
             <field name="type">search</field>
             <field name="arch" type="xml">
-            	<xpath expr="/search/filter[@name='supplier']" position="after">
+            	<!-- <xpath expr="/search/filter[@name='supplier']" position="before">
 	                <filter icon="terp-personal" name="polvorines" string="Polvorines" domain="[('polvorin', '=', True)]"/>
 	            </xpath>
-            	<xpath expr="/search/filter[@name='supplier']" position="after">
+            	<xpath expr="/search/filter[@name='supplier']" position="before">
 	                <filter icon="terp-personal" name="obras" string="Obras" domain="[('obra', '=', True)]"/>
-	            </xpath>
+	            </xpath> -->
+	            <xpath expr="/search/filter[@name='in_location']" position="replace"/>
+	            <xpath expr="/search/filter[@name='customer']" position="replace"/>
+	            <xpath expr="/search/filter[@name='supplier']" position="replace"/>
             </field>
         </record>
 
@@ -41,12 +83,20 @@
             <field name="inherit_id" ref="stock.view_location_tree2" />
             <field name="type">tree</field>
             <field name="arch" type="xml">
-                <xpath expr="/tree/field[@name='usage']" position="after">
+                <xpath expr="/tree/field[@name='complete_name']" position="after">
 	                <field name="polvorin"/>
 	            </xpath>     
-                <xpath expr="/tree/field[@name='usage']" position="after">
+                <xpath expr="/tree/field[@name='complete_name']" position="after">
 	                <field name="obra"/>
 	            </xpath>
+	            <xpath expr="/tree/field[@name='complete_name']" position="after">
+	                <field name="direccion"/>
+	            </xpath>
+	            <xpath expr="/tree/field[@name='complete_name']" position="after">
+	                <field name="name"/>
+	            </xpath>
+	            <xpath expr="/tree/field[@name='usage']" position="replace"/>
+	            <xpath expr="/tree/field[@name='complete_name']" position="replace"/>
             </field>
         </record>
     		        
@@ -292,7 +342,7 @@
 	                <field name="serial"/>
 	            </xpath>
 	            <xpath expr="/form/field[@name='state']" position="before">
-	                <field name="date"/>
+	                <field name="date_expected"/>
 	            </xpath>
 	            <xpath expr="/form/field[@name='state']" position="before">
 	                <field name="picking_id"/>
@@ -391,7 +441,7 @@
                     <field name="serial" string="Código producto"/>
                     <field name="product_qty" string="Cantidad consumida"/>
                     <field name="product_uom" string="Unidad"/>
-                    <field name="date" string="Fecha consumo"/>
+                    <field name="date_expected" string="Fecha consumo"/>
                     <field name="picking_id" string="Guía de circulación"/>
                     <field name="num_catalog" string="Número catalogación"/>
                     <field name="artillero_id" string="Artillero"/>
@@ -417,7 +467,7 @@
                         <newline/>
                         <separator colspan="4" string="Información de la Guía"/>
                         <field name="picking_id" string="Guía de circulación"/>
-                        <field name="date"/>
+                        <field name="date_expected"/>
                     	<field name="partner_id" string="Proveedor"/>
                     	<field name="num_catalog" string="Número catalogación"/>
                     	<separator colspan="4" string="Otros Datos"/>
@@ -445,7 +495,7 @@
                         <separator orientation="vertical"/>
                         <field name="product_id"/>
                         <field name="picking_id" string="Guía de circulación"/>
-                        <field name="date"/>
+                        <field name="date_expected"/>
                         <field name="partner_id" string="Proveedor"/>
                         <field name="artillero_id"/>
                         <field name="dir_facul_id"/>
@@ -634,7 +684,7 @@
 			                    <field name="serial" string="Código producto"/>
 			                    <field name="product_qty" string="Cantidad recibida"/>
 			                    <field name="product_uom" string="Unidad"/>
-			                    <field name="date" string="Fecha recepción"/>
+			                    <field name="date_expected" string="Fecha recepción"/>
 			                    <field name="picking_id" string="Guía de circulación"/>
 			                    <field name="partner_id" string="Proveedor"/>
 			                    <field name="num_catalog" string="Número catalogación"/>
@@ -652,7 +702,7 @@
 			                        <newline/>
 			                        <separator colspan="4" string="Información de la Guía"/>
 			                        <field name="picking_id" string="Guía de circulación"/>
-			                        <field name="date"/>
+			                        <field name="date_expected"/>
 			                    	<field name="partner_id" string="Proveedor"/>
 			                    	<field name="num_catalog" string="Número catalogación"/>
 			                    	<separator colspan="4" string="Otros Datos"/>
@@ -1050,6 +1100,106 @@
         </record>
         	        
 		<menuitem action="action_respexplot" id="menu_action_respexplot" parent="menu_traceability_conf" sequence="50"/>
+		
+		<!-- Inventario -->
+		
+	    <record id="view_stock_inventory_tree_traza" model="ir.ui.view">
+	        <field name="name">report.stock.inventory.tree.traza</field>
+	        <field name="model">report.stock.inventory.traza</field>
+	        <field name="type">tree</field>
+	        <field name="arch" type="xml">
+	            <tree string="Inventario">
+	                <field name="date" invisible="1"/>
+	                <field name="company_id" invisible="1"/>
+	                <field name="location_type" invisible="1"/>
+	                <field name="location_id" invisible="1"/>
+	                <field name="partner_id" invisible="1" context="{'contact_display':'partner'}"/>
+	                <field name="product_categ_id" invisible="1"/>
+	                <field name="product_id" invisible="1"/>
+	                <field name="prodlot_id" invisible="1"/>
+	                <field name="state" invisible="1"/>
+	                <field name="product_qty" sum="Total quantity"/>
+	                <field name="value" sum="Total value"/>
+	           </tree>
+	        </field>
+	    </record>
+	
+	    <record id="view_stock_inventory_graph_traza" model="ir.ui.view">
+	         <field name="name">report.stock.inventory.graph.traza</field>
+	         <field name="model">report.stock.inventory.traza</field>
+	         <field name="type">graph</field>
+	         <field name="arch" type="xml">
+	             <graph string="Inventario" type="bar">
+	                 <field name="product_id"/>
+	                 <field name="product_qty"/>
+	             </graph>
+	         </field>
+	    </record>
+	
+	    <record id="view_stock_inventory_search_traza" model="ir.ui.view">
+	        <field name="name">report.stock.inventory.search.traza</field>
+	        <field name="model">report.stock.inventory.traza</field>
+	        <field name="type">search</field>
+	        <field name="arch" type="xml">
+	            <search string="Inventario">
+	                <group col="16">
+	                    <filter string="Real"
+	                        name="real"
+	                        icon="terp-check"
+	                        domain="[('state','=','done')]"
+	                        help="Analysis of current inventory (only moves that have already been processed)"/>
+	
+	                    <filter string="Future"
+	                        icon="terp-stock"
+	                        domain="[('state','in',('assigned','done','waiting','confirmed'))]"
+	                        help = "Analysis including future moves (similar to virtual stock)"/>
+	
+	                    <separator orientation="vertical"/>
+	                    <filter icon="terp-go-home" name="location_type_internal" string="Internal" domain="[('location_type','=','internal')]"/>
+	                    <separator orientation="vertical"/>
+	                    <field name="product_id" default_focus="1"/>
+	                    <field name="location_id" filter_domain="[('location_id', 'child_of', self)]"/>
+	                    <field name="company_id" groups="base.group_multi_company"/>
+	                </group>
+	                <newline/>
+	                <group expand="0" string="Extended Filters..."  groups="base.group_extended">
+	                    <field name="partner_id" context="{'contact_display':'partner'}"/>
+	                    <field name="product_categ_id" />
+	                    <field name="prodlot_id"/>
+	                    <field name="state"/>
+	                    <field name="location_type"/>
+	                    <field name="date"/>
+	                    <filter icon="terp-go-home" name="location_type_scrap" string="Scrap" domain="[('location_type','=','scrap')]"/>
+	                </group>
+	                <newline/>
+	                <group expand="1" string="Group By..." >
+	                    <filter string="Partner" name="group_partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+	                    <separator orientation="vertical"/>
+	                    <filter name="group_product_categ_id" string="Product Category" icon="terp-stock_symbol-selection" context="{'group_by':'product_categ_id'}"/>
+	                    <filter name="group_product" string="Product" icon="terp-accessories-archiver" context="{'group_by':'product_id'}"/>
+	                     <filter name="group_lot" string="Lot" icon="terp-accessories-archiver" context="{'group_by':'prodlot_id'}"/>
+	                    <separator orientation="vertical"/>
+	                    <filter name="group_company" string="Company" groups="base.group_multi_company" icon="terp-go-home" context="{'group_by':'company_id'}"/>
+	                    <filter name="group_location" string="Location" icon="terp-go-home" context="{'group_by':'location_id'}"/>
+	                    <separator orientation="vertical"/>
+	                    <filter string="Date" icon="terp-go-month" context="{'group_by':'date'}"/>
+	                    <filter string="State" icon="terp-stock_effects-object-colorize" context="{'group_by':'state'}"/>
+	                </group>
+	            </search>
+	        </field>
+	    </record>
+	
+	    <record id="action_stock_inventory_report_traza" model="ir.actions.act_window">
+	        <field name="name">Inventario</field>
+	        <field name="res_model">report.stock.inventory.traza</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,graph</field>
+	        <field name="search_view_id"  eval="False"/>
+	        <field name="context">{'contact_display': 'partner', 'search_default_real':1, 'search_default_location_type_internal':1,'search_default_group_product':1,'group_by':[], 'group_by_no_leaf':1}</field>
+	    </record>
+	    <menuitem action="action_stock_inventory_report_traza"
+	        id="menu_action_stock_inventory_report_traza" 
+	        parent="menu_traceability_traza" sequence="30"/>
 		
 	</data>
 </openerp>

@@ -20,7 +20,7 @@
 ##############################################################################
 
 import time
-
+import pooler
 from report import report_sxw
 
 class libro(report_sxw.rml_parse):
@@ -31,15 +31,15 @@ class libro(report_sxw.rml_parse):
             'process':self.process_lines,
         })
         
-    def process_lines(self,form):
-        obra_id = form['obra_id']
-        date_from = form['date_from']
-        date_to = form['date_to']
-        obra_id = form['obra_id']
+    def process_lines(self, obra_id, date_from, date_to):
+        move_obj = pooler.get_pool(self.cr.dbname).get('stock.move')
+        movimientos = move_obj.search(self.cr, self.uid, [('date_expected','<=',date_to or time.strftime('%Y-%m-%d')),('date_expected','>=',date_from or time.strftime('%Y-%m-%d'))])
         
         
+        data = {}
+        data['obra_id']="Obra"
         lineas = []
-        
+        lineas.append(data)
         
         return lineas
 #         acta_obj = pooler.get_pool(self.cr.dbname).get('iso.traza.acta')

@@ -23,6 +23,38 @@
 from osv import osv, fields
 from datetime import datetime
 import netsvc
+import tools
+from decimal_precision import decimal_precision as dp
+
+class iso_traza_delegacion(osv.osv):
+        
+    _name='iso.traza.delegacion'
+    _description='Delegación'
+    _columns={
+        'name': fields.char("Delegación", size=145, required=True), 
+    }
+    
+iso_traza_delegacion()
+
+class iso_traza_subdelegacion(osv.osv):
+        
+    _name='iso.traza.subdelegacion'
+    _description='Subdelegación'
+    _columns={
+        'name': fields.char("Subdelegación", size=145, required=True), 
+    }
+    
+iso_traza_subdelegacion()
+
+class iso_traza_area(osv.osv):
+        
+    _name='iso.traza.area'
+    _description='Área Funcional'
+    _columns={
+        'name': fields.char("Área Funcional", size=145, required=True), 
+    }
+    
+iso_traza_area()
 
 class stock_location(osv.osv):
     _inherit = 'stock.location'
@@ -30,7 +62,12 @@ class stock_location(osv.osv):
     _columns = {
         'obra': fields.boolean('Obra'),
         'polvorin': fields.boolean('Polvorin'),
+        'direccion': fields.char("Dirección", size=145),
         }
+    
+    _defaults = {
+        'usage': 'internal',
+    }
 
 stock_location()
 
@@ -572,5 +609,78 @@ class stock_tracking(osv.osv):
     ]
     
 stock_tracking()
+
+class report_stock_inventory_traza(osv.osv):
+    _name = "report.stock.inventory.traza"
+    _description = "Inventario"
+    _auto = False
+    _columns = {
+        'date': fields.datetime('Date', readonly=True),
+        'partner_id':fields.many2one('res.partner.address', 'Partner', readonly=True),
+        'product_id':fields.many2one('product.product', 'Product', readonly=True),
+        'product_categ_id':fields.many2one('product.category', 'Product Category', readonly=True),
+        'location_id': fields.many2one('stock.location', 'Location', readonly=True),
+        'prodlot_id': fields.many2one('stock.production.lot', 'Lot', readonly=True),
+        'company_id': fields.many2one('res.company', 'Company', readonly=True),
+        'product_qty':fields.float('Quantity',  digits_compute=dp.get_precision('Product UoM'), readonly=True),
+        'value' : fields.float('Total Value',  digits_compute=dp.get_precision('Account'), required=True),
+        'state': fields.selection([('draft', 'Draft'), ('waiting', 'Waiting'), ('confirmed', 'Confirmed'), ('assigned', 'Available'), ('done', 'Done'), ('cancel', 'Cancelled')], 'State', readonly=True, select=True),
+        'location_type': fields.selection([('supplier', 'Supplier Location'), ('view', 'View'), ('internal', 'Internal Location'), ('customer', 'Customer Location'), ('inventory', 'Inventory'), ('procurement', 'Procurement'), ('production', 'Production'), ('transit', 'Transit Location for Inter-Companies Transfers')], 'Location Type', required=True),
+    }
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'report_stock_inventory_traza')
+        cr.execute("""
+CREATE OR REPLACE view report_stock_inventory_traza AS (
+    (SELECT
+        min(m.id) as id, m.date as date,
+        m.address_id as partner_id, m.location_id as location_id,
+        m.product_id as product_id, pt.categ_id as product_categ_id, l.usage as location_type,
+        m.company_id,
+        m.state as state, m.prodlot_id as prodlot_id,
+        coalesce(sum(-pt.standard_price * m.product_qty * pu.factor / u.factor)::decimal, 0.0) as value,
+        CASE when pt.uom_id = m.product_uom
+        THEN
+        coalesce(sum(-m.product_qty)::decimal, 0.0)
+        ELSE
+        coalesce(sum(-m.product_qty * pu.factor / u.factor )::decimal, 0.0) END as product_qty
+    FROM
+        stock_move m
+            LEFT JOIN stock_picking p ON (m.picking_id=p.id)
+            LEFT JOIN product_product pp ON (m.product_id=pp.id)
+                LEFT JOIN product_template pt ON (pp.product_tmpl_id=pt.id)
+                LEFT JOIN product_uom pu ON (pt.uom_id=pu.id)
+            LEFT JOIN product_uom u ON (m.product_uom=u.id)
+            LEFT JOIN stock_location l ON (m.location_id=l.id)
+    GROUP BY
+        m.id, m.product_id, m.product_uom, pt.categ_id, m.address_id, m.location_id,  m.location_dest_id,
+        m.prodlot_id, m.date, m.state, l.usage, m.company_id,pt.uom_id
+) UNION ALL (
+    SELECT
+        -m.id as id, m.date as date,
+        m.address_id as partner_id, m.location_dest_id as location_id,
+        m.product_id as product_id, pt.categ_id as product_categ_id, l.usage as location_type,
+        m.company_id,
+        m.state as state, m.prodlot_id as prodlot_id,
+        coalesce(sum(pt.standard_price * m.product_qty * pu.factor / u.factor )::decimal, 0.0) as value,
+        CASE when pt.uom_id = m.product_uom
+        THEN
+        coalesce(sum(m.product_qty)::decimal, 0.0)
+        ELSE
+        coalesce(sum(m.product_qty * pu.factor / u.factor)::decimal, 0.0) END as product_qty
+    FROM
+        stock_move m
+            LEFT JOIN stock_picking p ON (m.picking_id=p.id)
+            LEFT JOIN product_product pp ON (m.product_id=pp.id)
+                LEFT JOIN product_template pt ON (pp.product_tmpl_id=pt.id)
+                LEFT JOIN product_uom pu ON (pt.uom_id=pu.id)
+            LEFT JOIN product_uom u ON (m.product_uom=u.id)
+            LEFT JOIN stock_location l ON (m.location_dest_id=l.id)
+    GROUP BY
+        m.id, m.product_id, m.product_uom, pt.categ_id, m.address_id, m.location_id, m.location_dest_id,
+        m.prodlot_id, m.date, m.state, l.usage, m.company_id,pt.uom_id
+    )
+);
+        """)
+report_stock_inventory_traza()
 
 #vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

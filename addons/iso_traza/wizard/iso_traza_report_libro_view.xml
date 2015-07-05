@@ -14,14 +14,14 @@
                 	<field name="obra_id" string="Explotacion - Obra" colspan="4"/>
                 	<separator colspan="4"/>
                 	<group col="4" colspan="4">
-                    	<field name="date_from" string="Fecha Desde"/>
-                    	<field name="date_to" string="Fecha Desde"/>
+                    	<field name="date_from" string="Fecha Inicial"/>
+                    	<field name="date_to" string="Fecha Final"/>
                     </group>
                     <separator colspan="4"/>
                     <group col="6" colspan="4">
-                    	<field name="delegacion"/>
-                    	<field name="subdelegacion"/>
-                    	<field name="area"/>
+                    	<field name="delegacion_id"/>
+                    	<field name="subdelegacion_id"/>
+                    	<field name="area_id"/>
                     </group>
                     <separator colspan="4"/>
                     <group col="4" colspan="4">

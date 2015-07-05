@@ -29,16 +29,19 @@ class iso_traza_libro_report(osv.osv_memory):
         'obra_id': fields.many2one('stock.location', 'Explotacion - Obra', domain = [('obra','=',True)], required=True),
         'date_from': fields.date("Fecha Inicial"),
         'date_to': fields.date("Fecha Final"),
-        'delegacion': fields.char("Delegación", size=150),
-        'subdelegacion': fields.char("Subdelegación", size=150),
-        'area': fields.char("Área Funcional", size=150),
+        'delegacion_id': fields.many2one('iso.traza.delegacion', "Delegación"),
+        'subdelegacion_id': fields.many2one('iso.traza.subdelegacion', "Subdelegación"),
+        'area_id': fields.many2one('iso.traza.area', "Área Funcional"),
         'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', ondelete='cascade', help='Director facultativo'),
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', help='Responsable de la explotación'),
     }
     _defaults = {
         'obra_id': lambda self, cr, uid, c: self.pool.get('stock.location').search(cr, uid, [('obra', '=', True)])[0],
         'dir_facul_id': lambda self, cr, uid, c: self.pool.get('iso.traza.dirfacul').search(cr, uid, [])[0],
-        'resp_explot_id': lambda self, cr, uid, c: self.pool.get('iso.traza.respexplot').search(cr, uid, [])[0]
+        'resp_explot_id': lambda self, cr, uid, c: self.pool.get('iso.traza.respexplot').search(cr, uid, [])[0],
+        'delegacion_id': lambda self, cr, uid, c: self.pool.get('iso.traza.delegacion').search(cr, uid, [])[0] if (self.pool.get('iso.traza.delegacion').search(cr, uid, [])) else None,
+        'subdelegacion_id': lambda self, cr, uid, c: self.pool.get('iso.traza.subdelegacion').search(cr, uid, [])[0] if (self.pool.get('iso.traza.subdelegacion').search(cr, uid, [])) else None,
+        'area_id': lambda self, cr, uid, c: self.pool.get('iso.traza.area').search(cr, uid, [])[0] if (self.pool.get('iso.traza.area').search(cr, uid, [])) else None,
     }
 
     def print_report(self, cr, uid, ids, context=None):

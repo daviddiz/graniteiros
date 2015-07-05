@@ -12,3 +12,7 @@ access_iso_traza_resplibros,iso.traza.resplibros,iso_traza.model_iso_traza_respl
 access_iso_traza_respexplot,iso.traza.respexplot,iso_traza.model_iso_traza_respexplot,iso_traza.group_traza,1,1,1,1
 access_res_partner,res.partner,base.model_res_partner,iso_traza.group_traza,1,1,1,1
 access_stock_location_user,stock.location.user,stock.model_stock_location,base.group_user,1,1,1,1
+access_iso_traza_delegacion,iso.traza.delegacion,iso_traza.model_iso_traza_delegacion,iso_traza.group_traza,1,1,1,1
+access_iso_traza_subdelegacion,iso.traza.subdelegacion,iso_traza.model_iso_traza_subdelegacion,iso_traza.group_traza,1,1,1,1
+access_iso_traza_area,iso.traza.area,iso_traza.model_iso_traza_area,iso_traza.group_traza,1,1,1,1
+access_report_stock_inventory_traza,report.stock.inventory.traza,iso_traza.model_report_stock_inventory_traza,iso_traza.group_traza,1,1,1,1
