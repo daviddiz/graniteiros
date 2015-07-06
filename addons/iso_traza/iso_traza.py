@@ -616,14 +616,9 @@ class report_stock_inventory_traza(osv.osv):
     _auto = False
     _columns = {
         'date': fields.datetime('Date', readonly=True),
-        'partner_id':fields.many2one('res.partner.address', 'Partner', readonly=True),
         'product_id':fields.many2one('product.product', 'Product', readonly=True),
-        'product_categ_id':fields.many2one('product.category', 'Product Category', readonly=True),
         'location_id': fields.many2one('stock.location', 'Location', readonly=True),
-        'prodlot_id': fields.many2one('stock.production.lot', 'Lot', readonly=True),
-        'company_id': fields.many2one('res.company', 'Company', readonly=True),
         'product_qty':fields.float('Quantity',  digits_compute=dp.get_precision('Product UoM'), readonly=True),
-        'value' : fields.float('Total Value',  digits_compute=dp.get_precision('Account'), required=True),
         'state': fields.selection([('draft', 'Draft'), ('waiting', 'Waiting'), ('confirmed', 'Confirmed'), ('assigned', 'Available'), ('done', 'Done'), ('cancel', 'Cancelled')], 'State', readonly=True, select=True),
         'location_type': fields.selection([('supplier', 'Supplier Location'), ('view', 'View'), ('internal', 'Internal Location'), ('customer', 'Customer Location'), ('inventory', 'Inventory'), ('procurement', 'Procurement'), ('production', 'Production'), ('transit', 'Transit Location for Inter-Companies Transfers')], 'Location Type', required=True),
     }
@@ -632,17 +627,13 @@ class report_stock_inventory_traza(osv.osv):
         cr.execute("""
 CREATE OR REPLACE view report_stock_inventory_traza AS (
     (SELECT
-        min(m.id) as id, m.date as date,
-        m.address_id as partner_id, m.location_id as location_id,
-        m.product_id as product_id, pt.categ_id as product_categ_id, l.usage as location_type,
-        m.company_id,
-        m.state as state, m.prodlot_id as prodlot_id,
-        coalesce(sum(-pt.standard_price * m.product_qty * pu.factor / u.factor)::decimal, 0.0) as value,
-        CASE when pt.uom_id = m.product_uom
-        THEN
-        coalesce(sum(-m.product_qty)::decimal, 0.0)
-        ELSE
-        coalesce(sum(-m.product_qty * pu.factor / u.factor )::decimal, 0.0) END as product_qty
+        min(m.id) as id,
+        m.date as date,
+        m.location_id as location_id,
+        m.product_id as product_id,
+        l.usage as location_type,
+        m.state as state,
+        coalesce(sum(-m.product_qty)::decimal, 0.0) as product_qty
     FROM
         stock_move m
             LEFT JOIN stock_picking p ON (m.picking_id=p.id)
@@ -652,21 +643,16 @@ CREATE OR REPLACE view report_stock_inventory_traza AS (
             LEFT JOIN product_uom u ON (m.product_uom=u.id)
             LEFT JOIN stock_location l ON (m.location_id=l.id)
     GROUP BY
-        m.id, m.product_id, m.product_uom, pt.categ_id, m.address_id, m.location_id,  m.location_dest_id,
-        m.prodlot_id, m.date, m.state, l.usage, m.company_id,pt.uom_id
+        m.id, m.product_id, m.product_uom, m.location_id,  m.location_dest_id,
+        m.date, m.state, l.usage, pt.uom_id
 ) UNION ALL (
     SELECT
         -m.id as id, m.date as date,
-        m.address_id as partner_id, m.location_dest_id as location_id,
-        m.product_id as product_id, pt.categ_id as product_categ_id, l.usage as location_type,
-        m.company_id,
-        m.state as state, m.prodlot_id as prodlot_id,
-        coalesce(sum(pt.standard_price * m.product_qty * pu.factor / u.factor )::decimal, 0.0) as value,
-        CASE when pt.uom_id = m.product_uom
-        THEN
-        coalesce(sum(m.product_qty)::decimal, 0.0)
-        ELSE
-        coalesce(sum(m.product_qty * pu.factor / u.factor)::decimal, 0.0) END as product_qty
+        m.location_dest_id as location_id,
+        m.product_id as product_id,
+        l.usage as location_type,
+        m.state as state,
+        coalesce(sum(m.product_qty)::decimal, 0.0) as product_qty
     FROM
         stock_move m
             LEFT JOIN stock_picking p ON (m.picking_id=p.id)
@@ -676,8 +662,8 @@ CREATE OR REPLACE view report_stock_inventory_traza AS (
             LEFT JOIN product_uom u ON (m.product_uom=u.id)
             LEFT JOIN stock_location l ON (m.location_dest_id=l.id)
     GROUP BY
-        m.id, m.product_id, m.product_uom, pt.categ_id, m.address_id, m.location_id, m.location_dest_id,
-        m.prodlot_id, m.date, m.state, l.usage, m.company_id,pt.uom_id
+        m.id, m.product_id, m.product_uom, m.location_id, m.location_dest_id,
+        m.date, m.state, l.usage, pt.uom_id
     )
 );
         """)

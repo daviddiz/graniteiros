@@ -1110,16 +1110,11 @@
 	        <field name="arch" type="xml">
 	            <tree string="Inventario">
 	                <field name="date" invisible="1"/>
-	                <field name="company_id" invisible="1"/>
 	                <field name="location_type" invisible="1"/>
 	                <field name="location_id" invisible="1"/>
-	                <field name="partner_id" invisible="1" context="{'contact_display':'partner'}"/>
-	                <field name="product_categ_id" invisible="1"/>
 	                <field name="product_id" invisible="1"/>
-	                <field name="prodlot_id" invisible="1"/>
 	                <field name="state" invisible="1"/>
 	                <field name="product_qty" sum="Total quantity"/>
-	                <field name="value" sum="Total value"/>
 	           </tree>
 	        </field>
 	    </record>
@@ -1159,13 +1154,9 @@
 	                    <separator orientation="vertical"/>
 	                    <field name="product_id" default_focus="1"/>
 	                    <field name="location_id" filter_domain="[('location_id', 'child_of', self)]"/>
-	                    <field name="company_id" groups="base.group_multi_company"/>
 	                </group>
 	                <newline/>
 	                <group expand="0" string="Extended Filters..."  groups="base.group_extended">
-	                    <field name="partner_id" context="{'contact_display':'partner'}"/>
-	                    <field name="product_categ_id" />
-	                    <field name="prodlot_id"/>
 	                    <field name="state"/>
 	                    <field name="location_type"/>
 	                    <field name="date"/>
@@ -1173,13 +1164,8 @@
 	                </group>
 	                <newline/>
 	                <group expand="1" string="Group By..." >
-	                    <filter string="Partner" name="group_partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
-	                    <separator orientation="vertical"/>
-	                    <filter name="group_product_categ_id" string="Product Category" icon="terp-stock_symbol-selection" context="{'group_by':'product_categ_id'}"/>
 	                    <filter name="group_product" string="Product" icon="terp-accessories-archiver" context="{'group_by':'product_id'}"/>
-	                     <filter name="group_lot" string="Lot" icon="terp-accessories-archiver" context="{'group_by':'prodlot_id'}"/>
 	                    <separator orientation="vertical"/>
-	                    <filter name="group_company" string="Company" groups="base.group_multi_company" icon="terp-go-home" context="{'group_by':'company_id'}"/>
 	                    <filter name="group_location" string="Location" icon="terp-go-home" context="{'group_by':'location_id'}"/>
 	                    <separator orientation="vertical"/>
 	                    <filter string="Date" icon="terp-go-month" context="{'group_by':'date'}"/>
@@ -1195,7 +1181,7 @@
 	        <field name="view_type">form</field>
 	        <field name="view_mode">tree,graph</field>
 	        <field name="search_view_id"  eval="False"/>
-	        <field name="context">{'contact_display': 'partner', 'search_default_real':1, 'search_default_location_type_internal':1,'search_default_group_product':1,'group_by':[], 'group_by_no_leaf':1}</field>
+	        <field name="context">{'search_default_real':1, 'search_default_location_type_internal':1,'search_default_group_product':1,'group_by':[], 'group_by_no_leaf':1}</field>
 	    </record>
 	    <menuitem action="action_stock_inventory_report_traza"
 	        id="menu_action_stock_inventory_report_traza" 

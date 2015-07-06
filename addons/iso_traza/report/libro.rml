@@ -100,8 +100,7 @@
     <paraStyle name="P11" rightIndent="31.0" leftIndent="28.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
     <paraStyle name="P12" rightIndent="31.0" leftIndent="28.0" fontName="Helvetica-Bold" fontSize="6.0" leading="8" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
     <paraStyle name="P13" rightIndent="37.0" leftIndent="28.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="JUSTIFY" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P14" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P15" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
+    <paraStyle name="P14" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
     <paraStyle name="Standard" fontName="Helvetica"/>
     <paraStyle name="Text_20_body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="8.0" leading="10" spaceBefore="12.0" spaceAfter="6.0"/>
@@ -279,7 +278,7 @@
       </tr>
     </blockTable>
     <section>
-      <para style="terp_5f_default_5f_1">[[repeatIn(process_lines(data['form']), 'line']]</para>
+      <para style="terp_5f_default_5f_1">[[repeatIn(process_lines(data['form']['obra_id'],data['form']['date_from'],data['form']['date_to']), 'line']]</para>
       <blockTable colWidths="68.0,82.0,82.0,68.0,76.0,79.0,79.0,79.0,80.0,79.0" style="Tabla5">
         <tr>
           <td>
@@ -307,10 +306,10 @@
             <para style="terp_5f_default_5f_Centre_5f_9">[[ ]]</para>
           </td>
           <td>
-            <para style="P15">[[ ]]</para>
+            <para style="P14">[[ ]]</para>
           </td>
           <td>
-            <para style="P15">[[ ]]</para>
+            <para style="P14">[[ ]]</para>
           </td>
         </tr>
       </blockTable>
