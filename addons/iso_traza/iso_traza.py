@@ -299,7 +299,7 @@ class iso_traza_acta(osv.osv):
             product_id = move_data.product_id.id
             product_name = self.pool.get('product.product').browse(cr, uid, product_id, context=context).name
             # miro si el movimiento es de los de producto no existente
-            if product_name == "producto no existente":
+            if product_name == "producto no existente" or self.pool.get('stock.tracking').search(cr, uid, [('name', '=', move_data.serial)], context=context):
                 # el serial del movimiento tiene 3 posibilidades:
                 # 1 que pertenezca a un paquete que sería el caso normal a tratar
                 # busco el serial entre los paquetes y creo un movimiento por cada elemento del paquete
@@ -315,7 +315,8 @@ class iso_traza_acta(osv.osv):
                         producto_a_asignar_id = move_obj.browse(cr, uid, move_entradas[0], context=context).product_id.id
                         move_obj.write(cr, uid, acta_move, {'product_id':producto_a_asignar_id}, context=context)
                 else:
-                    moves_del_paquete = move_obj.search(cr, uid, [('tracking_id', '=', paquetes_id[0])], context=context)
+                    moves_del_paquete = move_obj.search(cr, uid, [('tracking_id', '=', paquetes_id[-1])], context=context)
+                    moves_creados = 0
                     for move_del_paquete in moves_del_paquete:
                         # crear un movimiento de salida
                         move_del_paquete_data = move_obj.browse(cr, uid, move_del_paquete, context=context)
@@ -330,8 +331,10 @@ class iso_traza_acta(osv.osv):
                             'product_qty': move_del_paquete_data.product_qty,
                             'name': move_del_paquete_data.serial,
                             'tracking_id': move_del_paquete_data.tracking_id.id}, context = context)
-                    #borrar el movimiento sin producto
-                    move_obj.unlink(cr, uid,[acta_move], context=None)
+                        moves_creados = 1
+                    if moves_creados:
+                        #borrar el movimiento sin producto
+                        move_obj.unlink(cr, uid,[acta_move], context=None)
         return True
     
     def date_to_moves(self, cr, uid, ids, context=None):

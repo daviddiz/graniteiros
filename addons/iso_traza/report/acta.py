@@ -48,62 +48,73 @@ class acta(report_sxw.rml_parse):
 
         nombre = ""
         aux = 0
+        cant_sobrante = 0.00
         serial_anterior = 0
         lineas = []
         data = {}
         for movimiento in movimientos:
+            #si cambia el producto, nueva línea y nuevo recuento
             if nombre <> movimiento['nombre']:
                 if data:
+                    #antes de nada escribo el resultado del recuento del producto anterior
                     if aux==2 and serial_anterior:
                         data['serial'] = data['serial'] + "\n" + serial_anterior
-                    data['entregado'] = float("%1.f" % data['entregado'])
-                    data['sobrante'] = float("%1.f" % data['sobrante'])
-                    data['consumido'] = float("%1.f" % data['consumido'])
+                    data['entregado'] = "{:.2f}".format(data['entregado'])
+                    data['consumido'] = "{:.2f}".format(data['consumido'])
                     lineas.append(data)
                     data = {}
                 aux = 0
+                cant_sobrante = 0.00
                 nombre = movimiento['nombre']
                 data['nombre'] = movimiento['nombre']
-                data['unidad'] = movimiento['unidad']    
-                data['serial'] = movimiento['serial']
-                serial_anterior = movimiento['serial']
-                data['entregado'] = 0.0
-                data['sobrante'] = 0.0
+                data['unidad'] = movimiento['unidad']
+                data['entregado'] = 0.00
+                data['sobrante'] = ""
                 if movimiento['cantidad']>0:
                     data['entregado'] = movimiento['cantidad']
-                else:
-                    data['sobrante'] = abs(movimiento['cantidad'])
-                data['consumido'] = data['entregado'] - data['sobrante']  
+                    data['serial'] = movimiento['serial']
+                    serial_anterior = movimiento['serial']
+                elif movimiento['cantidad']<0:
+                    cant_sobrante = abs(movimiento['cantidad'])
+                    if data['sobrante']=="":
+                        data['sobrante'] = "{:.2f}".format(abs(movimiento['cantidad'])) + "\n" + movimiento['serial']
+                    else: 
+                        data['sobrante'] = data['sobrante'] + "\n" + "{:.2f}".format(abs(movimiento['cantidad'])) + "\n" + movimiento['serial']
+                data['consumido'] = data['entregado'] - cant_sobrante  
                 data['consumido'] = abs(data['consumido'])
             else:
-                if int(movimiento['serial'][-6:]) == ( int(serial_anterior[-6:]) + 1 ):
-                    if aux==0:
-                        data['serial'] = data['serial'] + "\n" + "          al"
-                        aux = 2
-                        serial_anterior = movimiento['serial']
-                    elif aux>0:
-                        serial_anterior = movimiento['serial']
-                        aux = 2
-                else:
-                    if aux>0:
-                        data['serial'] = data['serial'] + "\n" + serial_anterior + "\n" + "    ----------------" + "\n" + movimiento['serial']
-                        serial_anterior = movimiento['serial']
-                        aux = 0
+                if movimiento['cantidad']<0:
+                    cant_sobrante = cant_sobrante + abs(movimiento['cantidad'])
+                    if data['sobrante']=="":
+                        data['sobrante'] = "{:.2f}".format(abs(movimiento['cantidad'])) + "\n" + movimiento['serial']
                     else:
-                        data['serial'] = data['serial'] + "\n" + movimiento['serial']
-                        serial_anterior = movimiento['serial']
-                        aux = 0
-                if movimiento['cantidad']>0:
+                        data['sobrante'] = data['sobrante'] + "\n" + "{:.2f}".format(abs(movimiento['cantidad'])) + "\n" + movimiento['serial']
+                elif movimiento['cantidad']>0:
                     data['entregado'] = data['entregado'] + movimiento['cantidad']
-                else:
-                    data['sobrante'] = data['sobrante'] + abs(movimiento['cantidad'])
-                data['consumido'] = data['entregado'] - data['sobrante']
+                    if int(movimiento['serial'][-6:]) == ( int(serial_anterior[-6:]) + 1 ):
+                        if aux==0:
+                            data['serial'] = data['serial'] + "\n" + "          al"
+                            aux = 2
+                            serial_anterior = movimiento['serial']
+                        elif aux>0:
+                            serial_anterior = movimiento['serial']
+                            aux = 2
+                    else:
+                        if aux>0:
+                            data['serial'] = data['serial'] + "\n" + serial_anterior + "\n" + "    ----------------" + "\n" + movimiento['serial']
+                            serial_anterior = movimiento['serial']
+                            aux = 0
+                        else:
+                            data['serial'] = data['serial'] + "\n" + movimiento['serial']
+                            serial_anterior = movimiento['serial']
+                            aux = 0
+                
+                data['consumido'] = data['entregado'] - cant_sobrante
                 data['consumido'] = abs(data['consumido'])
         if aux==2 and serial_anterior:
             data['serial'] = data['serial'] + "\n" + serial_anterior
-        data['entregado'] = float("%1.f" % data['entregado'])
-        data['sobrante'] = float("%1.f" % data['sobrante'])
-        data['consumido'] = float("%1.f" % data['consumido'])
+        data['entregado'] = "{:.2f}".format(data['entregado'])
+        data['consumido'] = "{:.2f}".format(data['consumido'])
         lineas.append(data)
         return lineas
 
