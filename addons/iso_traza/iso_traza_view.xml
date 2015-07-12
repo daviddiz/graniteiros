@@ -1137,7 +1137,11 @@
 	        <field name="type">search</field>
 	        <field name="arch" type="xml">
 	            <search string="Inventario">
-	                <group col="16">
+	                <group>
+	                    <filter string="Queda en Polvorin" name="polvorin" domain="[('polvorin','=',True)]"/>
+	                    <filter string="Consumido en Obra" name="obra" domain="[('obra','=',True)]"/>
+	                </group>
+	                <group col="16" attrs="{'invisible':[True]}">
 	                    <filter string="Real"
 	                        name="real"
 	                        icon="terp-check"
@@ -1156,14 +1160,14 @@
 	                    <field name="location_id" filter_domain="[('location_id', 'child_of', self)]" string="Ubicación"/>
 	                </group>
 	                <newline/>
-	                <group expand="0" string="Extended Filters..."  groups="base.group_extended">
+	                <group expand="0" string="Extended Filters..."  groups="base.group_extended" attrs="{'invisible':[True]}">
 	                    <field name="state" string="Estado"/>
 	                    <field name="location_type" string="Tipo de Ubicación"/>
 	                    <field name="date" string="Fecha"/>
 	                    <filter icon="terp-go-home" name="location_type_scrap" string="Scrap" domain="[('location_type','=','scrap')]"/>
 	                </group>
 	                <newline/>
-	                <group expand="1" string="Group By..." >
+	                <group expand="1" string="Group By..." attrs="{'invisible':[True]}">
 	                    <filter name="group_product" string="Producto" icon="terp-accessories-archiver" context="{'group_by':'product_id'}"/>
 	                    <separator orientation="vertical"/>
 	                    <filter name="group_location" string="Ubicación" icon="terp-go-home" context="{'group_by':'location_id'}"/>
@@ -1181,7 +1185,7 @@
 	        <field name="view_type">form</field>
 	        <field name="view_mode">tree,graph</field>
 	        <field name="search_view_id"  eval="False"/>
-	        <field name="context">{'search_default_real':1, 'search_default_location_type_internal':1,'search_default_group_product':1,'group_by':[], 'group_by_no_leaf':1}</field>
+	        <field name="context">{'search_default_polvorin':1, 'search_default_obra':0, 'search_default_real':1, 'search_default_location_type_internal':1,'search_default_group_product':1,'group_by':[], 'group_by_no_leaf':1}</field>
 	    </record>
 	    <menuitem action="action_stock_inventory_report_traza"
 	        id="menu_action_stock_inventory_report_traza" 

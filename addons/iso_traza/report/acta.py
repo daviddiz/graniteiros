@@ -105,7 +105,7 @@ class acta(report_sxw.rml_parse):
                             serial_anterior = movimiento['serial']
                             aux = 0
                         else:
-                            data['serial'] = data['serial'] + "\n" + movimiento['serial']
+                            data['serial'] = movimiento['serial']
                             serial_anterior = movimiento['serial']
                             aux = 0
                 

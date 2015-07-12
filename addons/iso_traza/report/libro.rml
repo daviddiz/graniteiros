@@ -88,19 +88,22 @@
       <paraStyle name="all" alignment="justify"/>
     </initialize>
     <paraStyle name="P1" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P2" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
-    <paraStyle name="P3" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
-    <paraStyle name="P4" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P5" fontName="Helvetica-Bold" fontSize="20.0" leading="25" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P6" fontName="Helvetica-Bold" fontSize="20.0" leading="25" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P7" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P8" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P9" fontName="Helvetica" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P10" rightIndent="31.0" leftIndent="28.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P11" rightIndent="31.0" leftIndent="28.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P12" rightIndent="31.0" leftIndent="28.0" fontName="Helvetica-Bold" fontSize="6.0" leading="8" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P13" rightIndent="37.0" leftIndent="28.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="JUSTIFY" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P14" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
+    <paraStyle name="P2" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P3" fontName="Helvetica-Bold" fontSize="20.0" leading="25" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P4" fontName="Helvetica-Bold" fontSize="20.0" leading="25" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P5" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P6" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P7" fontName="Helvetica" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P8" rightIndent="31.0" leftIndent="28.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P9" rightIndent="31.0" leftIndent="28.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P10" rightIndent="31.0" leftIndent="28.0" fontName="Helvetica-Bold" fontSize="6.0" leading="8" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P11" rightIndent="37.0" leftIndent="28.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="JUSTIFY" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P12" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P13" fontName="Helvetica" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
+    <paraStyle name="P14" fontName="Helvetica" fontSize="7.0" leading="9" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
+    <paraStyle name="P15" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P16" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P17" fontName="Helvetica" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="Standard" fontName="Helvetica"/>
     <paraStyle name="Text_20_body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="8.0" leading="10" spaceBefore="12.0" spaceAfter="6.0"/>
@@ -185,21 +188,21 @@
     <para style="terp_5f_default_5f_8">
       <font color="white"> </font>
     </para>
-    <para style="P6">LIBRO-REGISTRO DE CONSUMO DE EXPLOSIVOS.</para>
-    <para style="P4">
+    <para style="P4">LIBRO-REGISTRO DE CONSUMO DE EXPLOSIVOS.</para>
+    <para style="P2">
       <font color="white"> </font>
     </para>
-    <para style="P4">
+    <para style="P2">
       <font color="white"> </font>
     </para>
-    <para style="P4">
+    <para style="P2">
       <font color="white"> </font>
     </para>
-    <para style="P4">
+    <para style="P2">
       <font color="white"> </font>
     </para>
-    <para style="P9">NOMBRE DE LA EXPLOTACIÓN: <font face="Helvetica">[[ (o.obra_id and o.obra_id.name) or '' ]]</font></para>
-    <para style="P5">
+    <para style="P7">NOMBRE DE LA EXPLOTACIÓN: <font face="Helvetica">[[ (o.obra_id and o.obra_id.name) or '' ]]</font></para>
+    <para style="P3">
       <font color="white"> </font>
     </para>
     <para style="terp_5f_default_5f_8">
@@ -217,99 +220,101 @@
     <blockTable colWidths="759.0" style="Tabla1">
       <tr>
         <td>
-          <para style="P7">D<font face="Helvetica">elegación del Gobierno en [[ (o.delegacion_id and o.delegacion_id.name) or '' ]] - Subdelegación del Gobierno en [[ (o.subdelegacion_id and o.subdelegacion_id.name) or '' ]]</font></para>
-          <para style="P8">Área Funcional de Industria y Energía de [[ (o.area_id and o.area_id.name) or '' ]]</para>
-          <para style="P7">DILIGENCIA DE APERTURA</para>
-          <para style="P13">CERTIFICO, que se habilita el presente libro, en el día de la fecha, para el control de los explosivos recibidos, consumidos, depositados, devueltos o destruidos en la explotación denominada [[(o.obra_id and o.obra_id.name) or '_____']], con domicilio social en [[(o.obra_id and o.obra_id.direccion) or '_____']] , cuyo Director Facultativo es D. [[ (o.dir_facul_id and o.dir_facul_id.name) or '_____' ]] [[ (o.dir_facul_id and o.dir_facul_id.dni) or '_____' ]] , con domicilio en [[ (o.dir_facul_id and o.dir_facul_id.direccion) or '_____' ]] , teléfonos de contacto [[ (o.dir_facul_id and o.dir_facul_id.telefonos) or '_____' ]] y figurando como responsable de la misma D. [[ (o.resp_explot_id and o.resp_explot_id.name) or '_____' ]] [[ (o.resp_explot_id and o.resp_explot_id.dni) or '_____' ]] , con domicilio en [[ (o.resp_explot_id and o.resp_explot_id.direccion) or '_____' ]] , teléfonos de contacto [[ (o.resp_explot_id and o.resp_explot_id.telefonos) or '_____' ]] , constando de _____ folios útiles numerados y sellados por este Área.</para>
-          <para style="P10">___________________________ , ______ de ______________ de 2.0___ .</para>
-          <para style="P7">EL JEFE DEL ÁREA,</para>
-          <para style="P12">
-            <font color="white"> </font>
-          </para>
-          <para style="P12">
-            <font color="white"> </font>
-          </para>
-          <para style="P10">DILIGENCIA DE CIERRE</para>
-          <para style="P11">CERTIFICO, que el presente libro es cerrado por _________________________________ (causa) ____________, tiene _____ folios utilizados, habiéndose efectuado las anotaciones necesarias en el nuevo Libro abierto al efecto.</para>
-          <para style="P10">___________________________ , ______ de ______________ de 2.0___ .</para>
-          <para style="P10">EL JEFE DEL ÁREA,</para>
+          <para style="P5">D<font face="Helvetica">elegación del Gobierno en [[ (o.delegacion_id and o.delegacion_id.name) or '' ]] - Subdelegación del Gobierno en [[ (o.subdelegacion_id and o.subdelegacion_id.name) or '' ]]</font></para>
+          <para style="P6">Área Funcional de Industria y Energía de [[ (o.area_id and o.area_id.name) or '' ]]</para>
+          <para style="P5">DILIGENCIA DE APERTURA</para>
+          <para style="P11">CERTIFICO, que se habilita el presente libro, en el día de la fecha, para el control de los explosivos recibidos, consumidos, depositados, devueltos o destruidos en la explotación denominada [[(o.obra_id and o.obra_id.name) or '_____']], con domicilio social en [[(o.obra_id and o.obra_id.direccion) or '_____']] , cuyo Director Facultativo es D. [[ (o.dir_facul_id and o.dir_facul_id.name) or '_____' ]] [[ (o.dir_facul_id and o.dir_facul_id.dni) or '_____' ]] , con domicilio en [[ (o.dir_facul_id and o.dir_facul_id.direccion) or '_____' ]] , teléfonos de contacto [[ (o.dir_facul_id and o.dir_facul_id.telefonos) or '_____' ]] y figurando como responsable de la misma D. [[ (o.resp_explot_id and o.resp_explot_id.name) or '_____' ]] [[ (o.resp_explot_id and o.resp_explot_id.dni) or '_____' ]] , con domicilio en [[ (o.resp_explot_id and o.resp_explot_id.direccion) or '_____' ]] , teléfonos de contacto [[ (o.resp_explot_id and o.resp_explot_id.telefonos) or '_____' ]] , constando de _____ folios útiles numerados y sellados por este Área.</para>
+          <para style="P8">___________________________ , ______ de ______________ de 2.0___ .</para>
+          <para style="P5">EL JEFE DEL ÁREA,</para>
           <para style="P10">
+            <font color="white"> </font>
+          </para>
+          <para style="P10">
+            <font color="white"> </font>
+          </para>
+          <para style="P8">DILIGENCIA DE CIERRE</para>
+          <para style="P9">CERTIFICO, que el presente libro es cerrado por _________________________________ (causa) ____________, tiene _____ folios utilizados, habiéndose efectuado las anotaciones necesarias en el nuevo Libro abierto al efecto.</para>
+          <para style="P8">___________________________ , ______ de ______________ de 2.0___ .</para>
+          <para style="P8">EL JEFE DEL ÁREA,</para>
+          <para style="P8">
             <font color="white"> </font>
           </para>
         </td>
       </tr>
     </blockTable>
     <para style="P1"/>
-    <para style="P1">
+    <para style="terp_5f_default_5f_8">
       <font color="white"> </font>
     </para>
-    <blockTable colWidths="68.0,82.0,83.0,67.0,76.0,79.0,79.0,79.0,81.0,79.0" repeatRows="1" style="Tabla4">
+    <blockTable colWidths="68.0,82.0,83.0,67.0,82.0,74.0,79.0,79.0,81.0,79.0" repeatRows="1" style="Tabla4">
       <tr>
         <td>
-          <para style="P2">Fecha</para>
+          <para style="P15">Fecha</para>
         </td>
         <td>
-          <para style="P2">Nº Gu<font face="Helvetica">í</font>a Circulación</para>
+          <para style="P15">Nº Guía Circulaci<font face="Helvetica">ó</font>n</para>
         </td>
         <td>
-          <para style="P2">Explosivo</para>
+          <para style="P15">Explosivo y Cantidad (Recibida/Entregada)</para>
         </td>
         <td>
-          <para style="P3">Nº Catalogaci<font face="Helvetica">ó</font>n</para>
+          <para style="P16">Nº Catalogaci<font face="Helvetica">ó</font>n</para>
         </td>
         <td>
-          <para style="P3">Identificaci<font face="Helvetica">ó</font>n Explosivo</para>
+          <para style="P16">Identificaci<font face="Helvetica">ó</font>n Explosivo</para>
         </td>
         <td>
-          <para style="P3">Responsable Explotaci<font face="Helvetica">ó</font>n</para>
+          <para style="P16">Responsable Explotaci<font face="Helvetica">ó</font>n (DNI)</para>
         </td>
         <td>
-          <para style="P3">Responsable Utilizaci<font face="Helvetica">ó</font>n</para>
+          <para style="P16">Responsable Utilizaci<font face="Helvetica">ó</font>n (Nº Carnet Artillero)</para>
         </td>
         <td>
-          <para style="P3">Cantidad Consumida</para>
+          <para style="P16">Cantidad Consumida</para>
         </td>
         <td>
-          <para style="P3">Destino Explosivo Sobrante</para>
+          <para style="P16">Destino Explosivo Sobrante (Cantidad/Identificaci<font face="Helvetica">ó</font>n)</para>
         </td>
         <td>
-          <para style="P3">Queda en Dep<font face="Helvetica">ó</font>sito</para>
+          <para style="P16">Queda en Depósito</para>
         </td>
       </tr>
     </blockTable>
     <section>
-      <para style="terp_5f_default_5f_1">[[repeatIn(process_lines(data['form']['obra_id'],data['form']['date_from'],data['form']['date_to']), 'line']]</para>
-      <blockTable colWidths="68.0,82.0,82.0,68.0,76.0,79.0,79.0,79.0,80.0,79.0" style="Tabla5">
+      <para style="terp_5f_default_5f_1">[[repeatIn(process_lines(data['form']['obra_id'],data['form']['date_from'],data['form']['date_to']), 'line')]]</para>
+      <blockTable colWidths="68.0,82.0,82.0,68.0,82.0,74.0,79.0,79.0,80.0,80.0" style="Tabla5">
         <tr>
           <td>
-            <para style="terp_5f_default_5f_9">[[ ]]</para>
+            <para style="P13">[[ time.strftime('%d-%m-%Y',line['fecha']) or removeParentNode('para') ]]</para>
           </td>
           <td>
-            <para style="terp_5f_default_5f_9">[[ line['obra_id'] ]]</para>
+            <para style="P13">[[ ]]</para>
           </td>
           <td>
-            <para style="terp_5f_default_5f_Centre_5f_9">[[ ]]</para>
+            <para style="P17">[[ line['product'] ]]</para>
+            <para style="P17">[[ line['cant_recibida'] ]]</para>
           </td>
           <td>
-            <para style="terp_5f_default_5f_Centre_5f_9">[[ ]]</para>
+            <para style="P17">[[ ]]</para>
           </td>
           <td>
-            <para style="terp_5f_default_5f_9">[[ ]]</para>
+            <para style="P14">[[ line['lista_serials'] ]]</para>
           </td>
           <td>
-            <para style="terp_5f_default_5f_8">[[ ]]</para>
+            <para style="P12">[[ ]]</para>
           </td>
           <td>
-            <para style="terp_5f_default_5f_8">[[ ]]</para>
+            <para style="P12">[[ ]]</para>
           </td>
           <td>
-            <para style="terp_5f_default_5f_Centre_5f_9">[[ ]]</para>
+            <para style="P17">[[ line['cant_consumida'] ]]</para>
           </td>
           <td>
-            <para style="P14">[[ ]]</para>
+            <para style="P13">[[ line['cant_sobrante'] ]]</para>
+            <para style="P14">[[ line['lista_serials_sobrante'] ]]</para>
           </td>
           <td>
-            <para style="P14">[[ ]]</para>
+            <para style="P13">[[ ]]</para>
           </td>
         </tr>
       </blockTable>

@@ -624,6 +624,8 @@ class report_stock_inventory_traza(osv.osv):
         'product_qty':fields.float('Quantity',  digits_compute=dp.get_precision('Product UoM'), readonly=True),
         'state': fields.selection([('draft', 'Draft'), ('waiting', 'Waiting'), ('confirmed', 'Confirmed'), ('assigned', 'Available'), ('done', 'Done'), ('cancel', 'Cancelled')], 'State', readonly=True, select=True),
         'location_type': fields.selection([('supplier', 'Supplier Location'), ('view', 'View'), ('internal', 'Internal Location'), ('customer', 'Customer Location'), ('inventory', 'Inventory'), ('procurement', 'Procurement'), ('production', 'Production'), ('transit', 'Transit Location for Inter-Companies Transfers')], 'Location Type', required=True),
+        'obra': fields.boolean('Obra'),
+        'polvorin': fields.boolean('Polvorin'),
     }
     def init(self, cr):
         tools.drop_view_if_exists(cr, 'report_stock_inventory_traza')
@@ -635,6 +637,8 @@ CREATE OR REPLACE view report_stock_inventory_traza AS (
         m.location_id as location_id,
         m.product_id as product_id,
         l.usage as location_type,
+        l.obra as obra,
+        l.polvorin as polvorin,
         m.state as state,
         coalesce(sum(-m.product_qty)::decimal, 0.0) as product_qty
     FROM
@@ -647,13 +651,15 @@ CREATE OR REPLACE view report_stock_inventory_traza AS (
             LEFT JOIN stock_location l ON (m.location_id=l.id)
     GROUP BY
         m.id, m.product_id, m.product_uom, m.location_id,  m.location_dest_id,
-        m.date, m.state, l.usage, pt.uom_id
+        m.date, m.state, l.usage, l.polvorin, l.obra, pt.uom_id
 ) UNION ALL (
     SELECT
         -m.id as id, m.date as date,
         m.location_dest_id as location_id,
         m.product_id as product_id,
         l.usage as location_type,
+        l.obra as obra,
+        l.polvorin as polvorin,
         m.state as state,
         coalesce(sum(m.product_qty)::decimal, 0.0) as product_qty
     FROM
@@ -666,7 +672,7 @@ CREATE OR REPLACE view report_stock_inventory_traza AS (
             LEFT JOIN stock_location l ON (m.location_dest_id=l.id)
     GROUP BY
         m.id, m.product_id, m.product_uom, m.location_id, m.location_dest_id,
-        m.date, m.state, l.usage, pt.uom_id
+        m.date, m.state, l.usage, l.polvorin, l.obra, pt.uom_id
     )
 );
         """)
