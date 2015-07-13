@@ -31,7 +31,7 @@
                     <separator colspan="4"/>
                     <group col="4" colspan="4">
                         <button icon="gtk-cancel" special="cancel" string="Cancelar" colspan="2"/>
-                        <button icon="gtk-print" name="print_report" string="Imprmir" type="object" colspan="2" default_focus="1" />
+                        <button icon="gtk-print" name="print_report" string="Imprimir" type="object" colspan="2" default_focus="1" />
                     </group>
             	</form>
             </field>

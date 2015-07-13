@@ -98,12 +98,12 @@
     <paraStyle name="P9" rightIndent="31.0" leftIndent="28.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
     <paraStyle name="P10" rightIndent="31.0" leftIndent="28.0" fontName="Helvetica-Bold" fontSize="6.0" leading="8" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
     <paraStyle name="P11" rightIndent="37.0" leftIndent="28.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="JUSTIFY" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P12" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P13" fontName="Helvetica" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
-    <paraStyle name="P14" fontName="Helvetica" fontSize="7.0" leading="9" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
+    <paraStyle name="P12" fontName="Helvetica" fontSize="7.0" leading="9" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
+    <paraStyle name="P13" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P14" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
     <paraStyle name="P15" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
     <paraStyle name="P16" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
-    <paraStyle name="P17" fontName="Helvetica" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P17" fontName="Helvetica" fontSize="7.0" leading="9" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="Standard" fontName="Helvetica"/>
     <paraStyle name="Text_20_body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="8.0" leading="10" spaceBefore="12.0" spaceAfter="6.0"/>
@@ -246,75 +246,75 @@
     <para style="terp_5f_default_5f_8">
       <font color="white"> </font>
     </para>
-    <blockTable colWidths="68.0,82.0,83.0,67.0,82.0,74.0,79.0,79.0,81.0,79.0" repeatRows="1" style="Tabla4">
+    <blockTable colWidths="64.0,64.0,109.0,64.0,109.0,64.0,64.0,64.0,109.0,65.0" repeatRows="1" style="Tabla4">
       <tr>
         <td>
-          <para style="P15">Fecha</para>
+          <para style="P13">Fecha</para>
         </td>
         <td>
-          <para style="P15">Nº Guía Circulaci<font face="Helvetica">ó</font>n</para>
+          <para style="P14">Nº Guía</para>
         </td>
         <td>
-          <para style="P15">Explosivo y Cantidad (Recibida/Entregada)</para>
+          <para style="P14">Explosivo y Cantidad (Recibida/Entregada)</para>
         </td>
         <td>
-          <para style="P16">Nº Catalogaci<font face="Helvetica">ó</font>n</para>
+          <para style="P16">Nº Catalog.</para>
         </td>
         <td>
-          <para style="P16">Identificaci<font face="Helvetica">ó</font>n Explosivo</para>
+          <para style="P15">Identificaci<font face="Helvetica">ó</font>n Explosivo</para>
         </td>
         <td>
-          <para style="P16">Responsable Explotaci<font face="Helvetica">ó</font>n (DNI)</para>
+          <para style="P16">Respons. Explotaci<font face="Helvetica">ó</font>n (DNI)</para>
         </td>
         <td>
-          <para style="P16">Responsable Utilizaci<font face="Helvetica">ó</font>n (Nº Carnet Artillero)</para>
+          <para style="P16">Respons. U<font face="Helvetica">so</font> (Nº Carnet)</para>
         </td>
         <td>
           <para style="P16">Cantidad Consumida</para>
         </td>
         <td>
-          <para style="P16">Destino Explosivo Sobrante (Cantidad/Identificaci<font face="Helvetica">ó</font>n)</para>
+          <para style="P16">Destino Explosivo Sobrante (Cantidad / Identificaci<font face="Helvetica">ó</font>n)</para>
         </td>
         <td>
-          <para style="P16">Queda en Depósito</para>
+          <para style="P15">Queda en Depósito</para>
         </td>
       </tr>
     </blockTable>
     <section>
-      <para style="terp_5f_default_5f_1">[[repeatIn(process_lines(data['form']['obra_id'],data['form']['date_from'],data['form']['date_to']), 'line')]]</para>
-      <blockTable colWidths="68.0,82.0,82.0,68.0,82.0,74.0,79.0,79.0,80.0,80.0" style="Tabla5">
+      <para style="terp_5f_default_5f_1">[[repeatIn(process_lines(data['form']['obra_id'],data['form']['date_from'],data['form']['date_to'],data['form']['resp_explot_id']), 'line')]]</para>
+      <blockTable colWidths="64.0,64.0,109.0,64.0,109.0,64.0,64.0,64.0,109.0,65.0" style="Tabla5">
         <tr>
           <td>
-            <para style="P13">[[ time.strftime('%d-%m-%Y',line['fecha']) or removeParentNode('para') ]]</para>
+            <para style="P12">[[ time.strftime('%d-%m-%Y',line['fecha']) or removeParentNode('para') ]]</para>
           </td>
           <td>
-            <para style="P13">[[ ]]</para>
+            <para style="P12">[[ line['num_guia'] or removeParentNode('para') ]]</para>
           </td>
           <td>
             <para style="P17">[[ line['product'] ]]</para>
-            <para style="P17">[[ line['cant_recibida'] ]]</para>
+            <para style="P17">[[ line['tipo'] ]] [[ line['cant_recibida_entregada'] ]] [[ line['unidad'] ]]</para>
           </td>
           <td>
-            <para style="P17">[[ ]]</para>
+            <para style="P12">[[ line['num_catalog'] or removeParentNode('para') ]]</para>
           </td>
           <td>
-            <para style="P14">[[ line['lista_serials'] ]]</para>
+            <para style="P12">[[ line['lista_serials'] ]]</para>
+          </td>
+          <td>
+            <para style="P12">[[ line['resp_explot_id'] or removeParentNode('para') ]]</para>
+          </td>
+          <td>
+            <para style="P12">[[ line['artillero_id'] or removeParentNode('para') ]]</para>
+          </td>
+          <td>
+            <para style="P17">[[ line['cant_consumida'] ]] [[ line['unidad'] ]]</para>
+          </td>
+          <td>
+            <para style="P12">[[ line['cant_sobrante'] ]] [[ line['unidad'] ]]</para>
+            <para style="P12">[[ line['lista_serials_sobrante'] ]]</para>
           </td>
           <td>
             <para style="P12">[[ ]]</para>
-          </td>
-          <td>
-            <para style="P12">[[ ]]</para>
-          </td>
-          <td>
-            <para style="P17">[[ line['cant_consumida'] ]]</para>
-          </td>
-          <td>
-            <para style="P13">[[ line['cant_sobrante'] ]]</para>
-            <para style="P14">[[ line['lista_serials_sobrante'] ]]</para>
-          </td>
-          <td>
-            <para style="P13">[[ ]]</para>
           </td>
         </tr>
       </blockTable>

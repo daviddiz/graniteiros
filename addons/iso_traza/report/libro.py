@@ -35,15 +35,16 @@ class libro(report_sxw.rml_parse):
         
     def _resumir(self, listado_original):
         lista = listado_original.split("\n")
-        if len(lista)<3:
+        if len(lista)<4:
             listado_resumido = listado_original
         else:
             serial_anterior = "0000000"
             aux = 0
             listado_resumido = ""
             for serial in lista:
-                print serial
-                print serial_anterior
+#                 print lista
+#                 print serial
+#                 print serial_anterior
                 if (int(serial[-6:])) == (int(serial_anterior[-6:]) + 1 ):
                     if aux==0:
                         listado_resumido = listado_resumido + "\n" + "          al"
@@ -61,14 +62,16 @@ class libro(report_sxw.rml_parse):
                         listado_resumido = serial
                         serial_anterior = serial
                         aux = 0
+            if aux == 1:
+                listado_resumido = listado_resumido + "\n" + serial_anterior
         return listado_resumido
         
-    def _escribir_linea_anterior(self, lineas, res):
+#     def _escribir_linea_anterior(self, lineas, res):
+#         
+#         lineas.append(res)
+#         return (lineas, res)
         
-        lineas.append(res)
-        return (lineas, res)
-        
-    def process_lines(self, obra_id, date_from, date_to):
+    def process_lines(self, obra_id, date_from, date_to, resp_explot_id):
         if date_from:
             start = (datetime.strptime(date_from,"%Y-%m-%d")).strftime('%Y-%m-%d %H:%M:%S')
         else:
@@ -103,7 +106,10 @@ class libro(report_sxw.rml_parse):
                 move.append("")
             move.append(move_data.product_id.name_template)
             move.append(move_data.product_qty)
-            move.append(move_data.product_uom.id)
+            uom = move_data.product_uom.name
+            if uom == "PCE":
+                uom = "unid."
+            move.append(uom)
             move.append(move_data.serial)
             move.append(move_data.location_id.id)
             move.append(move_data.location_dest_id.id)
@@ -113,6 +119,16 @@ class libro(report_sxw.rml_parse):
                 move.append("")
             move.append(move_data.state)
             move.append(time.strptime(move[1],"%d/%m/%Y"))
+            move.append(move_data.picking_id.num_guia or "")
+            move.append(move_data.picking_id.num_catalog or "")
+            if move_data.acta_id:
+                move.append(move_data.acta_id.resp_explot_id.dni or "")
+            else:
+                move.append(move_data.picking_id.resp_explot_id.dni or "")
+            if move_data.acta_id:
+                move.append(move_data.acta_id.artillero_id.cartilla or "")
+            else:
+                move.append(move_data.picking_id.artillero_id.cartilla or "")
             m.append(move)
             
         m.sort(key=lambda x: (x[12],x[2],x[3],x[4],x[7],-x[5]))
@@ -125,61 +141,91 @@ class libro(report_sxw.rml_parse):
                 if res:
                     res['lista_serials'] = self._resumir(res['lista_serials'])
                     res['lista_serials_sobrante'] = self._resumir(res['lista_serials_sobrante'])
-                    a = self._escribir_linea_anterior(lineas, res)
-                    lineas = a[0]
-                    res = a[1]
+                    if res['cant_consumida']>0.0:
+                        res['tipo'] = "Entregado:"
+                    else:
+                        res['tipo'] = "Recibido:"
+                    res['cant_consumida'] = res['cant_recibida_entregada'] - res['cant_sobrante']
+                    res['cant_recibida_entregada'] = "{:.2f}".format(res['cant_recibida_entregada'])
+                    res['cant_consumida'] = "{:.2f}".format(res['cant_consumida'])
+                    res['cant_sobrante'] = "{:.2f}".format(res['cant_sobrante'])
+                    lineas.append(res)
+#                     a = self._escribir_linea_anterior(lineas, res)
+#                     lineas = a[0]
+#                     res = a[1]
                 res = {}
                 res['fecha'] = move[12]
                 res['product'] = move[4]
                 res['picking_id'] = move[2]
                 res['acta_id'] = move[3]
                 res['serial'] = move[7]
+                res['unidad'] = move[6]
+                res['num_guia'] = move[13]
+                res['num_catalog'] = move[14]
+                res['resp_explot_id'] = move[15]
+                res['artillero_id'] = move[16]
+                res['lista_serials'] = ""
+                res['lista_serials_sobrante'] = ""
+                res['cant_recibida_entregada'] = 0
+                res['cant_consumida'] = 0
+                res['cant_sobrante'] = 0
                 if res['picking_id']:
-                    res['cant_recibida'] = move[5]
+                    res['cant_recibida_entregada'] = move[5]
                     res['cant_consumida'] = 0
                     res['cant_sobrante'] = 0
                     res['lista_serials'] = move[7]
                     res['lista_serials_sobrante'] = ""
                 elif res['acta_id']:
                     if move[5] > 0:
-                        res['cant_recibida'] = 0
+                        res['cant_recibida_entregada'] = move[5]
                         res['cant_consumida'] = move[5]
                         res['cant_sobrante'] = 0
                         res['lista_serials'] = move[7]
-                        res['lista_serials_sobrante'] = ""
+#                         res['lista_serials_sobrante'] = ""
                     elif move[5] < 0:
-                        res['cant_recibida'] = 0
-                        res['cant_consumida'] = 0
+#                         res['cant_recibida_entregada'] = 0
+#                         res['cant_consumida'] = 0
                         res['cant_sobrante'] = abs(move[5])
-                        res['lista_serials'] = ""
+#                         res['lista_serials'] = ""
                         res['lista_serials_sobrante'] = move[7]
             else:
                 res['serial'] = move[7]
                 if res['picking_id']:
-                    res['cant_recibida'] = res['cant_recibida'] + move[5]
+                    res['cant_recibida_entregada'] = res['cant_recibida_entregada'] + move[5]
                     res['cant_consumida'] = res['cant_consumida']
                     res['cant_sobrante'] = res['cant_sobrante']
                     res['lista_serials'] = res['lista_serials'] + "\n" + move[7]
                     res['lista_serials_sobrante'] = res['lista_serials_sobrante']
                 elif res['acta_id']:
                     if move[5] > 0:
-                        res['cant_recibida'] = res['cant_recibida']
+                        res['cant_recibida_entregada'] = res['cant_recibida_entregada'] + move[5]
                         res['cant_consumida'] = res['cant_consumida'] + move[5]
                         res['cant_sobrante'] = res['cant_sobrante']
                         res['lista_serials'] = res['lista_serials'] + "\n" + move[7]
-                        res['lista_serials_sobrante'] = res['lista_serials_sobrante']
+#                         res['lista_serials_sobrante'] = res['lista_serials_sobrante']
                     elif move[5] < 0:
-                        res['cant_recibida'] = res['cant_recibida']
-                        res['cant_consumida'] = res['cant_consumida']
+#                         res['cant_recibida_entregada'] = res['cant_recibida_entregada']
+#                         res['cant_consumida'] = res['cant_consumida']
                         res['cant_sobrante'] = res['cant_sobrante'] + abs(move[5])
-                        res['lista_serials'] = res['lista_serials']
+#                         res['lista_serials'] = res['lista_serials']
                         res['lista_serials_sobrante'] = res['lista_serials_sobrante'] + "\n" + move[7]
         if res:
-#             res['lista_serials'] = self._resumir(res['lista_serials'])
-#             res['lista_serials_sobrante'] = self._resumir(res['lista_serials_sobrante'])
-            a = self._escribir_linea_anterior(lineas, res)
-            lineas = a[0]
-            res = a[1]
+#             if res['lista_serials']:
+#                 res['lista_serials'] = self._resumir(res[i'lista_serials'])
+#             if res['lista_serials_sobrante']:
+#                 res['lista_serials_sobrante'] = self._resumir(res['lista_serials_sobrante'])
+            if res['cant_consumida']>0.0:
+                res['tipo'] = "Entregado:"
+            else:
+                res['tipo'] = "Recibido:"
+            res['cant_consumida'] = res['cant_recibida_entregada'] - res['cant_sobrante']
+            res['cant_recibida_entregada'] = "{:.2f}".format(res['cant_recibida_entregada'])
+            res['cant_consumida'] = "{:.2f}".format(res['cant_consumida'])
+            res['cant_sobrante'] = "{:.2f}".format(res['cant_sobrante'])
+            lineas.append(res)
+#             a = self._escribir_linea_anterior(lineas, res)
+#             lineas = a[0]
+#             res = a[1]
         return lineas
 
 report_sxw.report_sxw('report.libro', 'iso.traza.libro.report', 'addons/iso_traza/report/libro.rml', parser=libro, header=False)
