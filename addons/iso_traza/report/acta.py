@@ -59,8 +59,8 @@ class acta(report_sxw.rml_parse):
                     #antes de nada escribo el resultado del recuento del producto anterior
                     if aux==2 and serial_anterior:
                         data['serial'] = data['serial'] + "\n" + serial_anterior
-                    data['entregado'] = "{:.2f}".format(data['entregado'])
-                    data['consumido'] = "{:.2f}".format(data['consumido'])
+                    data['entregado'] = "{0:.2f}".format(data['entregado'])
+                    data['consumido'] = "{0:.2f}".format(data['consumido'])
                     lineas.append(data)
                     data = {}
                 aux = 0
@@ -77,18 +77,18 @@ class acta(report_sxw.rml_parse):
                 elif movimiento['cantidad']<0:
                     cant_sobrante = abs(movimiento['cantidad'])
                     if data['sobrante']=="":
-                        data['sobrante'] = "{:.2f}".format(abs(movimiento['cantidad'])) + "\n" + movimiento['serial']
+                        data['sobrante'] = "{0:.2f}".format(abs(movimiento['cantidad'])) + "\n" + movimiento['serial']
                     else: 
-                        data['sobrante'] = data['sobrante'] + "\n" + "{:.2f}".format(abs(movimiento['cantidad'])) + "\n" + movimiento['serial']
+                        data['sobrante'] = data['sobrante'] + "\n" + "{0:.2f}".format(abs(movimiento['cantidad'])) + "\n" + movimiento['serial']
                 data['consumido'] = data['entregado'] - cant_sobrante  
                 data['consumido'] = abs(data['consumido'])
             else:
                 if movimiento['cantidad']<0:
                     cant_sobrante = cant_sobrante + abs(movimiento['cantidad'])
                     if data['sobrante']=="":
-                        data['sobrante'] = "{:.2f}".format(abs(movimiento['cantidad'])) + "\n" + movimiento['serial']
+                        data['sobrante'] = "{0:.2f}".format(abs(movimiento['cantidad'])) + "\n" + movimiento['serial']
                     else:
-                        data['sobrante'] = data['sobrante'] + "\n" + "{:.2f}".format(abs(movimiento['cantidad'])) + "\n" + movimiento['serial']
+                        data['sobrante'] = data['sobrante'] + "\n" + "{0:.2f}".format(abs(movimiento['cantidad'])) + "\n" + movimiento['serial']
                 elif movimiento['cantidad']>0:
                     data['entregado'] = data['entregado'] + movimiento['cantidad']
                     if int(movimiento['serial'][-6:]) == ( int(serial_anterior[-6:]) + 1 ):
@@ -113,8 +113,8 @@ class acta(report_sxw.rml_parse):
                 data['consumido'] = abs(data['consumido'])
         if aux==2 and serial_anterior:
             data['serial'] = data['serial'] + "\n" + serial_anterior
-        data['entregado'] = "{:.2f}".format(data['entregado'])
-        data['consumido'] = "{:.2f}".format(data['consumido'])
+        data['entregado'] = "{0:.2f}".format(data['entregado'])
+        data['consumido'] = "{0:.2f}".format(data['consumido'])
         lineas.append(data)
         return lineas
 

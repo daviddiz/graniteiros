@@ -146,9 +146,9 @@ class libro(report_sxw.rml_parse):
                     else:
                         res['tipo'] = "Recibido:"
                     res['cant_consumida'] = res['cant_recibida_entregada'] - res['cant_sobrante']
-                    res['cant_recibida_entregada'] = "{:.2f}".format(res['cant_recibida_entregada'])
-                    res['cant_consumida'] = "{:.2f}".format(res['cant_consumida'])
-                    res['cant_sobrante'] = "{:.2f}".format(res['cant_sobrante'])
+                    res['cant_recibida_entregada'] = "{0:.2f}".format(res['cant_recibida_entregada'])
+                    res['cant_consumida'] = "{0:.2f}".format(res['cant_consumida'])
+                    res['cant_sobrante'] = "{0:.2f}".format(res['cant_sobrante'])
                     lineas.append(res)
 #                     a = self._escribir_linea_anterior(lineas, res)
 #                     lineas = a[0]
@@ -219,9 +219,9 @@ class libro(report_sxw.rml_parse):
             else:
                 res['tipo'] = "Recibido:"
             res['cant_consumida'] = res['cant_recibida_entregada'] - res['cant_sobrante']
-            res['cant_recibida_entregada'] = "{:.2f}".format(res['cant_recibida_entregada'])
-            res['cant_consumida'] = "{:.2f}".format(res['cant_consumida'])
-            res['cant_sobrante'] = "{:.2f}".format(res['cant_sobrante'])
+            res['cant_recibida_entregada'] = "{0:.2f}".format(res['cant_recibida_entregada'])
+            res['cant_consumida'] = "{0:.2f}".format(res['cant_consumida'])
+            res['cant_sobrante'] = "{0:.2f}".format(res['cant_sobrante'])
             lineas.append(res)
 #             a = self._escribir_linea_anterior(lineas, res)
 #             lineas = a[0]
