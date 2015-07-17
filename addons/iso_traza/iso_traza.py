@@ -619,9 +619,9 @@ class report_stock_inventory_traza(osv.osv):
     _auto = False
     _columns = {
         'date': fields.datetime('Date', readonly=True),
-        'product_id':fields.many2one('product.product', 'Product', readonly=True),
+        'product_id':fields.many2one('product.product', 'Producto', readonly=True),
         'location_id': fields.many2one('stock.location', 'Location', readonly=True),
-        'product_qty':fields.float('Quantity',  digits_compute=dp.get_precision('Product UoM'), readonly=True),
+        'product_qty':fields.float('Cantidad',  digits_compute=dp.get_precision('Product UoM'), readonly=True),
         'state': fields.selection([('draft', 'Draft'), ('waiting', 'Waiting'), ('confirmed', 'Confirmed'), ('assigned', 'Available'), ('done', 'Done'), ('cancel', 'Cancelled')], 'State', readonly=True, select=True),
         'location_type': fields.selection([('supplier', 'Supplier Location'), ('view', 'View'), ('internal', 'Internal Location'), ('customer', 'Customer Location'), ('inventory', 'Inventory'), ('procurement', 'Procurement'), ('production', 'Production'), ('transit', 'Transit Location for Inter-Companies Transfers')], 'Location Type', required=True),
         'obra': fields.boolean('Obra'),

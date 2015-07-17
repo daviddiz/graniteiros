@@ -33,6 +33,18 @@ class libro(report_sxw.rml_parse):
             'process_lines':self.process_lines,
         })
         
+    def _queda_en_deposito(self, move_id):
+        move_obj = pooler.get_pool(self.cr.dbname).get('stock.move')
+        move_data = move_obj.browse(self.cr, self.uid, move_id)
+        fecha = move_data.date_expected
+        product_id = move_data.product_id.id
+        self.cr.execute("""SELECT sum(product_qty) FROM (
+                            (SELECT product_qty FROM (SELECT product_qty FROM stock_move WHERE (picking_id IS NOT NULL) AND (state='done') AND (product_id=%s) AND (date_expected<=%s)) AS cantidad)
+                            UNION ALL
+                            (SELECT -product_qty FROM (SELECT product_qty FROM stock_move WHERE (acta_id IS NOT NULL) AND (state='done') AND (product_id=%s) AND (date_expected<=%s)) AS cantidad)
+                        ) AS total""", (product_id, fecha, product_id, fecha))
+        return self.cr.fetchone()[0] or 0.0
+        
     def _resumir(self, listado_original):
         lista = listado_original.split("\n")
         if len(lista)<4:
@@ -123,12 +135,16 @@ class libro(report_sxw.rml_parse):
             move.append(move_data.picking_id.num_catalog or "")
             if move_data.acta_id:
                 move.append(move_data.acta_id.resp_explot_id.dni or "")
-            else:
+            elif move_data.picking_id:
                 move.append(move_data.picking_id.resp_explot_id.dni or "")
+            else:
+                move.append("")
             if move_data.acta_id:
                 move.append(move_data.acta_id.artillero_id.cartilla or "")
-            else:
+            elif move_data.picking_id:
                 move.append(move_data.picking_id.artillero_id.cartilla or "")
+            else:
+                move.append("")
             m.append(move)
             
         m.sort(key=lambda x: (x[12],x[2],x[3],x[4],x[7],-x[5]))
@@ -149,6 +165,8 @@ class libro(report_sxw.rml_parse):
                     res['cant_recibida_entregada'] = "{0:.2f}".format(res['cant_recibida_entregada'])
                     res['cant_consumida'] = "{0:.2f}".format(res['cant_consumida'])
                     res['cant_sobrante'] = "{0:.2f}".format(res['cant_sobrante'])
+                    res['cant_queda'] = self._queda_en_deposito(res['move_id'])
+                    res['cant_queda'] = "{0:.2f}".format(res['cant_queda'])
                     lineas.append(res)
 #                     a = self._escribir_linea_anterior(lineas, res)
 #                     lineas = a[0]
@@ -169,6 +187,8 @@ class libro(report_sxw.rml_parse):
                 res['cant_recibida_entregada'] = 0
                 res['cant_consumida'] = 0
                 res['cant_sobrante'] = 0
+                res['cant_queda'] = 0
+                res['move_id'] = move[0]
                 if res['picking_id']:
                     res['cant_recibida_entregada'] = move[5]
                     res['cant_consumida'] = 0
@@ -190,6 +210,7 @@ class libro(report_sxw.rml_parse):
                         res['lista_serials_sobrante'] = move[7]
             else:
                 res['serial'] = move[7]
+                res['move_id'] = move[0]
                 if res['picking_id']:
                     res['cant_recibida_entregada'] = res['cant_recibida_entregada'] + move[5]
                     res['cant_consumida'] = res['cant_consumida']
@@ -222,6 +243,8 @@ class libro(report_sxw.rml_parse):
             res['cant_recibida_entregada'] = "{0:.2f}".format(res['cant_recibida_entregada'])
             res['cant_consumida'] = "{0:.2f}".format(res['cant_consumida'])
             res['cant_sobrante'] = "{0:.2f}".format(res['cant_sobrante'])
+            res['cant_queda'] = self._queda_en_deposito(res['move_id'])
+            res['cant_queda'] = "{0:.2f}".format(res['cant_queda'])
             lineas.append(res)
 #             a = self._escribir_linea_anterior(lineas, res)
 #             lineas = a[0]

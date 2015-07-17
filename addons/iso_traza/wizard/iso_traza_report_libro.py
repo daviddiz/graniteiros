@@ -36,9 +36,9 @@ class iso_traza_libro_report(osv.osv_memory):
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', help='Responsable de la explotación'),
     }
     _defaults = {
-        'obra_id': lambda self, cr, uid, c: self.pool.get('stock.location').search(cr, uid, [('obra', '=', True)])[0],
-        'dir_facul_id': lambda self, cr, uid, c: self.pool.get('iso.traza.dirfacul').search(cr, uid, [])[0],
-        'resp_explot_id': lambda self, cr, uid, c: self.pool.get('iso.traza.respexplot').search(cr, uid, [])[0],
+        'obra_id': lambda self, cr, uid, c: self.pool.get('stock.location').search(cr, uid, [('obra', '=', True)])[0] if (self.pool.get('stock.location').search(cr, uid, [('obra', '=', True)])) else None,
+        'dir_facul_id': lambda self, cr, uid, c: self.pool.get('iso.traza.dirfacul').search(cr, uid, [])[0] if (self.pool.get('iso.traza.dirfacul').search(cr, uid, [])) else None,
+        'resp_explot_id': lambda self, cr, uid, c: self.pool.get('iso.traza.respexplot').search(cr, uid, [])[0] if (self.pool.get('iso.traza.respexplot').search(cr, uid, [])) else None,
         'delegacion_id': lambda self, cr, uid, c: self.pool.get('iso.traza.delegacion').search(cr, uid, [])[0] if (self.pool.get('iso.traza.delegacion').search(cr, uid, [])) else None,
         'subdelegacion_id': lambda self, cr, uid, c: self.pool.get('iso.traza.subdelegacion').search(cr, uid, [])[0] if (self.pool.get('iso.traza.subdelegacion').search(cr, uid, [])) else None,
         'area_id': lambda self, cr, uid, c: self.pool.get('iso.traza.area').search(cr, uid, [])[0] if (self.pool.get('iso.traza.area').search(cr, uid, [])) else None,
