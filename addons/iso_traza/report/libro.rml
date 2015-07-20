@@ -104,7 +104,8 @@
     <paraStyle name="P15" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
     <paraStyle name="P16" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
     <paraStyle name="P17" fontName="Helvetica" fontSize="7.0" leading="9" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P18" fontName="Helvetica" fontSize="7.0" leading="9" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" textColor="#000000"/>
+    <paraStyle name="P18" rightIndent="31.0" leftIndent="28.0" fontName="Helvetica-Bold" fontSize="6.0" leading="8" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P19" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="Standard" fontName="Helvetica"/>
     <paraStyle name="Text_20_body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="8.0" leading="10" spaceBefore="12.0" spaceAfter="6.0"/>
@@ -218,7 +219,7 @@
     <para style="terp_5f_default_5f_8">
       <font color="white"> </font>
     </para>
-    <blockTable colWidths="759.0" style="Tabla1">
+    <blockTable colWidths="763.0" style="Tabla1">
       <tr>
         <td>
           <para style="P5">D<font face="Helvetica">elegación del Gobierno en [[ (o.delegacion_id and o.delegacion_id.name) or '' ]] - Subdelegación del Gobierno en [[ (o.subdelegacion_id and o.subdelegacion_id.name) or '' ]]</font></para>
@@ -233,17 +234,29 @@
           <para style="P10">
             <font color="white"> </font>
           </para>
+          <para style="P10">
+            <font color="white"> </font>
+          </para>
           <para style="P8">DILIGENCIA DE CIERRE</para>
           <para style="P9">CERTIFICO, que el presente libro es cerrado por _________________________________ (causa) ____________, tiene _____ folios utilizados, habiéndose efectuado las anotaciones necesarias en el nuevo Libro abierto al efecto.</para>
           <para style="P8">___________________________ , ______ de ______________ de 2.0___ .</para>
           <para style="P8">EL JEFE DEL ÁREA,</para>
-          <para style="P8">
-            <font color="white"> </font>
-          </para>
         </td>
       </tr>
     </blockTable>
     <para style="P1"/>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+    <para style="terp_5f_default_5f_8">
+      <font color="white"> </font>
+    </para>
     <para style="terp_5f_default_5f_8">
       <font color="white"> </font>
     </para>
