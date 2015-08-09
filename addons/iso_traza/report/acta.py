@@ -31,6 +31,9 @@ class acta(report_sxw.rml_parse):
             'process':self.process,
         })
         
+    def _arreglar_serials(self,serials):
+        return serials
+        
     def process(self,moves_ids):
 #         acta_obj = pooler.get_pool(self.cr.dbname).get('iso.traza.acta')
 #         move_obj = pooler.get_pool(self.cr.dbname).get('stock.move')
@@ -52,11 +55,13 @@ class acta(report_sxw.rml_parse):
         serial_anterior = 0
         lineas = []
         data = {}
+        #serials = ""
         for movimiento in movimientos:
             #si cambia el producto, nueva línea y nuevo recuento
             if nombre <> movimiento['nombre']:
                 if data:
                     #antes de nada escribo el resultado del recuento del producto anterior
+                    #data['serial'] = self._arreglar_serials(serials)
                     if aux==2 and serial_anterior:
                         data['serial'] = data['serial'] + "\n" + serial_anterior
                     data['entregado'] = "{0:.2f}".format(data['entregado'])
@@ -111,6 +116,7 @@ class acta(report_sxw.rml_parse):
                 
                 data['consumido'] = data['entregado'] - cant_sobrante
                 data['consumido'] = abs(data['consumido'])
+        #antes de nada escribo el resultado del recuento del último producto
         if aux==2 and serial_anterior:
             data['serial'] = data['serial'] + "\n" + serial_anterior
         data['entregado'] = "{0:.2f}".format(data['entregado'])
