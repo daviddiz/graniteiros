@@ -1,0 +1,51 @@
+<openerp>
+    <data>
+
+        <record id="iso_traza_moves_changes_unit" model="ir.ui.view">
+            <field name="name">iso.traza.moves.changes.unit.form</field>
+            <field name="model">iso.traza.moves.changes.unit</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	            <form string="Cambiar Unidades">
+                    <field name="uom_id" colspan="4"/>
+                    <separator colspan="4" string="Los movimientos deben estar en estado borrador para poder ser modificados"/>
+                    <group colspan="4" col="4">
+                        <button icon="gtk-cancel" special="cancel" string="Cerrar" colspan="2"/>
+                        <button icon="terp-camera_test" string="Cambiar Unidad" name="moves_changes_unit" type="object" default_focus="1" colspan="2"/>
+                   </group>
+	            </form>
+            </field>
+        </record>
+
+        <act_window id="action_iso_traza_moves_changes_unit"
+            name="Cambiar Unidades"
+            res_model="iso.traza.moves.changes.unit"
+            src_model="stock.move"
+            key2="client_action_multi"
+            view_mode="form" target="new" view_type="form"/>
+        
+        <record id="iso_traza_moves_changes_qty" model="ir.ui.view">
+            <field name="name">iso.traza.moves.changes.qty.form</field>
+            <field name="model">iso.traza.moves.changes.qty</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	            <form string="Cambiar Cantidades">
+                    <field name="qty" colspan="4"/>
+                    <separator colspan="4" string="Los movimientos deben estar en estado borrador para poder ser modificados"/>
+                    <group colspan="4" col="4">
+                        <button icon="gtk-cancel" special="cancel" string="Cerrar" colspan="2"/>
+                        <button icon="terp-camera_test" string="Cambiar Cantidad" name="moves_changes_qty" type="object" default_focus="1" colspan="2"/>
+                   </group>
+	            </form>
+            </field>
+        </record>
+
+        <act_window id="action_iso_traza_moves_changes_qty"
+            name="Cambiar Cantidades"
+            res_model="iso.traza.moves.changes.qty"
+            src_model="stock.move"
+            key2="client_action_multi"
+            view_mode="form" target="new" view_type="form"/>
+
+    </data>
+</openerp>

@@ -27,6 +27,7 @@ import iso_traza_import_picking
 import iso_traza_import_products
 import iso_traza_import_products_epc
 import iso_traza_albaran_to_acta
+import iso_traza_moves_change_unit_qty
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

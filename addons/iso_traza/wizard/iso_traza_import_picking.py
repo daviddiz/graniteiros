@@ -203,6 +203,18 @@ class iso_traza_import_picking(osv.osv_memory):
                         else:
                             uom_id = 1
                         self.pool.get('product.template').write(cr, uid, [product_id], {'uom_id': uom_id, 'uom_po_id': uom_id})
+                    else:
+                        uom_id = self.pool.get('product.template').browse(cr, uid, product_id).uom_id.id
+                        if uom_id == 2:
+                            uom = "KGM"
+                        elif uom_id == 7:
+                            uom == 'MTR'
+                        if item.find('NEW') is not None and uom<>"MTR":
+                            if uom_id==1:
+                                cant = 1
+                            else:
+                                cant = float(item.find('NEW').text)
+                            cant_found = 1
                 else:
                     if uom == "":
                         uom = uom2
