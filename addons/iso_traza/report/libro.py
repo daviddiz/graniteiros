@@ -71,7 +71,10 @@ class libro(report_sxw.rml_parse):
                         serial_anterior = serial
                         aux = 0
                     else:
-                        listado_resumido = serial
+                        if listado_resumido:
+                            listado_resumido = listado_resumido + "\n" + serial
+                        else:
+                            listado_resumido = serial
                         serial_anterior = serial
                         aux = 0
             if aux == 1:
@@ -231,10 +234,10 @@ class libro(report_sxw.rml_parse):
 #                         res['lista_serials'] = res['lista_serials']
                         res['lista_serials_sobrante'] = res['lista_serials_sobrante'] + "\n" + move[7]
         if res:
-#             if res['lista_serials']:
-#                 res['lista_serials'] = self._resumir(res[i'lista_serials'])
-#             if res['lista_serials_sobrante']:
-#                 res['lista_serials_sobrante'] = self._resumir(res['lista_serials_sobrante'])
+            if res['lista_serials']:
+                res['lista_serials'] = self._resumir(res['lista_serials'])
+            if res['lista_serials_sobrante']:
+                res['lista_serials_sobrante'] = self._resumir(res['lista_serials_sobrante'])
             if res['cant_consumida']>0.0:
                 res['tipo'] = "Entregado:"
             else:
