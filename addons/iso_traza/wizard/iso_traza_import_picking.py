@@ -288,6 +288,8 @@ class iso_traza_import_picking(osv.osv_memory):
             product_id = None    
         if unit.find('PackagingLevel') is not None:
             level = unit.find('PackagingLevel').text
+        else:
+            level = 0
         tracking_id = self.alta_tracking(cr, uid, ids, serial, level, tracking_parent)
         aux = 0
         for subelement in unit.getchildren():
