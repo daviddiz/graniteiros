@@ -245,6 +245,17 @@ class iso_traza_acta(osv.osv):
             'tracking_id': move_in_obj.tracking_id.id}, context = context)
         return new_move_out_id
     
+    def _eliminar_moves_serials_repes(self, cr, uid, moves_from_tracking, context=None):
+        move_obj = self.pool.get('stock.move')
+        result_moves_from_tracking = []
+        serials_moves_from_tracking = []
+        for move_from_tracking in moves_from_tracking:
+            serial = move_obj.browse(cr, uid, move_from_tracking, context=context).serial
+            if serial not in serials_moves_from_tracking:
+                result_moves_from_tracking.append(move_from_tracking)
+                serials_moves_from_tracking.append(serial)
+        return result_moves_from_tracking
+    
     def add_moves2(self, cr, uid, acta_id, moves, polvorin, context=None):
         new_moves_out = []
         move_obj = self.pool.get('stock.move')
@@ -261,20 +272,44 @@ class iso_traza_acta(osv.osv):
                 #alta de todos los movimientos del paquete
                 moves_from_tracking = move_obj.search(cr, uid, [('tracking_id', '=', t[-1])], context=context)
                 if moves_from_tracking:
+                    moves_from_tracking = self._eliminar_moves_serials_repes(cr, uid, moves_from_tracking, context)
                     for move_from_tracking in moves_from_tracking:
                         #alta de cada movimiento del paquete
                         new_move_out = self.alta_mov_out(cr, uid, move_from_tracking, None, acta_id, polvorin, context)
                         if new_move_out:
                             new_moves_out.append(new_move_out)
                 else:
-                    paquete_hijo_id = tracking_obj.search(cr, uid, [('parent_id', '=', t[-1])], context=context)
-                    moves_from_tracking_hijo = move_obj.search(cr, uid, [('tracking_id', '=', paquete_hijo_id[-1])], context=context)
-                    if moves_from_tracking_hijo:
-                        for move_from_tracking_hijo in moves_from_tracking_hijo:
-                            #alta de cada movimiento del paquete
-                            new_move_out = self.alta_mov_out(cr, uid, move_from_tracking_hijo, None, acta_id, polvorin, context)
-                            if new_move_out:
-                                new_moves_out.append(new_move_out)
+                    paquetes_hijos_id = tracking_obj.search(cr, uid, [('parent_id', '=', t[-1])], context=context)
+                    if paquetes_hijos_id:
+                        for paquete_hijo_id in paquetes_hijos_id:
+                            moves_from_tracking_hijo = move_obj.search(cr, uid, [('tracking_id', '=', paquete_hijo_id)], context=context)
+                            if moves_from_tracking_hijo:
+                                moves_from_tracking_hijo = self._eliminar_moves_serials_repes(cr, uid, moves_from_tracking_hijo, context)
+                                for move_from_tracking_hijo in moves_from_tracking_hijo:
+                                    #alta de cada movimiento del paquete
+                                    new_move_out = self.alta_mov_out(cr, uid, move_from_tracking_hijo, None, acta_id, polvorin, context)
+                                    if new_move_out:
+                                        new_moves_out.append(new_move_out)
+                            else:
+                                subpaquetes_hijos_id = tracking_obj.search(cr, uid, [('parent_id', '=', paquete_hijo_id)], context=context)
+                                if subpaquetes_hijos_id:
+                                    for subpaquete_hijo_id in subpaquetes_hijos_id:
+                                        moves_from_tracking_subhijo = move_obj.search(cr, uid, [('tracking_id', '=', subpaquete_hijo_id)], context=context)
+                                        if moves_from_tracking_subhijo:
+                                            moves_from_tracking_subhijo = self._eliminar_moves_serials_repes(cr, uid, moves_from_tracking_subhijo, context)
+                                            for move_from_tracking_subhijo in moves_from_tracking_subhijo:
+                                                #alta de cada movimiento del paquete
+                                                new_move_out = self.alta_mov_out(cr, uid, move_from_tracking_subhijo, None, acta_id, polvorin, context)
+                                                if new_move_out:
+                                                    new_moves_out.append(new_move_out)
+                                        else:
+                                            new_move_out = self.alta_mov_out_sinproducto(cr, uid, move_code[0], move_code[1], acta_id, polvorin, context)
+                                            if new_move_out:
+                                                new_moves_out.append(new_move_out)
+                                else:
+                                    new_move_out = self.alta_mov_out_sinproducto(cr, uid, move_code[0], move_code[1], acta_id, polvorin, context)
+                                    if new_move_out:
+                                        new_moves_out.append(new_move_out)
                     else:
                         new_move_out = self.alta_mov_out_sinproducto(cr, uid, move_code[0], move_code[1], acta_id, polvorin, context)
                         if new_move_out:
