@@ -440,7 +440,7 @@ class stock_picking(osv.osv):
         'artillero_id': fields.many2one('iso.traza.artillero', 'Artillero', ondelete='cascade', help='Responsable de utilización - Artillero'),
         'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', ondelete='cascade', help='Director facultativo'),
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', ondelete='cascade', help='Responsable explotación, encargado del libro de registro y usuario del programa'),
-        'num_catalog': fields.char('Número de catalogación', size=25),                
+        #'num_catalog': fields.char('Número de catalogación', size=25),                
         'consum_hab_id' : fields.many2one('res.partner', 'Consumidor habitual de explosivos', ondelete='cascade', help="Consumidor habitual de explosivos"),
     }
     
@@ -515,7 +515,7 @@ class stock_move(osv.osv):
         'artillero_id': fields.many2one('iso.traza.artillero', 'Artillero', ondelete='cascade', help='Responsable de utilización - Artillero'),
         'dir_facul_id': fields.many2one('iso.traza.dirfacul', 'Director facultativo', ondelete='cascade', help='Director facultativo'),
         'resp_explot_id': fields.many2one('iso.traza.respexplot', 'Responsable explotación', ondelete='cascade', help='Responsable explotación, encargado del libro de registro y usuario del programa'),
-        'num_catalog': fields.char('Número de catalogación', size=25),
+        #'num_catalog': fields.char('Número de catalogación', size=25),
         'serial': fields.char('Número de dentificación', required=True ,size=25, help='Número de dentificación único del producto'),
         'consum_hab_id' : fields.many2one('res.partner', 'Consumidor habitual de explosivos', ondelete='cascade', help="Consumidor habitual de explosivos"),
         'libro_id' : fields.many2one('iso.traza.libro', 'Libro de Registro'),
@@ -647,6 +647,15 @@ class stock_tracking(osv.osv):
     ]
     
 stock_tracking()
+
+class product_product(osv.osv):
+    _inherit = 'product.product'
+    
+    _columns = {
+        'num_catalog': fields.integer('Número de Catalogación'),
+    }
+    
+product_product()
 
 class report_stock_inventory_traza(osv.osv):
     _name = "report.stock.inventory.traza"

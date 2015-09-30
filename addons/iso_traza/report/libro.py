@@ -135,7 +135,7 @@ class libro(report_sxw.rml_parse):
             move.append(move_data.state)
             move.append(time.strptime(move[1],"%d/%m/%Y"))
             move.append(move_data.picking_id.num_guia or "")
-            move.append(move_data.picking_id.num_catalog or "")
+            move.append(move_data.product_id.num_catalog or "")
             if move_data.acta_id:
                 move.append(move_data.acta_id.resp_explot_id.dni or "")
             elif move_data.picking_id:

@@ -134,6 +134,32 @@
 	            <xpath expr="/tree/field[@name='serial']" position="replace"/>
             </field>
         </record>
+        
+        <!-- Product -->
+        
+        <record id="product_normal_form_view_traza" model="ir.ui.view">
+            <field name="name">product.normal.form.traza</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="/form/group/group/field[@name='name']" position="after">
+	                <field name="num_catalog"/>
+	            </xpath>
+            </field>
+        </record>
+        
+        <record id="product_product_tree_view_traza" model="ir.ui.view">
+            <field name="name">product.product.tree.traza</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view" />
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <xpath expr="/tree/field[@name='name']" position="after">
+	                <field name="num_catalog"/>
+	            </xpath>
+            </field>
+        </record>
     	
     	<!-- Menú de Trazabilidad -->
     	<menuitem icon="terp-mrp" id="menu_traza_root" name="Traza"
@@ -192,7 +218,7 @@
 		                <group  colspan="4" col="4">
 		                	<field name="num_guia"/>
 			                <field name="consum_hab_id"/>
-			                <field name="num_catalog"/>
+			                <!-- <field name="num_catalog"/> -->
 			                <field name="resp_explot_id"/>
 			                <field name="dir_facul_id"/>
 			                <field name="artillero_id"/>
@@ -443,7 +469,6 @@
                     <field name="product_uom" string="Unidad"/>
                     <field name="date_expected" string="Fecha consumo"/>
                     <field name="picking_id" string="Guía de circulación"/>
-                    <field name="num_catalog" string="Número catalogación"/>
                     <field name="artillero_id" string="Artillero"/>
                     <field name="resp_explot_id" string="Responsable explotación"/>
                     <field name="dir_facul_id" string="Director facultativo"/>
@@ -469,7 +494,6 @@
                         <field name="picking_id" string="Guía de circulación"/>
                         <field name="date_expected"/>
                     	<field name="partner_id" string="Proveedor"/>
-                    	<field name="num_catalog" string="Número catalogación"/>
                     	<separator colspan="4" string="Otros Datos"/>
 	                    <field name="artillero_id" string="Artillero"/>
 	                    <field name="resp_explot_id" string="Responsable explotación"/>
@@ -687,7 +711,6 @@
 			                    <field name="date_expected" string="Fecha recepción"/>
 			                    <field name="picking_id" string="Guía de circulación"/>
 			                    <field name="partner_id" string="Proveedor"/>
-			                    <field name="num_catalog" string="Número catalogación"/>
 			                    <field name="artillero_id" string="Artillero"/>
 			                    <field name="resp_explot_id" string="Responsable explotación"/>
 			                    <field name="dir_facul_id" string="Director facultativo"/>
@@ -704,7 +727,6 @@
 			                        <field name="picking_id" string="Guía de circulación"/>
 			                        <field name="date_expected"/>
 			                    	<field name="partner_id" string="Proveedor"/>
-			                    	<field name="num_catalog" string="Número catalogación"/>
 			                    	<separator colspan="4" string="Otros Datos"/>
 				                    <field name="artillero_id" string="Artillero"/>
 				                    <field name="resp_explot_id" string="Responsable explotación"/>
