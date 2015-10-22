@@ -815,19 +815,32 @@
             <field name="inherit_id" ref="stock.view_move_search" />
             <field name="type">search</field>
             <field name="arch" type="xml">
+                <xpath expr="/search/group/filter[@name='future']" position="replace"/>
+                <xpath expr="/search/group/filter[@name='ready']" position="replace"/>
+                <xpath expr="/search/group/filter[@name='done']" position="after">
+                    <filter icon="terp-stock" string="Borrador" name="draft" domain="[('state','=','draft')]"/>
+                </xpath>
             	<xpath expr="/search/group/field[@name='origin']" position="replace"/>
             	<xpath expr="/search/group/field[@name='address_id']" position="replace"/>
                 <xpath expr="/search/group/field[@name='prodlot_id']" position="replace"/>
+                <xpath expr="/search/group/field[@name='picking_id']" position="replace"/>
                 <xpath expr="/search/group/filter[@name='groupby_prodlot_id']" position="replace"/>
                 <xpath expr="/search/group/field[@name='product_id']" position="after">
 	                <field name="serial"/>
 	            </xpath>
-	            <xpath expr="/search/group[@string='Extended Filters...']" position="attributes">
+	            <xpath expr="/search/group/field[@name='date']" position="after">
+	                <newline/>
+	                <group col="8" colspan="4">
+		                <field name="picking_id" string="Guía de Circulación - Albarán"/>
+		                <field name="acta_id" string="Acta de Consumo"/>
+		            </group>
+	            </xpath>
+	            <!-- <xpath expr="/search/group[@string='Extended Filters...']" position="attributes">
 	                <attribute name="expand">1</attribute>
 	            </xpath>
 	            <xpath expr="/search/group[@string='Group By...']" position="attributes">
 	                <attribute name="expand">1</attribute>
-	            </xpath>
+	            </xpath> -->
             </field>
         </record>
         
