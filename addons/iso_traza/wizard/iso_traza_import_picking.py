@@ -25,6 +25,7 @@ import base64
 import tempfile
 from xml.etree import ElementTree
 import datetime
+from collections import Counter
 
 class iso_traza_import_picking(osv.osv_memory):
     _name = 'iso.traza.import.picking'
@@ -128,10 +129,8 @@ class iso_traza_import_picking(osv.osv_memory):
                 uom_id = 1
             elif uom == 'MTR':
                 uom_id = 7
-            else:
-                uom_id = 1
         else:
-            uom_id = 1
+            uom_id = self.pool.get('product.template').browse(cr, uid, product).uom_id.id
         move_vals = {
             'location_id': 8,
             'location_dest_id': 12,
@@ -146,6 +145,63 @@ class iso_traza_import_picking(osv.osv_memory):
         }    
         move_id = self.pool.get('stock.move').create(cr, uid, move_vals)  
         return move_id
+    
+    def buscar_cantidad_correcta(self, cr, uid, ids, product_code, ProducerProductName=None, uom_id=None, cant=None):
+        # revisar los movimientos anteriores y asignar la cantidad más repetida para ese producto
+        cantidad = 1
+        product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', product_code)])
+        if product_ids:
+            product_id = product_ids[0]
+            product_moves = self.pool.get('stock.move').search(cr, uid, [('product_id', '=', product_id)])
+            cantidades_existentes = []
+            for move_id in product_moves:
+                qty = self.pool.get('stock.move').browse(cr, uid, move_id).product_qty
+                if qty<>1:
+                    cantidades_existentes.append(str(qty))
+            if cantidades_existentes:
+                most_com = Counter(cantidades_existentes).most_common(1)
+                cantidad = float(most_com[0][0])
+            else:
+                product_name = self.pool.get('product.template').browse(cr, uid, product_id).name
+                if product_name == "AMONITA 2I DE 26X200":
+                    cantidad = 0.104
+                elif product_name == "CORDTEX 6N 4X200M":
+                    cantidad = 200
+                elif product_name == "EXAN 25KG":
+                    cantidad = 25
+                elif product_name == "PÓLVORA NEGRA":
+                    cantidad = 2.5
+                elif product_name == "Polvora negra de mina No 1. ; 10 x 2,5 kg":
+                    cantidad = 2.5
+                elif product_name == "RIOCORD 100 GRS.":
+                    cantidad = 50
+                elif product_name == "RIOCORD 12 GRS.":
+                    cantidad = 250
+                elif product_name == "RIOCORD 12 GRS. ROLLO 125 MTS.":
+                    cantidad = 125
+                elif product_name == "RIOCORD 6 GRS.":
+                    cantidad = 400
+                elif product_name == "RIODIN 50x380 MM (TR)":
+                    cantidad = 1.042
+                elif product_name == "RIODIN HE 26X200 MM (152 GRS)":
+                    cantidad = 0.152
+                elif product_name == "RIODIN HE 32X200 MM (238 GRS)":
+                    cantidad = 0.238
+                elif product_name == "RIODIN HE 50X380 MM (1042 GRS)":
+                    cantidad = 1.042
+                elif product_name == "RIODIN HE 60X570 MM (2300 GRS)":
+                    cantidad = 2.3
+                elif product_name == "RIOGEL TRONER 40x330 MM":
+                    cantidad = 0.521
+                elif product_name == "RIOGEL TRONER 50x500 MM":
+                    cantidad = 1.2
+                elif product_name == "RIOGEL TRONER 60x500 MM":
+                    cantidad = 1.786
+                elif product_name == "RIOPOL (POLVORA DE MINA Nº1)":
+                    cantidad = 25
+                elif product_name == "RIOXAM ST/ NAGOLITA ENSACADA":
+                    cantidad = 25
+        return cantidad
     
     def parsear_item(self, cr, uid, ids, item, picking_id, proveedor_id, summary_items, tracking_id=None):
         uid_item = item.attrib.get('UID')
@@ -219,9 +275,12 @@ class iso_traza_import_picking(osv.osv_memory):
                     if uom == "":
                         uom = uom2
                     product_id = self.alta_product(cr, uid, ids, product_code, product_name, uom)
+                    uom_id = self.pool.get('product.template').browse(cr, uid, product_id).uom_id.id
                 break
         if uom == "":
             uom = uom2
+        if uom_id <> 1 and cant == 1:
+            cant = self.buscar_cantidad_correcta(cr, uid, ids, product_code, product_name, uom_id, cant)
         move_id = self.alta_move(cr, uid, ids, product_id, picking_id, serial, tracking_id, cant, uom)
         return False
     
