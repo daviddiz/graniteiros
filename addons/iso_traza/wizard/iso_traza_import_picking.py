@@ -159,8 +159,9 @@ class iso_traza_import_picking(osv.osv_memory):
                 if qty<>1:
                     cantidades_existentes.append(str(qty))
             if cantidades_existentes:
-                most_com = Counter(cantidades_existentes).most_common(1)
-                cantidad = float(most_com[0][0])
+                cantidades_existentes_count = dict((x,cantidades_existentes.count(x)) for x in set(cantidades_existentes))
+                cant_most_com = max(cantidades_existentes_count, key=cantidades_existentes_count.get)
+                cantidad = float(cant_most_com)
             else:
                 product_name = self.pool.get('product.template').browse(cr, uid, product_id).name
                 if product_name == "AMONITA 2I DE 26X200":
