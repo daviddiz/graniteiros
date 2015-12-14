@@ -47,7 +47,7 @@ class acta(report_sxw.rml_parse):
             m['cantidad'] = move_id.product_qty
             m['unidad'] = move_id.product_uom.name
             movimientos.append(m)
-        movimientos.sort(key=lambda d:(d['nombre'],d['serial']))
+        movimientos.sort(key=lambda d:(d['nombre'],d['serial'],-d['cantidad']))
 
         nombre = ""
         aux = 0
