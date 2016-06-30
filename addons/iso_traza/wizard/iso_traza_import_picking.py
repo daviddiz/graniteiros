@@ -475,6 +475,8 @@ class iso_traza_import_picking(osv.osv_memory):
             
             if node.find('ProducerProductCode') is not None:
                 ProducerProductCode = node.find('ProducerProductCode').text
+            else:
+                ProducerProductCode = None
             if node.find('ProducerProductName') is not None:
                 ProducerProductName = node.find('ProducerProductName').text
             else:
@@ -485,6 +487,8 @@ class iso_traza_import_picking(osv.osv_memory):
 #                 CountOfTradeUnits = node.find('CountOfTradeUnits').text
             if node.find('PackagingLevel') is not None:
                 PackagingLevel = node.find('PackagingLevel').text
+            else:
+                PackagingLevel = None
 #             if node.find('ProductionDate') is not None:
 #                 ProductionDate = node.find('ProductionDate').text
             if node.find('Length') is not None:

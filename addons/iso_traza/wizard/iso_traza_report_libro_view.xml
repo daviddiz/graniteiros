@@ -29,9 +29,10 @@
                     	<field name="resp_explot_id"/>
                     </group>
                     <separator colspan="4"/>
-                    <group col="4" colspan="4">
+                    <group col="6" colspan="4">
                         <button icon="gtk-cancel" special="cancel" string="Cancelar" colspan="2"/>
                         <button icon="gtk-print" name="print_report" string="Imprimir" type="object" colspan="2" default_focus="1" />
+                        <button icon="gtk-print" name="export_csv" string="Exportar csv" type="object" colspan="2"/>
                     </group>
             	</form>
             </field>
@@ -55,6 +56,50 @@
            id="menu_traza_libros_report"
            parent="menu_traceability_traza"
            sequence="20"/>
+       
+       <record id="iso_traza_libro_view_tree" model="ir.ui.view">
+            <field name="name">iso.traza.libro.tree</field>
+            <field name="model">iso.traza.libro</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Libros de Registro">
+                    <field name="date_inicio" string="Fecha de Inicio"/>
+                    <field name="date_fin" string="Fecha Fin"/>
+                    <field name="dir_facul_id" string="Director facultativo"/>
+                    <field name="resp_explot_id" string="Responsable explotación"/>
+                    <field name="obra_id" string="Obra"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="iso_traza_libro_view_form" model="ir.ui.view">
+            <field name="name">iso.traza.libro.form</field>
+            <field name="model">iso.traza.libro</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Libro de Registro">
+                    <group colspan="4" col="4">
+                        <field name="name" string="Nombre" invisible="1"/>
+	                    <field name="date_inicio" string="Fecha Inicio" readonly="1"/>
+	                    <field name="date_fin" string="Fecha Fin" readonly="1"/>
+	                    <field name="dir_facul_id" string="Director facultativo" readonly="1"/>
+	                    <field name="resp_explot_id" string="Responsable explotación" readonly="1"/>
+	                    <field name="obra_id" string="Obra" readonly="1"/>
+	                </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_iso_traza_libro" model="ir.actions.act_window">
+            <field name="name">Libros de Registro</field>
+            <field name="res_model">iso.traza.libro</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="iso_traza_libro_view_tree"/>
+        </record>
+        
+        <menuitem id="menu_traza_libro_libros" name="Libros de Registro Exportados" parent="menu_traceability_traza" sequence="21" action="action_iso_traza_libro"/>
 
     </data>
 </openerp>
