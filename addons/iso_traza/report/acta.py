@@ -31,8 +31,29 @@ class acta(report_sxw.rml_parse):
             'process':self.process,
         })
         
-    def _arreglar_serials(self,serials):
-        return serials
+    def _arreglar_serials(self,data,lineas):
+#         print len(data['serial'])
+#         print data['serial']
+        data_serial_split_lines = data['serial'].splitlines()
+        #si los serials ocupan muchas lineas, las divido en diferentes filas
+        if len(data_serial_split_lines)>20:
+            i=0
+            data['serial']=""
+            for l in data_serial_split_lines:
+                if i<20:
+                    data['serial']+=(l+'\n')
+                    i+=1
+                else:
+                    i=0
+                    lineas.append(data)
+                    data={}
+                    data['serial']=""
+                    data['sobrante']=""
+                    data['consumido']=""
+                    data['unidad']=""
+                    data['nombre']=""
+                    data['entregado']=""
+        return data,lineas
         
     def process(self,moves_ids):
 #         acta_obj = pooler.get_pool(self.cr.dbname).get('iso.traza.acta')
@@ -60,12 +81,12 @@ class acta(report_sxw.rml_parse):
             #si cambia el producto, nueva línea y nuevo recuento
             if nombre <> movimiento['nombre']:
                 if data:
-                    #antes de nada escribo el resultado del recuento del producto anterior
-                    #data['serial'] = self._arreglar_serials(serials)
                     if aux==2 and serial_anterior:
                         data['serial'] = data['serial'] + "\n" + serial_anterior
                     data['entregado'] = "{0:.2f}".format(data['entregado'])
                     data['consumido'] = "{0:.2f}".format(data['consumido'])
+                    #si los serials ocupan muchas lineas, las divido en diferentes filas
+                    data,lineas = self._arreglar_serials(data,lineas)
                     lineas.append(data)
                     data = {}
                 aux = 0
@@ -124,6 +145,8 @@ class acta(report_sxw.rml_parse):
             data['serial'] = data['serial'] + "\n" + serial_anterior
         data['entregado'] = "{0:.2f}".format(data['entregado'])
         data['consumido'] = "{0:.2f}".format(data['consumido'])
+        #si los serials ocupan muchas lineas, las divido en diferentes filas
+        data,lineas = self._arreglar_serials(data,lineas)
         lineas.append(data)
         return lineas
 
