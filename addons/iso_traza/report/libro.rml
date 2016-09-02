@@ -91,7 +91,7 @@
     <paraStyle name="P2" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
     <paraStyle name="P3" fontName="Helvetica-Bold" fontSize="20.0" leading="25" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
     <paraStyle name="P4" fontName="Helvetica-Bold" fontSize="20.0" leading="25" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P5" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P5" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER" spaceBefore="1.0" spaceAfter="1.0"/>
     <paraStyle name="P6" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
     <paraStyle name="P7" fontName="Helvetica" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
     <paraStyle name="P8" rightIndent="31.0" leftIndent="28.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
